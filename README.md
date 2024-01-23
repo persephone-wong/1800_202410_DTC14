@@ -10,9 +10,10 @@ This browser based web application to ...
 List team members and/or short bio's here...
 
 - Greetings, this is Persephone
-- Kyryl Shtanhei
-- Hi, my name is Candice. Nice to meet you.
-- Omar Mohamed 
+- Hi there, my name's Kyryl!!
+- Hi, my name is Candice. Nice to meet you. >3
+- Omar Mohamed
+- ...
 
 ## 3. Technologies and Resources Used
 
