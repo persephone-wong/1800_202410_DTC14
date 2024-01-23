@@ -11,7 +11,8 @@ List team members and/or short bio's here...
 
 - Greetings, this is Persephone
 - Hi there, my name's Kyryl!!
-- Hi, my name is Candice. Nice to meet you.
+- Hi, my name is Candice. Nice to meet you. >3
+- 
 - ...
 
 ## 3. Technologies and Resources Used
