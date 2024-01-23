@@ -12,7 +12,7 @@ List team members and/or short bio's here...
 - Greetings, this is Persephone
 - Kyryl Shtanhei
 - Hi, my name is Candice. Nice to meet you.
-- ...
+- Omar Mohamed 
 
 ## 3. Technologies and Resources Used
 
