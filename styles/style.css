@@ -1,1 +1,9 @@
+nav{
+    background-color: rgb(158, 102, 247);
+    text-align: center;
+}
 
+a{
+   color: black;
+   font-weight: bold;
+   font-family: "Alice", sans-serif;}
