@@ -4,6 +4,24 @@ nav{
 }
 
 a{
-   color: black;
+   color: white;
    font-weight: bold;
-   font-family: "Alice", sans-serif;}
+   font-family: "apple-system,", sans-serif;}
+
+#signin{
+    background-color: rgb(158, 102, 247);
+    width: 50%
+}
+
+#signin:hover{
+    background-color: grey;
+    
+}
+
+#signup {
+    width: 50%;
+}
+#signup:hover{
+    background-color: grey;
+    
+}
