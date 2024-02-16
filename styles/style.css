@@ -1,27 +1,44 @@
-nav{
-    background-color: rgb(158, 102, 247);
-    text-align: center;
+nav {
+  background-color: rgb(158, 102, 247);
+  text-align: center;
 }
 
-a{
-   color: white;
-   font-weight: bold;
-   font-family: "apple-system,", sans-serif;}
-
-#signin{
-    background-color: rgb(158, 102, 247);
-    width: 50%
+a {
+  color: white;
+  font-weight: bold;
+  font-family: "apple-system,", sans-serif;
 }
 
-#signin:hover{
-    background-color: grey;
-    
+#signin {
+  background-color: rgb(158, 102, 247);
+  width: 50%;
+}
+
+#signin:hover {
+  background-color: grey;
 }
 
 #signup {
-    width: 50%;
+  width: 50%;
 }
-#signup:hover{
-    background-color: grey;
-    
+#signup:hover {
+  background-color: grey;
+}
+
+/* call to action */
+#discover,
+#download {
+  background-color: #f0ad4e;
+  border-color: #f0ad4e;
+  color: white;
+}
+
+#discover:hover,
+#download:hover {
+  background-color: #ec971f;
+  border-color: #d58512;
+}
+
+.card-text {
+  font-size: 18px;
 }
