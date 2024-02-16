@@ -28,17 +28,23 @@ a {
 /* call to action */
 #discover,
 #download {
-  background-color: #f0ad4e;
-  border-color: #f0ad4e;
+  background-color:rgb(196, 168, 241);
+  border-color: rgb(196, 168, 241);
   color: white;
 }
 
 #discover:hover,
 #download:hover {
-  background-color: #ec971f;
-  border-color: #d58512;
+  background-color: rgb(126, 62, 228);
+  border-color: rgb(126, 62, 228);
 }
 
 .card-text {
   font-size: 18px;
 }
+
+footer {
+  background-color:rgb(196, 168, 241);
+  
+}
+
