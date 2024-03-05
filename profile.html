@@ -13,11 +13,11 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+    <link rel="stylesheet" href="styles/style.css">
     <style>
         .material-symbols-outlined {
             margin-right: -20px; 
     }
-
     </style>
 </head>
 <body>
@@ -42,7 +42,7 @@
                     person
                 </span>
                 <a href="profilePicture.html">
-                    <button type="button" class="btn btn-primary btn-lg bg-purple">Change Picture</button>
+                    <button id="changeProfilePic" type="button" class="btn btn-primary btn-lg bg-purple">Change Picture</button>
                 </a>
             </div>
         </div>
@@ -52,7 +52,7 @@
             <div class="card-body">
               <h5 class="card-title"><strong> Account Settings</strong></h5>
               <p class="card-text"> Customize and adjust the app's features and preferences to suit your needs.</p>
-              <a href="#" class="btn btn-primary bg-purple">View</a>
+              <a id="accountSettings" href="#" class="btn btn-primary bg-purple">View</a>
             </div>
             <div class="card-footer text-muted">
               Last update: 2 days ago
@@ -78,12 +78,12 @@
                     <p style="font-size: 17px;"><strong>+11</strong></p>
                 </span>
              </div>
-             <button type="button" class="btn btn-primary bg-purple">View Activity</button>
+             <button id="viewActivity" type="button" class="btn btn-primary bg-purple">View Activity</button>
            </div>
          </div>
     </div>
     <div class="mt-4 text-center">
-        <button type="button" class="btn btn-primary bg-purple">Log Out</button>
+        <button id="logOut" type="button" class="btn btn-primary bg-purple">Log Out</button>
     </div>
     <!-- Bottom Nav Bar-->
     <nav class="navbar fixed-bottom navbar-light bg-light sticky-bottom justify-content-sm-center">

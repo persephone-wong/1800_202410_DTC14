@@ -39,6 +39,27 @@ a {
   border-color: rgb(126, 62, 228);
 }
 
+#changeProfilePic, #uploadPhotoProfile, #update{
+  background-color: rgb(158, 102, 247);
+}
+
+#viewActivity {
+  background-color: rgb(158, 102, 247);
+}
+
+#logOut{
+  background-color: rgb(158, 102, 247);
+}
+
+#accountSettings{
+  background-color: rgb(158, 102, 247);
+}
+
+.seeMore{
+  background-color: rgb(158, 102, 247);
+  color: white;
+}
+
 .card-text {
   font-size: 18px;
 }
