@@ -36,8 +36,7 @@ function addEventsPinsCircle(map) {
 
       allEvents.forEach((doc) => {
         // Extract coordinates of the place
-        // Inside the forEach loop:
-        const geoPoint = doc.data().location; // Assuming 'location' is a GeoPoint
+        const geoPoint = doc.data().location;
         const coordinates = [geoPoint.longitude, geoPoint.latitude];
         console.log(coordinates);
         // Extract other addition fields that you want etc.
