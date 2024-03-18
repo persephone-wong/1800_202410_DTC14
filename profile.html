@@ -4,14 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">    
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
     <link rel="stylesheet" href="styles/style.css">
     <style>
@@ -21,20 +14,16 @@
     </style>
 </head>
 <body>
-    <div class="container mt-sm-4 mt-md-4">
-        <div style="padding-top: 20px;" class="row align-items-centern">
-            <div class="col-auto">
-                <a href="">
-                    <span class="material-symbols-outlined">
-                    arrow_back_ios
-                    </span>
-                </a>
-            </div>
-            <div class="col-auto">
-                <h1>Profile</h1>
-            </div>
+    <div class="container my-4">
+        <!-- Header with go-back button and event name -->
+        <div class="d-flex justify-content-between align-items-center mb-3 gap-2">
+            <button class="btn btn-dark rounded-circle">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="30" fill="currentColor" class="bi bi-arrow-left" viewBox="0 0 16 16">
+                    <path fill-rule="evenodd" d="M15 8a.5.5 0 0 0-.5-.5H2.707l3.147-3.146a.5.5 0 1 0-.708-.708l-4 4a.5.5 0 0 0 0 .708l4 4a.5.5 0 0 0 .708-.708L2.707 8.5H14.5A.5.5 0 0 0 15 8"/>
+                  </svg>
+            </button>
+            <h2 class="flex-grow-1 text-left pl-3">Profile</h2>
         </div>
-    </div>
     <div class="container mt-4">
         <div class="card" style="width: 100%;">
             <div class="card-body d-flex align-items-center justify-content-around">
@@ -52,7 +41,7 @@
             <div class="card-body">
               <h5 class="card-title"><strong> Account Settings</strong></h5>
               <p class="card-text"> Customize and adjust the app's features and preferences to suit your needs.</p>
-              <a id="accountSettings" href="#" class="btn btn-primary bg-purple">View</a>
+              <a id="accountSettings" href="account_details.html" class="btn btn-primary bg-purple">View</a>
             </div>
             <div class="card-footer text-muted">
               Last update: 2 days ago
@@ -78,12 +67,16 @@
                     <p style="font-size: 17px;"><strong>+11</strong></p>
                 </span>
              </div>
-             <button id="viewActivity" type="button" class="btn btn-primary bg-purple">View Activity</button>
+             <a href="socials_settings.html">
+                <button id="viewActivity" type="button" class="btn btn-primary bg-purple">View Activity</button>
+            </a>
            </div>
          </div>
     </div>
     <div class="mt-4 text-center">
-        <button id="logOut" type="button" class="btn btn-primary bg-purple">Log Out</button>
+        <a href="index.html">
+            <button id="logOut" type="button" class="btn btn-primary bg-purple">Log Out</button>
+        </a>
     </div>
     <!-- Bottom Nav Bar-->
     <nav class="navbar fixed-bottom navbar-light bg-light sticky-bottom justify-content-sm-center">
