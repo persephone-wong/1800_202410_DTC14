@@ -30,6 +30,16 @@
 
     <!-- Link to styles of your own -->
     <link rel="stylesheet" href="./styles/style.css" />
+
+    <!-- Firebase App (the core Firebase SDK) -->
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+
+    <!-- Add Firestore SDK -->
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-firestore.js"></script>
+
+    <!-- Add Firebase Auth SDK-->
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
+
   </head>
 
   <body>
@@ -127,22 +137,7 @@
         <h2>Customer Reviews</h2>
     <!-- Reviews will be added here dynamically -->
     </div>
-
-    <script>
-        document
-            .getElementById("reviewForm")
-            .addEventListener("submit", function (e) {
-            e.preventDefault();
-            // Extract form data
-            var name = document.getElementById("reviewerName").value;
-            var rating = document.getElementById("reviewRating").value;
-            var reviewText = document.getElementById("reviewText").value;
-            // Display the review on the page
-            var reviewsContainer = document.getElementById("reviewsContainer");
-            reviewsContainer.innerHTML += `<div class="card"><div class="card-body"><h5 class="card-title">${name} - ${rating} Stars</h5><p class="card-text">${reviewText}</p></div></div>`;
-            });
-    </script>
-
+    <leave-review></leave-review>
     
     <!-- Bottom Nav Bar-->
     <nav class="navbar fixed-bottom navbar-light bg-light sticky-bottom justify-content-sm-center">
@@ -196,6 +191,9 @@
         </div>
 
     </nav>
+
+    <script type="module" src="scripts/reviews.js"></script>
   </body>
+  <script type="module" src="scripts/reviews.js"></script>
 </html>
 
