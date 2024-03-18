@@ -52,7 +52,7 @@
 
 
 
-<body style="background-color: white;">
+<body style="background-color: white">
 
     <!-- Search bar -->
     <div style="width: auto; padding:15px; background-color: rgb(126, 62, 228);">
@@ -63,10 +63,10 @@
         </div>
     </div>
     <!--Event details-->
-    <template id="eventCardTemplate">
-            <div style="background-color: rgb(196, 168, 241) ; border-radius: 25px;" class="mx-3 mt-3 mb-3 p-3">
+    <template id="eventCardTemplate" style="margin: 0px;">
+            <div style="background-color: rgb(196, 168, 241);" class="rounded-5 mh-15 mx-3 mt-3 mb-3 p-3">
                 <div class="d-flex flex-row">
-                    <div class="flex-column" style="width:65%;">
+                    <div class="flex-column" style="width:60%; padding-right: 1rem;">
                         <h1 class="card-title">Title</h1>
                         <div class="pt-2 d-flex flex-row">
                         <p style="font-weight:600">Location:</p> &nbsp
@@ -79,20 +79,13 @@
                         <p class="card-description"></p>
                         
                     </div>
-                    <img class="card-img" style="width:35% ;border-radius: 10%"
+                    <img class="card-img" style="width:40% ;border-radius: 10%"
                         src="..." alt=".."/>
             </div>
         </div>
     </template>
-    <div class="container">
-        <div id="events-go-here" class="flex-column"></div>
+    <div id = "events-go-here" class="w-100 flex-column" style="margin: 0px;">
     </div>
-
-
-    <div style="padding-top:5%">
-        Footer Space
-    </div>
-
 
 
 </body>

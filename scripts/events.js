@@ -3,7 +3,7 @@ function displayEventCards(collection) {
 
     db.collection(collection).get()   //the collection called "hikes"
         .then(allEvents=> {
-            // var i = 1;  //Optional: if you want to have a unique ID for each event
+            //var i = 1;  //Optional: if you want to have a unique ID for each event
             allEvents.forEach(doc => { //iterate thru each doc
                 var title = doc.data().name;
                 var address = doc.data().address;
@@ -20,9 +20,9 @@ function displayEventCards(collection) {
                 newcard.querySelector('.card-img').src = `./images/${eventcode}.jpg`;
 
                 // //unique ids to all elements for future use
-                // newcard.querySelector('.card-title').setAttribute("id", "ctitle" + i);
-                // newcard.querySelector('.card-text').setAttribute("id", "ctext" + i);
-                // newcard.querySelector('.card-image').setAttribute("id", "cimage" + i);
+                 //newcard.querySelector('.card-title').setAttribute("id", "ctitle" + i);
+                 //newcard.querySelector('.card-text').setAttribute("id", "ctext" + i);
+                 //newcard.querySelector('.card-image').setAttribute("id", "cimage" + i);
 
                 //attach to gallery, Example: "hikes-go-here"
                 document.getElementById(collection + "-go-here").appendChild(newcard);
