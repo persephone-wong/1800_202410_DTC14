@@ -103,7 +103,7 @@ function generateEvents() {
         name: "FandomFiesta: Where Passion Meets Pop Culture",
         city: "Richmond",
         location: [49.170923556818344, -123.14168043238847],
-        address:"Richmond Conference Centre, 7551 Westminster Hwy, Richmond, BC V6X 1A3"
+        address:"Richmond Conference Centre, 7551 Westminster Hwy, Richmond, BC V6X 1A3",
         date: "Friday, March 31st",
         time: "8:30 AM to 3:30 PM",
         typical_wait_time: 12000,
@@ -149,4 +149,4 @@ function generateEvents() {
 
 }
 
-generateEventsHikes();
+generateEvents();
