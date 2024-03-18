@@ -1,6 +1,6 @@
 function generateEvents() {
     //define a variable for the collection you want to create in Firestore to populate data
-    var generateEvents = db.collection("events");
+    var eventsRef = db.collection("events");
 
     eventsRef.add({
         code: "VA04",
