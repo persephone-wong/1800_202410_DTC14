@@ -1,7 +1,7 @@
 function displayEventCards(collection) {
     let cardTemplate = document.getElementById("eventCardTemplate");
 
-    db.collection(collection).get()   //the collection called "hikes"
+    db.collection(collection).get()   //the collection called "events"
         .then(allEvents=> {
             //var i = 1;  //Optional: if you want to have a unique ID for each event
             allEvents.forEach(doc => { //iterate thru each doc
@@ -33,3 +33,8 @@ function displayEventCards(collection) {
 }
 
 displayEventCards("events"); 
+
+
+function myFunction() {
+    document.getElementById("fav-button").innerHTML = "hello world";
+}
