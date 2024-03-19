@@ -1,24 +1,24 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <title>My BCIT Project</title>
-    <meta name="comp1800 template" content="My 1800 App" />
+    <title>EventEase</title>
+    <meta name="EventEase" content="Level up your social life in Vancouver" />
 
     <!-- Required meta tags -->
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <!-- Boostrap Library CSS CDN  go here -->
+    <!------------------------------------------>
+    <!-- Bootstrap Library CSS JS CDN go here -->
+    <!------------------------------------------>
     <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
       rel="stylesheet"
-      href="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/css/bootstrap.min.css"
-      integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh"
-      crossorigin="anonymous" />
-    <!-- Boostrap Library JS CDN  go here -->
+      crossorigin="anonymous">
     <script
       src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
-      integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
-      crossorigin="anonymous"></script>
+      crossorigin="anonymous">
+        </script>
 
     <!-------------------------------------------------------->
     <!-- Firebase 8 Library related CSS, JS, JQuery go here -->
@@ -48,64 +48,14 @@
   </head>
 
   <body>
-    <nav class="navbar navbar-expand-lg bg-body-tertiary">
-      <div class="container-fluid">
-        <a class="navbar-brand text-white text-light-emphasis"
-          href="#">EventEase</a>
-        <button
-          class="navbar-toggler"
-          type="button"
-          data-bs-toggle="collapse"
-          data-bs-target="#navbarNavDropdown"
-          aria-controls="navbarNavDropdown"
-          aria-expanded="false"
-          aria-label="Toggle navigation">
-          <span></span>
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            width="16"
-            height="16"
-            fill="currentColor"
-            class="bi bi-justify"
-            viewBox="0 0 16 16">
-            <path
-              fill-rule="evenodd"
-              d="M2 12.5a.5.5 0 0 1 .5-.5h11a.5.5 0 0 1 0 1h-11a.5.5 0 0 1-.5-.5m0-3a.5.5 0 0 1 .5-.5h11a.5.5 0 0 1 0 1h-11a.5.5 0 0 1-.5-.5m0-3a.5.5 0 0 1 .5-.5h11a.5.5 0 0 1 0 1h-11a.5.5 0 0 1-.5-.5m0-3a.5.5 0 0 1 .5-.5h11a.5.5 0 0 1 0 1h-11a.5.5 0 0 1-.5-.5" />
-          </svg>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarNavDropdown">
-          <ul class="navbar-nav">
-            <li class="nav-item">
-              <a class="nav-link active" aria-current="page" href="#">Home</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="#">Events</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="#">Map</a>
-            </li>
-            <form class="form-inline d-lg-none">
-              <input class="form-control mr-sm-2" type="search"
-                placeholder="Search..." aria-label="Search" />
-              <button class="btn" type="submit">
-                <!-- Your search icon or text -->
-              </button>
-            </ul>
-          </div>
-          <!-- search bar -->
-          <nav class="navbar navbar-light d-none d-md-inline-block">
-            <form class="form-inline">
-              <input
-                class="form-control mr-sm-2"
-                type="search"
-                placeholder="Search..."
-                aria-label="Search" />
-            </form>
-          </nav>
-        </div>
-      </nav>
+    <!-- Navbar -->
+    <nav id="navbarPlaceholder"></nav>
+
+
+    
+
       <!--HERO Welcome page-->
-      <div class="container-fluid px-4 py-5 my-5 text-center">
+      <div class="container px-4 py-5 my-5 text-center">
         <div class="lc-block mb-4">
           <div editable="rich">
             <h2 class="display-2 fw-bold">
@@ -128,13 +78,8 @@
           <a
             id="signin"
             class="btn btn-primary btn-lg px-4 gap-3"
-            href="#"
-            role="button">Sign In</a>
-          <a
-            id="signup"
-            class="btn btn-outline-secondary btn-lg px-4 btn-"
-            href="#"
-            role="button">Sign Up</a>
+            href="login.html"
+            role="button">Sign In / Sign Up</a>
         </div>
         <div class="lc-block d-grid gap-2 d-sm-flex justify-content-sm-center">
           <img class="img-fluid" src="/images/event.jpg" />
@@ -143,7 +88,7 @@
 
       <!-- call to action -->
       <div
-        class="lc-block d-grid d-flex gap-3 justify-content-sm-center flex-column mb-5 text-center">
+        class="container lc-block d-grid d-flex gap-3 justify-content-sm-center flex-column mb-5 text-center">
         <div class="card-group">
           <div class="card">
             <div class="card-body">
@@ -194,45 +139,12 @@
       <!-- footer with links -->
       <footer>
         <div class="container py-4">
-          <div class="row">
-            <div class="col-md-4">
+          <div class="row text-center">
               <h5>EventEase</h5>
               <p>
-                EventEase is a web application that allows users to find events
-                near them, attend them and make the best of their time!.
+                A web application that allows users to find events
+                near them, attend them and make the best of their time!
               </p>
-            </div>
-            <div class="col-md-4">
-              <h5>Quick Links</h5>
-              <ul class="list-unstyled">
-                <li>
-                  <a href="#" class="text-decoration-none text-dark">Home</a>
-                </li>
-                <li>
-                  <a href="#" class="text-decoration-none text-dark">Events</a>
-                </li>
-                <li>
-                  <a href="#" class="text-decoration-none text-dark">Map</a>
-                </li>
-              </ul>
-            </div>
-            <div class="col-md-4">
-              <h5>Connect</h5>
-              <ul class="list-unstyled">
-                <li>
-                  <a href="#" class="text-decoration-none text-dark">Contact
-                    Us</a>
-                </li>
-                <li>
-                  <a href="#" class="text-decoration-none text-dark">Privacy
-                    Policy</a>
-                </li>
-                <li>
-                  <a href="#" class="text-decoration-none text-dark">Terms of
-                    Service</a>
-                </li>
-              </ul>
-            </div>
           </div>
         </div>
 
@@ -241,5 +153,15 @@
           Made by Persephone, Kyryl, Candice and Omar with love &lt;3
         </div>
       </footer>
+
+      <!---------------------------------------------->
+        <!-- Your own JavaScript functions go here    -->
+        <!---------------------------------------------->
+        <script src="./scripts/firebaseAPI_TEAMDTC14.js"></script>
+        <script src="./scripts/skeleton.js"></script>
+        <script src="./scripts/script.js"></script>
+        <script>
+            logout();       //make sure user is logged out
+        </script>
     </body>
   </html>
