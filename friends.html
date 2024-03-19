@@ -98,12 +98,14 @@
         <!-- search bar -->
         <nav class="navbar navbar-light d-none d-md-inline-block">
           <form class="form-inline">
-            <input
-              class="form-control mr-sm-2"
-              type="search"
-              placeholder="Search..."
-              aria-label="Search"
-            />
+            <div style="width: auto; padding:15px; background-color: rgb(126, 62, 228);">
+              <div class="input-group mb-1 px-15 ">
+                  <input type="text" id="searchInput" class="form-control" style="color: black; " placeholder="Search" aria-label="Search"
+                      aria-describedby="basic-addon2">
+                  <ul id="searchResults"></ul>
+      
+              </div>
+          </div>
           </form>
         </nav>
       </div>
@@ -117,7 +119,7 @@
                 <div class="card">
                     <img src="images/friend1.png" class="card-img" alt="Friend Name">
                     <div class="card-body">
-                        <h5 class="card-title">Phoebe Buffay</h5>
+                        <h5 data-url="friends.html" class="card-title">Phoebe Buffay</h5>
                         <p class="card-text">Lorem, ipsum.</p>
                         <a href="#" class="btn btn-custom">View their likes</a>
                     </div>
@@ -127,7 +129,7 @@
                 <div class="card">
                     <img src="images/friend2.png" class="card-img" alt="Friend Name">
                     <div class="card-body">
-                        <h5 class="card-title">Monica Geller</h5>
+                        <h5 data-url="friends.html" class="card-title">Monica Geller</h5>
                         <p class="card-text">Lorem, ipsum.</p>
                         <a href="#" class="btn btn-custom">View their likes</a>
                     </div>
@@ -137,7 +139,7 @@
                 <div class="card">
                     <img src="images/friend3.png" class="card-img" alt="Friend Name">
                     <div class="card-body">
-                        <h5 class="card-title">Joey Tribbiani</h5>
+                        <h5 data-url="friends.html" class="card-title">Joey Tribbiani</h5>
                         <p class="card-text">Lorem, ipsum.</p>
                         <a href="#" class="btn btn-custom">View their likes</a>
                     </div>
@@ -147,7 +149,7 @@
                 <div class="card">
                     <img src="images/friend4.png" class="card-img" alt="Friend Name">
                     <div class="card-body">
-                        <h5 class="card-title">Ross Geller</h5>
+                        <h5 data-url="friends.html" class="card-title">Ross Geller</h5>
                         <p class="card-text">Lorem, ipsum.</p>
                         <a href="#" class="btn btn-custom">View their likes</a>
                     </div>
@@ -157,7 +159,7 @@
                 <div class="card">
                     <img src="images/friend5.png" class="card-img" alt="Friend Name">
                     <div class="card-body">
-                        <h5 class="card-title">Rachel Green</h5>
+                        <h5 data-url="friends.html" class="card-title">Rachel Green</h5>
                         <p class="card-text">Lorem, ipsum.</p>
                         <a href="#" class="btn btn-custom">View their likes</a>
                     </div>
@@ -168,61 +170,57 @@
 
 
     <!-- Bottom Nav Bar-->
-        <!-- Bottom Nav Bar-->
-        <nav class="navbar fixed-bottom navbar-light bg-light sticky-bottom justify-content-sm-center">
-          <div class="d-flex flex-row">
-              <div class="d-flex flex-column px-3">
-                  <a href="map.html"><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-map-pin"
-                          width="36" height="36" viewBox="0 0 24 24" stroke-width="1.5" stroke="#3b3b3b" fill="none"
-                          stroke-linecap="round" stroke-linejoin="round">
-                          <path stroke="none" d="M0 0h24v24H0z" fill="" />
-                          <path d="M9 11a3 3 0 1 0 6 0a3 3 0 0 0 -6 0" />
-                          <path d="M17.657 16.657l-4.243 4.243a2 2 0 0 1 -2.827 0l-4.244 -4.243a8 8 0 1 1 11.314 0z" />
-                      </svg></a>
-                  <a class="text-center" style="color: black;" href="#">Map</a>
-              </div>
-  
-              <div class="d-flex px-3 flex-column">
-                  <a href="listview.html"><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-list-details"
-                          width="36" height="36" viewBox="0 0 24 24" stroke-width="1.5" stroke="#3b3b3b" fill="none"
-                          stroke-linecap="round" stroke-linejoin="round">
-                          <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-                          <path d="M13 5h8" />
-                          <path d="M13 9h5" />
-                          <path d="M13 15h8" />
-                          <path d="M13 19h5" />
-                          <path d="M3 4m0 1a1 1 0 0 1 1 -1h4a1 1 0 0 1 1 1v4a1 1 0 0 1 -1 1h-4a1 1 0 0 1 -1 -1z" />
-                          <path d="M3 14m0 1a1 1 0 0 1 1 -1h4a1 1 0 0 1 1 1v4a1 1 0 0 1 -1 1h-4a1 1 0 0 1 -1 -1z" />
-                      </svg></a>
-                  <a class="text-center" style="color: black;" href="#">List</a>
-              </div>
-  
-              <div class="d-flex px-3 flex-column color: #9e9e9e">
-                  <a class="text-center" href="favorite.html"><svg xmlns="http://www.w3.org/2000/svg"
-                          class="icon icon-tabler icon-tabler-heart" width="36" height="36" viewBox="0 0 24 24"
-                          stroke-width="1.5" stroke="#3b3b3b" fill="none" stroke-linecap="round" stroke-linejoin="round">
-                          <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-                          <path d="M19.5 12.572l-7.5 7.428l-7.5 -7.428a5 5 0 1 1 7.5 -6.566a5 5 0 1 1 7.5 6.572" />
-                      </svg></a>
-                  <a class="text-center" style="color: black;" href="#">Favorites</a>
-              </div>
-  
-              <div class="d-flex px-3 text-center flex-column">
-                  <a href="profile.html"><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-user" width="36"
-                          height="36" viewBox="0 0 24 24" stroke-width="1.5" stroke="#3b3b3b" fill="none"
-                          stroke-linecap="round" stroke-linejoin="round">
-                          <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-                          <path d="M8 7a4 4 0 1 0 8 0a4 4 0 0 0 -8 0" />
-                          <path d="M6 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2" />
-                      </svg></a>
-                  <a class="text-center" style="color: black;" href="#">Profile</a>
-              </div>
-  
-  
-  
-          </div>
-  
-      </nav>
+    <nav class="navbar fixed-bottom navbar-light bg-light sticky-bottom justify-content-sm-center">
+        <div class="d-flex flex-row">
+            <div class="d-flex flex-column px-3">
+                <a href="#"><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-map-pin"
+                        width="36" height="36" viewBox="0 0 24 24" stroke-width="1.5" stroke="#3b3b3b" fill="none"
+                        stroke-linecap="round" stroke-linejoin="round">
+                        <path stroke="none" d="M0 0h24v24H0z" fill="" />
+                        <path d="M9 11a3 3 0 1 0 6 0a3 3 0 0 0 -6 0" />
+                        <path d="M17.657 16.657l-4.243 4.243a2 2 0 0 1 -2.827 0l-4.244 -4.243a8 8 0 1 1 11.314 0z" />
+                    </svg></a>
+                <a class="text-center" style="color: black;" href="#">Map</a>
+            </div>
+
+            <div class="d-flex px-3 flex-column">
+                <a href="#"><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-list-details"
+                        width="36" height="36" viewBox="0 0 24 24" stroke-width="1.5" stroke="#3b3b3b" fill="none"
+                        stroke-linecap="round" stroke-linejoin="round">
+                        <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                        <path d="M13 5h8" />
+                        <path d="M13 9h5" />
+                        <path d="M13 15h8" />
+                        <path d="M13 19h5" />
+                        <path d="M3 4m0 1a1 1 0 0 1 1 -1h4a1 1 0 0 1 1 1v4a1 1 0 0 1 -1 1h-4a1 1 0 0 1 -1 -1z" />
+                        <path d="M3 14m0 1a1 1 0 0 1 1 -1h4a1 1 0 0 1 1 1v4a1 1 0 0 1 -1 1h-4a1 1 0 0 1 -1 -1z" />
+                    </svg></a>
+                <a class="text-center" style="color: black;" href="#">List</a>
+            </div>
+
+            <div class="d-flex px-3 flex-column color: #9e9e9e">
+                <a class="text-center" href="#"><svg xmlns="http://www.w3.org/2000/svg"
+                        class="icon icon-tabler icon-tabler-heart" width="36" height="36" viewBox="0 0 24 24"
+                        stroke-width="1.5" stroke="#3b3b3b" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                        <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                        <path d="M19.5 12.572l-7.5 7.428l-7.5 -7.428a5 5 0 1 1 7.5 -6.566a5 5 0 1 1 7.5 6.572" />
+                    </svg></a>
+                <a class="text-center" style="color: black;" href="#">Favorites</a>
+            </div>
+
+            <div class="d-flex px-3 text-center flex-column">
+                <a href="#"><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-user" width="36"
+                        height="36" viewBox="0 0 24 24" stroke-width="1.5" stroke="#3b3b3b" fill="none"
+                        stroke-linecap="round" stroke-linejoin="round">
+                        <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                        <path d="M8 7a4 4 0 1 0 8 0a4 4 0 0 0 -8 0" />
+                        <path d="M6 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2" />
+                    </svg></a>
+                <a class="text-center" style="color: black;" href="#">Profile</a>
+            </div>
+        </div>
+    </nav>
+    <script src="scripts/search_bar.js"></script>
   </body>
 </html>
 
