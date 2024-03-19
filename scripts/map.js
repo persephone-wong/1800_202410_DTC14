@@ -1,4 +1,6 @@
 function showMap() {
+
+  
   //------------------------------------------
   // Defines and initiates basic mapbox data
   //------------------------------------------
@@ -10,8 +12,8 @@ function showMap() {
   const map = new mapboxgl.Map({
     container: "map", // Container ID
     style: "mapbox://styles/mapbox/streets-v11", // Styling URL
-    center: [-122.964274, 49.236082], // Starting position
-    zoom: 8, // Starting zoom
+    center: [-123.100000, 49.276082], // Starting position
+    zoom: 11, // Starting zoom
   });
 
   // Add user controls to map, zoom bar
@@ -51,7 +53,7 @@ function addEventsPinsCircle(map) {
           properties: {
             description: `<strong>${event_name}</strong><p>${preview}</p> 
                             <br> <a href="/event.html?id=${doc.id}" target="_blank" 
-                            title="Opens in a new window">Read more</a>`,
+                            title="Opens in a new window" class="btn btn-primary">Read more</a>`,
           },
           geometry: {
             type: "Point",
