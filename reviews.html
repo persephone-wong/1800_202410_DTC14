@@ -31,14 +31,8 @@
     <!-- Link to styles of your own -->
     <link rel="stylesheet" href="./styles/style.css" />
 
-    <!-- Firebase App (the core Firebase SDK) -->
     <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
-
-    <!-- Add Firestore SDK -->
     <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-firestore.js"></script>
-
-    <!-- Add Firebase Auth SDK-->
-    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
 
   </head>
 
@@ -133,11 +127,25 @@
         </form>
     </div>
 
-    <div class="container mt-5" id="reviewsContainer">
-        <h2>Customer Reviews</h2>
-    <!-- Reviews will be added here dynamically -->
+    <div class="container my-5">
+        <h2 class="text-center p-2">Customer Reviews</h2>
+        <div id="reviews-container" class="row row-cols-1 row-cols-md-3 g-4">
+            <!-- Reviews will be dynamically inserted here -->
+          <template id="reviewTemplate">
+    <div class="col">
+        <div class="card h-100">
+            <div class="card-body">
+                <h5 class="card-title">Username Placeholder</h5>
+                <h6 class="card-subtitle mb-2 text-muted">Rating Placeholder</h6>
+                <p class="card-text">Review Text Placeholder</p>
+                <p class="card-footer text-muted">Date Placeholder</p>
+            </div>
+        </div>
     </div>
-    <leave-review></leave-review>
+</template>
+
+        </div>
+    </div>
     
     <!-- Bottom Nav Bar-->
     <nav class="navbar fixed-bottom navbar-light bg-light sticky-bottom justify-content-sm-center">
@@ -194,6 +202,5 @@
 
     <script type="module" src="scripts/reviews.js"></script>
   </body>
-  <script type="module" src="scripts/reviews.js"></script>
 </html>
 
