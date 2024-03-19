@@ -4,6 +4,7 @@
 
 State your app in a nutshell, or one-sentence pitch. Give some elaboration on what the core features are.  
 This browser based web application to ...
+Hello world
 
 ## 2. Names of Contributors
 
