@@ -1,8 +1,5 @@
-import { initializeApp } from "firebase/app";
-import { getFirestore } from "firebase/firestore";
-import { getAuth } from "firebase/auth";
-
-const firebaseConfig = {
+// Your web app's Firebase configuration
+var firebaseConfig = {
   apiKey: "AIzaSyD3sUXFmjwQZ5BKM4CsH7aVi6FQ34F1gDg",
   authDomain: "team-dtc14.firebaseapp.com",
   projectId: "team-dtc14",
@@ -12,89 +9,120 @@ const firebaseConfig = {
 };
 
 // Initialize Firebase
-const app = initializeApp(firebaseConfig);
-const db = getFirestore(app);
-const auth = getAuth(app);
+firebase.initializeApp(firebaseConfig);
+var db = firebase.firestore(); // Correctly access Firestore instance
 
-function addDataToCollection() {
+function generateReviews() {
+  const reviews = [
+    {
+      username: "Rachel Green",
+      rating: 5,
+      reviewText: "Great event! Had a lot of fun and met some awesome people.",
+      date: new Date("2024-03-18T21:53:40-07:00"),
+    },
+
+    {
+      username: "Ross Geller",
+      rating: 3,
+      reviewText: "I hope there is more parking.",
+      date: new Date("2024-03-18T21:54:30-07:00"),
+    },
+    {
+      username: "Phoebe Buffay",
+      rating: 5,
+      reviewText: "I love it! Will definitely come back again.",
+      date: new Date("2024-03-17T21:55:23-07:00"),
+    },
+    {
+      username: "Joey Tribbiani",
+      rating: 4,
+      reviewText:
+        "I wish there is more food, but overall the atmosphere is really enjoyable.",
+      date: new Date("2024-03-16T21:52:03-07:00"),
+    },
+    {
+      username: "Monica Geller",
+      rating: 3,
+      reviewText: "I wish the wait line is shorter.",
+      date: new Date("2024-03-18T21:49:25-07:00"),
+    },
+  ];
+
+  reviews.forEach((review) => {
+    const { username, date } = review;
+    const reviewsRef = db.collection("reviews");
+    // Convert JavaScript Date to Firestore Timestamp
+    const timestamp = firebase.firestore.Timestamp.fromDate(date);
+    review.date = timestamp;
+
+    reviewsRef
+      .where("username", "==", username)
+      .where("date", "==", timestamp)
+      .get()
+      .then((querySnapshot) => {
+        if (querySnapshot.empty) {
+          // If the review doesn't exist, add it to Firestore
+          reviewsRef
+            .add(review)
+            .then(() => console.log("Review added for", username))
+            .catch((error) =>
+              console.error("Error adding review for", username, ":", error)
+            );
+        } else {
+          console.log("Review already exists for", username);
+        }
+      })
+      .catch((error) =>
+        console.error(
+          "Error checking review existence for",
+          username,
+          ":",
+          error
+        )
+      );
+  });
+}
+
+document.addEventListener("DOMContentLoaded", function () {
+  generateReviews();
+});
+
+function displayReviewsDynamically() {
+  var reviewTemplate = document.getElementById("reviewTemplate").content;
+  var reviewsContainer = document.getElementById("reviews-container");
+
   db.collection("reviews")
-    .add({
-      key1: "value1",
-      key2: "value2",
-      key3: "value3",
+    .get()
+    .then((querySnapshot) => {
+      querySnapshot.forEach((doc) => {
+        var reviewData = doc.data();
+        var newReview = reviewTemplate.cloneNode(true);
+
+        // Update template clone with review data
+        newReview.querySelector(".card-title").textContent =
+          reviewData.username;
+        newReview.querySelector(
+          ".card-subtitle"
+        ).textContent = `Rating: ${reviewData.rating}`;
+        newReview.querySelector(".card-text").textContent =
+          reviewData.reviewText;
+
+        // Handling the date
+        var reviewDate = reviewData.date
+          ? reviewData.date.toDate().toLocaleDateString()
+          : "No date";
+        newReview.querySelector(
+          ".card-footer"
+        ).textContent = `Reviewed on: ${reviewDate}`;
+
+        reviewsContainer.appendChild(newReview);
+      });
     })
-    .then(function (docRef) {
-      console.log("Document written with ID: ", docRef.id);
-    })
-    .catch(function (error) {
-      console.error("Error adding document: ", error);
+    .catch((error) => {
+      console.error("Error fetching reviews: ", error);
     });
 }
 
-addDataToCollection();
-
-class LeaveReview extends HTMLElement {
-  constructor() {
-    super();
-    this.attachShadow({ mode: "open" });
-    this.shadowRoot.innerHTML = `
-      <form id="review-form">
-        <textarea id="review-content" placeholder="Leave a review..."></textarea>
-        <button type="submit">Submit Review</button>
-      </form>
-    `;
-  }
-
-  connectedCallback() {
-    this.shadowRoot
-      .querySelector("#review-form")
-      .addEventListener("submit", this.submitReview.bind(this));
-  }
-
-  async submitReview(e) {
-    e.preventDefault();
-    // Get the review content from the shadow DOM's input field
-    const reviewContent = this.shadowRoot
-      .querySelector("#review-content")
-      .value.trim();
-
-    // Check if the reviewContent is not empty
-    if (reviewContent === "") {
-      console.error("Review content is empty.");
-      // Optionally, you can display an error message to the user here
-      return; // Stop execution if there is no review content
-    }
-
-    try {
-      // Call the function to add the review to Firestore and await its completion
-      await addReviewToFirestore(reviewContent);
-
-      // Optionally, clear the textarea after successfully saving the review
-      this.shadowRoot.querySelector("#review-content").value = "";
-
-      // Optionally, display a success message to the user
-      console.log("Review submitted successfully.");
-    } catch (error) {
-      // Handle any errors that occur during the Firestore operation
-      console.error("Error submitting review: ", error);
-      // Optionally, you can display an error message to the user here
-    }
-  }
-}
-
-customElements.define("leave-review", LeaveReview);
-
-import { collection, addDoc } from "firebase/firestore";
-
-async function addReviewToFirestore(reviewContent) {
-  try {
-    const docRef = await addDoc(collection(db, "reviews"), {
-      content: reviewContent,
-      // Include additional fields as needed, e.g., userId, timestamp
-      timestamp: new Date(),
-    });
-    console.log("Document written with ID: ", docRef.id);
-  } catch (e) {
-    console.error("Error adding document: ", e);
-  }
-}
+document.addEventListener("DOMContentLoaded", function () {
+  displayReviewsDynamically();
+});
