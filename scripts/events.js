@@ -19,6 +19,8 @@ function displayEventCards(collection) {
                 newcard.querySelector('.card-description').innerHTML = description;
                 newcard.querySelector('.card-img').src = `./images/${eventcode}.jpg`;
 
+                newcard.querySelector('.seeMoreButton').href = `/event.html?id=${doc.id}`; //link to event page
+
                 // //unique ids to all elements for future use
                  //newcard.querySelector('.card-title').setAttribute("id", "ctitle" + i);
                  //newcard.querySelector('.card-text').setAttribute("id", "ctext" + i);
