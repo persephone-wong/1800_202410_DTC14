@@ -8,6 +8,7 @@ function displayEventCards(collection) {
                 var title = doc.data().name;
                 var address = doc.data().address;
                 var time = doc.data().time;       
+                var date = doc.data().date;       
                 var description = doc.data().description;  // get value of the "details" key
 								var eventcode = doc.data().code;    
                 let newcard = cardTemplate.content.cloneNode(true); // Clone the HTML template to create a new card (newcard) that will be filled with Firestore data.
@@ -17,6 +18,8 @@ function displayEventCards(collection) {
                 newcard.querySelector('.card-location').innerHTML = address;
                 newcard.querySelector('.card-time').innerHTML = time;
                 newcard.querySelector('.card-description').innerHTML = description;
+                newcard.querySelector('.card-date').innerHTML = date;
+
                 newcard.querySelector('.card-img').src = `./images/${eventcode}.jpg`;
 
                 newcard.querySelector('.seeMoreButton').href = `/event.html?id=${doc.id}`; //link to event page
