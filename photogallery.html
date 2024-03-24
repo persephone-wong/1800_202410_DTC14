@@ -32,6 +32,22 @@
     <!-- lightbox for bootstrap -->
     <script src="https://cdn.jsdelivr.net/npm/bs5-lightbox@1.8.3/dist/index.bundle.min.js"></script>
 
+    <!--Firebase stuff-->
+    <script
+    src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script
+    src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+<script
+    src="https://www.gstatic.com/firebasejs/8.10.0/firebase-firestore.js"></script>
+<script
+    src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
+<script
+    src="https://www.gstatic.com/firebasejs/ui/4.8.1/firebase-ui-auth.js"></script>
+<link type="text/css" rel="stylesheet"
+    href="https://www.gstatic.com/firebasejs/ui/4.8.1/firebase-ui-auth.css" />
+<script
+    src="https://www.gstatic.com/firebasejs/8.10.0/firebase-storage.js"></script>
+
     <style>
       .scrollable-div {
         overflow: auto;
@@ -45,66 +61,7 @@
 
   <body>
     <!-- nav -->
-    <nav class="navbar navbar-expand-lg bg-body-tertiary">
-      <div class="container-fluid">
-        <a class="navbar-brand text-white text-light-emphasis" href="#"
-          >EventEase</a
-        >
-        <button
-          class="navbar-toggler"
-          type="button"
-          data-bs-toggle="collapse"
-          data-bs-target="#navbarNavDropdown"
-          aria-controls="navbarNavDropdown"
-          aria-expanded="false"
-          aria-label="Toggle navigation"
-        >
-          <span></span>
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            width="16"
-            height="16"
-            fill="currentColor"
-            class="bi bi-justify"
-            viewBox="0 0 16 16"
-          >
-            <path
-              fill-rule="evenodd"
-              d="M2 12.5a.5.5 0 0 1 .5-.5h11a.5.5 0 0 1 0 1h-11a.5.5 0 0 1-.5-.5m0-3a.5.5 0 0 1 .5-.5h11a.5.5 0 0 1 0 1h-11a.5.5 0 0 1-.5-.5m0-3a.5.5 0 0 1 .5-.5h11a.5.5 0 0 1 0 1h-11a.5.5 0 0 1-.5-.5m0-3a.5.5 0 0 1 .5-.5h11a.5.5 0 0 1 0 1h-11a.5.5 0 0 1-.5-.5"
-            />
-          </svg>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarNavDropdown">
-          <ul class="navbar-nav">
-            <li class="nav-item">
-              <a class="nav-link active" aria-current="page" href="#">Home</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="#">Events</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="#">Map</a>
-            </li>
-            <form class="form-inline d-lg-none">
-              <input class="form-control mr-sm-2" type="search" placeholder="Search..." aria-label="Search"/>
-              <button class="btn" type="submit">
-                <!-- Your search icon or text -->
-    </button>
-          </ul>
-        </div>
-        <!-- search bar -->
-        <nav class="navbar navbar-light d-none d-md-inline-block">
-          <div style="width: auto; padding:15px; background-color: rgb(126, 62, 228);">
-            <div class="input-group mb-1 px-15 ">
-                <input type="text" id="searchInput" class="form-control" style="color: black; " placeholder="Search" aria-label="Search"
-                    aria-describedby="basic-addon2">
-                <ul id="searchResults"></ul>
-    
-            </div>
-        </div>
-        </nav>
-      </div>
-    </nav>
+    <nav id="navbarPlaceholder"></nav>
 
     <!-- main content -->
     <main>
@@ -213,5 +170,7 @@
       </nav>
 
     </nav>
+    <script src="./scripts/firebaseAPI_TEAMDTC14.js"></script>
+    <script src="./scripts/skeleton.js"></script>
   </body>
 </html>
