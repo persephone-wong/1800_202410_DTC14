@@ -35,12 +35,16 @@
 
 </head>
 
-
-
 <body style="background-color: white">
 
     <!-- Search bar -->
-    <nav id="searchbar"></nav>
+    <div style="width: auto; padding:15px; background-color: rgb(126, 62, 228);">
+        <div class="input-group mb-1 px-15 ">
+            <input type="text" id="searchInput" class="form-control" style="color: black; " placeholder="Search" aria-label="Search">
+            <ul id="searchResults"></ul>
+
+        </div>
+    </div>
     <!--Event details-->
     <template id="eventCardTemplate" style="margin: 0px;">
         <div style="background-color: rgb(196, 168, 241);" class="rounded-5 mh-15 mx-3 mt-3 mb-3 p-3">
@@ -90,5 +94,7 @@
 <script src="./scripts/skeleton.js"></script>
 <script src="./scripts/script.js"></script>
 <script src="./scripts/events.js"></script>
+<script src="scripts/search_bar.js"></script>
+
 
 </html>

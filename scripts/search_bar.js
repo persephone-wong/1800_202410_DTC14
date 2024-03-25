@@ -9,7 +9,7 @@ document.addEventListener('DOMContentLoaded', function() {
         
         // Loop through each event div
         events.forEach(eventDiv => {
-            const eventTitle = eventDiv.querySelector('.title');
+            const eventTitle = eventDiv.querySelector('.card-title');
             const titleText = eventTitle.textContent.trim().toLowerCase();
             
             // Check if the event title contains the search text
