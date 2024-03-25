@@ -14,6 +14,7 @@ function generateEvents() {
         age_range: "all ages",
         lower_bound: 0,
         upper_bound: 100,
+        
         age_restricted: false,
         description: "Get ready to take to the streets and celebrate community spirit at our Block Bash Bonanza! Join us for an unforgettable day filled with live music, delicious food, and non-stop entertainment. Dance to the rhythm of local bands, sample mouthwatering street food from gourmet vendors, and browse through artisanal stalls showcasing unique crafts and treasures. With activities for all ages, from face painting to interactive games, this street party promises fun and excitement for everyone. Don't miss out on the biggest block party of the year – come and make memories with us!",
         last_updated: firebase.firestore.FieldValue.serverTimestamp()  //current system time
