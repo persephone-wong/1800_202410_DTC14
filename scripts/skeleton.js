@@ -38,6 +38,14 @@ function loadHtmlContent(userIsLoggedIn) {
   });
 }
 
+async function loadbottomnavbar() {
+  navbarbottompath = "./text/bottom_navbar.html";
+  const navbarbottom = await fetch(navbarbottompath);
+  const navbarbottomHTML = await navbarbottom.text();
+  document.getElementById("bottomnavbar").innerHTML = navbarbottomHTML;
+}
+
+
 function loadSkeleton() {
   auth.onAuthStateChanged(user => {
     if (user) {
@@ -48,6 +56,7 @@ function loadSkeleton() {
       loadHtmlContent(false);
     }
   });
+  loadbottomnavbar();
 }
 
 loadSkeleton(); // Invoke the function
