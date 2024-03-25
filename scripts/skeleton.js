@@ -38,11 +38,11 @@ function loadHtmlContent(userIsLoggedIn) {
   });
 }
 
-async function loadbottomnavbar() {
-  navbarbottompath = "./text/bottom_navbar.html";
-  const navbarbottom = await fetch(navbarbottompath);
-  const navbarbottomHTML = await navbarbottom.text();
-  document.getElementById("bottomnavbar").innerHTML = navbarbottomHTML;
+function loadbottomnavbar() {
+  const navbarbottom = document.getElementById("bottomnavbar");
+  const path = "./text/bottom_navbar.html";
+  fetch(path).then(response => response.text()).then(data => {
+    navbarbottom.innerHTML = data;});
 }
 
 
