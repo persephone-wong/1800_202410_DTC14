@@ -45,6 +45,14 @@ function loadbottomnavbar() {
     navbarbottom.innerHTML = data;});
 }
 
+function loadsearchbar() {
+  const navbarsearch = document.getElementById("searchbar");
+  const path = "./text/search_bar.html";
+  fetch(path).then(response => response.text()).then(data => {
+    navbarsearch.innerHTML = data;});
+}
+
+
 
 function loadSkeleton() {
   auth.onAuthStateChanged(user => {
@@ -57,6 +65,7 @@ function loadSkeleton() {
     }
   });
   loadbottomnavbar();
+  loadsearchbar();
 }
 
 loadSkeleton(); // Invoke the function
