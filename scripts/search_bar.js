@@ -1,35 +1,25 @@
 document.addEventListener('DOMContentLoaded', function() {
     const searchInput = document.getElementById('searchInput');
-    const searchResults = document.getElementById('searchResults');
 
     searchInput.addEventListener('input', function(event) {
         const searchText = event.target.value.trim().toLowerCase(); // Get the lowercase search text
-
-        // Clear previous search results
-        searchResults.innerHTML = '';
-
-        // Only display search results when there is text in the search bar
-        if (searchText !== '') {
-            const elementsToSearch = document.querySelectorAll('[data-url^="favorite.html"], [data-url^="friends.html"]');
-            elementsToSearch.forEach(element => {
-                const elementText = element.textContent.trim().toLowerCase();
-                if (elementText.startsWith(searchText)) {
-                    const li = document.createElement('li');
-                    const link = document.createElement('a');
-                    link.href = element.getAttribute('data-url');
-                    link.textContent = elementText;
-                    li.appendChild(link);
-                    searchResults.appendChild(li);
-                }
-            });
-        }
+        
+        // Get all the event divs
+        const events = document.querySelectorAll('#list-events > div');
+        
+        // Loop through each event div
+        events.forEach(eventDiv => {
+            const eventTitle = eventDiv.querySelector('.title');
+            const titleText = eventTitle.textContent.trim().toLowerCase();
+            
+            // Check if the event title contains the search text
+            if (titleText.includes(searchText)) {
+                eventDiv.style.display = 'block'; // Show the event div
+            } else {
+                eventDiv.style.display = 'none'; // Hide the event div
+            }
+        });
     });
 });
 
-
-
-
-
-
-
-console.log('ervfnvkjnvdknfjv')
+console.log('banana')
