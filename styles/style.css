@@ -4,12 +4,13 @@ nav {
 }
 
 #bottomnavbar{
-  background-color: #FDFCDC;
+  background-color: #00AFB9;
+
 }
 
 body {
-  background-color: #FDFCDC;
-  padding-bottom: 40px;
+  background-color: #00AFB9;
+  padding-bottom: 70px;
 }
 
 a {
@@ -61,14 +62,24 @@ a {
   border-color: rgb(126, 62, 228);
 }
 
+#accountSettings{
+  background-color: #F07167;
+  font-weight: 500;
+  font-size: larger;
+}
+
 #changeProfilePic,
 #uploadPhotoProfile,
 #update {
-  background-color: rgb(158, 102, 247);
+  background-color: #F07167;
+  border: 0px;
+  font-weight: 500;
 }
 
 #viewActivity {
-  background-color: rgb(158, 102, 247);
+  background-color: #F07167;
+  color: black;
+  font-size: larger;
 }
 
 #logoutButton {
@@ -77,11 +88,13 @@ a {
 }
 
 #logOut {
-  background-color: rgb(158, 102, 247);
+  background-color: #F07167;
+  color: black;
+  font-size: x-large;
 }
 
 #accountSettings {
-  background-color: rgb(158, 102, 247);
+  background-color: #F07167;
 }
 
 .seeMore {
