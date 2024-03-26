@@ -17,7 +17,6 @@ function displayEventCards(collection) {
                 newcard.querySelector('.card-title').innerHTML = title;
                 newcard.querySelector('.card-location').innerHTML = address;
                 newcard.querySelector('.card-time').innerHTML = time;
-                newcard.querySelector('.card-description').innerHTML = description;
                 newcard.querySelector('.card-date').innerHTML = date;
 
                 newcard.querySelector('.card-img').src = `./images/${eventcode}.jpg`;

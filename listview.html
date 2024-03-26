@@ -35,10 +35,10 @@
 
 </head>
 
-<body style="background-color: white">
+<body style="background-color: #FDFCDC">
 
     <!-- Search bar -->
-    <div style="width: auto; padding:15px; background-color: rgb(126, 62, 228);">
+    <div style="width: auto; padding:15px; background-color: #0081A7;">
         <div class="input-group mb-1 px-15 ">
             <input type="text" id="searchInput" class="form-control" style="color: black; " placeholder="Search" aria-label="Search">
             <ul id="searchResults"></ul>
@@ -47,12 +47,13 @@
     </div>
     <!--Event details-->
     <template id="eventCardTemplate" style="margin: 0px;">
-        <div style="background-color: rgb(196, 168, 241);" class="rounded-5 mh-15 mx-3 mt-3 mb-3 p-3">
-            <div class="d-flex flex-row">
-                <div class="flex-column" style="width:60%; padding-right: 1rem;">
+        <div class="rounded-5 mh-15 mx-2 mt-2 border border-3 mb-3 p-3" style="background-color: #FED9B7; border-color: #00AFB9 !important;">                <div class="h-50">
+                    <img class="card-img mb-2" style="border-radius: 10%" src="..." alt=".." />
+                </div>
+                <div class="flex-column" style=" height:50%;">
                     <div class="d-flex flex-row">
-                        <h1 class="card-title" style="width:90%">Title</h1>
-                        <div id="fav-button" onclick="myFunction()" class="pt-2 w-10"><svg
+                        <h3 class="card-title" style="width:95%; font-weight: 700;">Title</h1>
+                        <div id="fav-button" style="transform: translateY(-0.5rem)" onclick="myFunction()" class="pt-2 w-5"><svg
                                 xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-heart" width="36"
                                 height="36" viewBox="0 0 24 24" stroke-width="1.5" stroke="#597e8d" fill="none"
                                 stroke-linecap="round" stroke-linejoin="round">
@@ -61,11 +62,11 @@
                                     d="M19.5 12.572l-7.5 7.428l-7.5 -7.428a5 5 0 1 1 7.5 -6.566a5 5 0 1 1 7.5 6.572" />
                             </svg></div>
                     </div>
-                    <div class="pt-2 d-flex flex-row">
+                    <div class="pt-1 d-flex flex-row">
                         <p style="font-weight:600">Location:</p> &nbsp
                         <p class="card-location">Address</p>
                     </div>
-                    <div class="pt-1 d-flex flex-row">
+                    <div class="d-flex flex-row">
                         <p style="font-weight:600">Date:</p> &nbsp
                         <p class="card-date">Saturday, April 27th, 6:00 AM to 6:00 PM</p>
                     </div>
@@ -73,11 +74,17 @@
                         <p style="font-weight:600">Time:</p> &nbsp
                         <p class="card-time">Saturday, April 27th, 6:00 AM to 6:00 PM</p>
                     </div>
-                    <p class="card-description"></p>
-                    <a href="" class="seeMoreButton"><button class="btn btn-outline-dark">See More</button></a>
-
+                    <div class="text-center">
+                    <a href="" class="seeMoreButton text-center"><button style="background-color: #F07167;" class="btn btn-outline-dark">See More</button></a>
+                    <style>
+                        .btn:hover {
+                            background-color: #343a40;
+                        }
+                    </style>
+                    </div>
+                    </div>
                 </div>
-                <img class="card-img" style="width:40% ;border-radius: 10%" src="..." alt=".." />
+                
             </div>
         </div>
     </template>
