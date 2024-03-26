@@ -1,5 +1,5 @@
 document.addEventListener('DOMContentLoaded', function() {
-    const searchInput = document.getElementById('searchInput');
+    const searchInput = document.getElementById('searchbar');
     const eventsContainer = document.getElementById('events-go-here');
 
     searchInput.addEventListener('input', function(event) {
