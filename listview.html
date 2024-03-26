@@ -47,12 +47,13 @@
     </div>
     <!--Event details-->
     <template id="eventCardTemplate" style="margin: 0px;">
-        <div class="rounded-5 mh-15 mx-2 mt-2 border border-3 mb-3 p-3" style="background-color: #FED9B7; border-color: #00AFB9 !important;">                <div class="h-50">
+        <div class="rounded-5 mh-15 mx-2 mt-3 mb-3 p-3" style="background-color: #FED9B7">                
+            <div class="h-50">
                     <img class="card-img mb-2" style="border-radius: 10%" src="..." alt=".." />
                 </div>
                 <div class="flex-column" style=" height:50%;">
                     <div class="d-flex flex-row">
-                        <h3 class="card-title" style="width:95%; font-weight: 700;">Title</h1>
+                        <h3 class="card-title" style="width:95%; font-weight: 900;">Title</h1>
                         <div id="fav-button" style="transform: translateY(-0.5rem)" onclick="myFunction()" class="pt-2 w-5"><svg
                                 xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-heart" width="36"
                                 height="36" viewBox="0 0 24 24" stroke-width="1.5" stroke="#597e8d" fill="none"
@@ -62,26 +63,31 @@
                                     d="M19.5 12.572l-7.5 7.428l-7.5 -7.428a5 5 0 1 1 7.5 -6.566a5 5 0 1 1 7.5 6.572" />
                             </svg></div>
                     </div>
-                    <div class="pt-1 d-flex flex-row">
-                        <p style="font-weight:600">Location:</p> &nbsp
-                        <p class="card-location">Address</p>
+                    <div class="d-flex flex-row">
+                    <div class="d-flex flex-column" style="width:50%; padding-right: 1px;">
+                        <p style="font-size: medium; font-weight:700; margin-bottom: 1px;">Location:</p>
+                        <p style="font-size: medium; font-weight:600" class="card-location">Address</p>
+                    </div>
+                    <div class="d-flex flex-column" style="width:50%">
+                    <div class="d-flex flex-row">
+                        <p style="font-size: medium; font-weight:700; margin-bottom: 1px; ">Date:</p> &nbsp
+                        <p style="font-size: medium; font-weight:600; margin-bottom: 1px;" class="card-date">Saturday, April 27th, 6:00 AM to 6:00 PM</p>
                     </div>
                     <div class="d-flex flex-row">
-                        <p style="font-weight:600">Date:</p> &nbsp
-                        <p class="card-date">Saturday, April 27th, 6:00 AM to 6:00 PM</p>
+                        <p style="font-size: medium; font-weight:700">Time:</p> &nbsp
+                        <p style="font-size: medium; font-weight:600" class="card-time">Saturday, April 27th, 6:00 AM to 6:00 PM</p>
                     </div>
-                    <div class="d-flex flex-row">
-                        <p style="font-weight:600">Time:</p> &nbsp
-                        <p class="card-time">Saturday, April 27th, 6:00 AM to 6:00 PM</p>
+                    </div>
                     </div>
                     <div class="text-center">
-                    <a href="" class="seeMoreButton text-center"><button style="background-color: #F07167;" class="btn btn-outline-dark">See More</button></a>
+                    <a href="" class="seeMoreButton text-center"><button style="background-color: #F07167; border: 0px; font-weight: 500;" class="btn btn-outline-dark">See More</button></a>
                     <style>
                         .btn:hover {
                             background-color: #343a40;
                         }
                     </style>
                     </div>
+                    
                     </div>
                 </div>
                 
