@@ -1,25 +1,24 @@
 document.addEventListener('DOMContentLoaded', function() {
     const searchInput = document.getElementById('searchInput');
+    const eventsContainer = document.getElementById('events-go-here');
 
     searchInput.addEventListener('input', function(event) {
-        const searchText = event.target.value.trim().toLowerCase(); // Get the lowercase search text
-        
-        // Get all the event divs
-        const events = document.querySelectorAll('#list-events > div');
-        
-        // Loop through each event div
-        events.forEach(eventDiv => {
-            const eventTitle = eventDiv.querySelector('.card-title');
-            const titleText = eventTitle.textContent.trim().toLowerCase();
-            
-            // Check if the event title contains the search text
-            if (titleText.includes(searchText)) {
-                eventDiv.style.display = 'block'; // Show the event div
-            } else {
-                eventDiv.style.display = 'none'; // Hide the event div
-            }
+        const searchText = event.target.value.trim().toLowerCase();
+
+        // Get all the event cards
+        const eventCards = eventsContainer.querySelectorAll('.rounded-5');
+
+        eventCards.forEach(card => {
+            const title = card.querySelector('.card-title').textContent.trim().toLowerCase();
+
+            // Check if the title contains the search text
+            const matchesSearch = title.includes(searchText);
+
+            // Show or hide the event card based on the search result for title
+            card.style.display = matchesSearch ? 'block' : 'none';
         });
     });
 });
+
 
 console.log('banana')
