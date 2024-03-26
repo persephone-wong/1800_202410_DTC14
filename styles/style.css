@@ -3,9 +3,13 @@ nav {
   text-align: center;
 }
 
+#bottomnavbar{
+  background-color: #FDFCDC;
+}
+
 body {
   background-color: #FDFCDC;
-  padding-bottom: 70px;
+  padding-bottom: 40px;
 }
 
 a {
