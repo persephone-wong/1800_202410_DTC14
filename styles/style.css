@@ -119,8 +119,9 @@ footer {
 }
 
 .bg_purple_and_hover {
-  background-color: rgb(158, 102, 247);
-  color: white;
+  background-color: #F07167;
+  border: 0px;
+  font-weight: 500;
 }
 
 .bg_purple_and_hover:hover {
