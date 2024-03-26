@@ -67,4 +67,49 @@ document.addEventListener('DOMContentLoaded', function () {
         const doc = await userRef.get();
         if (!doc.exists) {
             console.log('No such user!');
-        
+            return [];
+        }
+        return doc.data().list_of_friends || [];
+    }
+
+    async function fetchAndDisplayFriendActivities(friendId) {
+        const now = new Date();
+        const twoDaysAgo = new Date(now.getTime() - (2 * 24 * 60 * 60 * 1000));
+
+        // Fetch recent check-ins and reviews
+        const checkInsQuery = db.collection('Check_ins').where('user_uid', '==', friendId).where('time', '>=', twoDaysAgo);
+        const reviewsQuery = db.collection('Reviews').where('user_uid', '==', friendId).where('date', '>=', twoDaysAgo);
+
+        const [checkInsSnapshot, reviewsSnapshot] = await Promise.all([checkInsQuery.get(), reviewsQuery.get()]);
+
+        checkInsSnapshot.forEach(doc => {
+            const checkIn = doc.data();
+            addActivityToDOM(`${friendId} checked in at ${checkIn.event_uid}`, checkIn.time.toDate());
+        });
+
+        reviewsSnapshot.forEach(doc => {
+            const review = doc.data();
+            addActivityToDOM(`${friendId} reviewed ${review.event_uid}: ${review.reviewText}`, review.date.toDate());
+        });
+    }
+
+    function addActivityToDOM(text, date) {
+        const element = document.createElement('div');
+        element.classList.add('list-group-item');
+        element.textContent = `${text} - ${date.toLocaleDateString()} ${date.toLocaleTimeString()}`;
+        activitiesList.appendChild(element);
+    }
+
+    auth.onAuthStateChanged(user => {
+        if (user) {
+            const currentUserId = user.uid;
+
+            displayRecentActivities();
+            displayFriendSuggestions();
+            displayUpcomingEvents();
+            displayFriendsRecentActivities(currentUserId); // Corrected to use the authenticated user's ID
+        } else {
+            console.log("No user is logged in.");
+        }
+    });
+});
