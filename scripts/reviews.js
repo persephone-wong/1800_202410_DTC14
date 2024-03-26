@@ -85,3 +85,58 @@ function writeReview() {
 }
 
 // Optional: Initialize Firebase in this script or ensure it's done before this script runs
+
+function populateReviews() {
+  console.log("Fetching reviews");
+  let reviewCardTemplate = document.getElementById("reviewCardTemplate");
+  let reviewCardGroup = document.getElementById("reviewCardGroup");
+
+  let params = new URL(window.location.href);
+  let eventID = params.searchParams.get("docID");
+
+  db.collection("reviews")
+    .where("eventDocID", "==", eventID)
+    .get()
+    .then((allReviews) => {
+      let reviews = allReviews.docs;
+      reviews.forEach((doc) => {
+        var data = doc.data();
+        var title = data.title;
+        var waitTime = data.waitTime;
+        var kidFriendly = data.kidFriendly;
+        var petFriendly = data.petFriendly;
+        var description = data.description;
+        var time = data.timestamp.toDate();
+        var rating = data.rating; // Assume this exists and is a number
+
+        let reviewCard = reviewCardTemplate.content.cloneNode(true);
+        reviewCard.querySelector(".title").innerHTML = title;
+        reviewCard.querySelector(
+          ".waitTime"
+        ).innerHTML = `Wait Time: ${waitTime}`;
+        reviewCard.querySelector(
+          ".kidFriendly"
+        ).innerHTML = `Kid-Friendly: ${kidFriendly}`;
+        reviewCard.querySelector(
+          ".petFriendly"
+        ).innerHTML = `Pet-Friendly: ${petFriendly}`;
+        reviewCard.querySelector(
+          ".description"
+        ).innerHTML = `Description: ${description}`;
+
+        // Populate star rating
+        let starRating = "";
+        for (let i = 0; i < rating; i++) {
+          starRating += '<span class="material-icons">star</span>';
+        }
+        for (let i = rating; i < 5; i++) {
+          starRating += '<span class="material-icons">star_outline</span>';
+        }
+        reviewCard.querySelector(".star-rating").innerHTML = starRating;
+
+        reviewCardGroup.appendChild(reviewCard);
+      });
+    });
+}
+
+populateReviews();
