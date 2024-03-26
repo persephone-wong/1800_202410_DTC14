@@ -26,13 +26,18 @@
 </head>
 
 <body>
+    
+    <!-- Navbar -->
+    <nav id="navbarPlaceholder"></nav>
+
     <div id="eventContainer"></div>
 
+    
     <template id="eventCardTemplate">
         <div class="container my-4">
             <!-- Header with go-back button and event name -->
             <div class="d-flex justify-content-between align-items-center mb-3 gap-2">
-                <button class="btn btn-dark rounded-circle" onclick="goBack()">
+                <button class="backbtn btn rounded-circle" style="background-color: #00AFB9;" onclick="goBack()">
                     <svg xmlns="http://www.w3.org/2000/svg" width="20" height="30" fill="currentColor"
                         class="bi bi-arrow-left" viewBox="0 0 16 16">
                         <path fill-rule="evenodd"
@@ -77,19 +82,17 @@
                     </button>
                 </div>
                 <div class="card-body">
-                    <h5 class="card-title">Event Details</h5>
+                    <h5 style="font-size: x-large;font-weight: 700;" class="card-title">Event Details</h5>
                     <p class="card-text eventLocation">Location Description</p>
                     <p class="card-text eventDate">Date Description</p>
                     <p class="card-text eventTime">Time Description</p>
-                    <h6>Details</h6>
+                    <h6 style="font-size: x-large;font-weight: 700;">Details</h6>
                     <p class="eventDetails">Lorem ipsum dolor sit, amet consectetur adipisicing elit.
                         Dolorum ea quo iure dolores alias, consequatur nesciunt
                         porro eaque modi? Quis ab quo blanditiis animi pariatur
                         numquam nulla impedit eum iure, cumque labore voluptatem
                         fugit molestias beatae, ipsa at...</p>
-                    <div class="d-flex justify-content-between">
-                        <button class="btn btn-outline-secondary">See
-                            More</button>
+                    <div class="text-center">
                         <button class="btn bg_purple_and_hover">Check In</button>
                     </div>
                 </div>

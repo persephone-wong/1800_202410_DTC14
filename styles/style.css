@@ -14,6 +14,11 @@ a {
   font-family: "apple-system,", sans-serif;
 }
 
+.backbtn {
+  background-color: #00AFB9;
+  ;
+}
+
 #signin {
   background-color: rgb(158, 102, 247);
   width: 50%;
@@ -26,14 +31,22 @@ a {
 #signup {
   width: 50%;
 }
+
 #signup:hover {
   background-color: grey;
 }
 
+.eventName {
+  font-size: 24px;
+  font-weight: bold;
+}
+
+
+
 /* call to action */
 #discover,
 #download {
-  background-color:rgb(196, 168, 241);
+  background-color: rgb(196, 168, 241);
   border-color: rgb(196, 168, 241);
   color: white;
 }
@@ -44,38 +57,65 @@ a {
   border-color: rgb(126, 62, 228);
 }
 
-#changeProfilePic, #uploadPhotoProfile, #update{
+#changeProfilePic,
+#uploadPhotoProfile,
+#update {
   background-color: rgb(158, 102, 247);
 }
 
 #viewActivity {
   background-color: rgb(158, 102, 247);
 }
-#logoutButton{
+
+#logoutButton {
   background-color: #FED9B7;
   font-weight: 600;
 }
 
-#logOut{
+#logOut {
   background-color: rgb(158, 102, 247);
 }
 
-#accountSettings{
+#accountSettings {
   background-color: rgb(158, 102, 247);
 }
 
-.seeMore{
+.seeMore {
   background-color: rgb(158, 102, 247);
   color: white;
 }
 
+.card-title {
+  font-size: 24px;
+  font-weight: 700;
+}
+
 .card-text {
   font-size: 18px;
+  font-weight: 600;
+}
+
+.btn {
+  background-color: #F07167;
+  border: 0px;
+  font-weight: 500;
+}
+
+.card-body {
+  background-color: #FED9B7;
+  font-size: 18px;
+  font-weight: 600;
+
+}
+
+.eventDetails {
+  font-size: 18px;
+  font-weight: 600;
 }
 
 footer {
-  background-color:#0081A7;
-  
+  background-color: #0081A7;
+
 }
 
 .bg_purple_and_hover {
@@ -85,7 +125,7 @@ footer {
 
 .bg_purple_and_hover:hover {
   background-color: rgb(196, 168, 241);
-  
+
 }
 
 .outline_purple_and_hover {
@@ -98,12 +138,12 @@ footer {
   color: white;
 }
 
-a{
+a {
   text-decoration: none;
 }
 
 
-.input-group{
+.input-group {
   display: flex;
   flex-direction: column;
 }
@@ -111,7 +151,7 @@ a{
 #map {
   width: 100%;
   height: 1000px;
-  max-width: 1200px; 
+  max-width: 1200px;
   margin: auto;
 }
 
