@@ -1,6 +1,11 @@
 nav {
-  background-color: rgb(158, 102, 247);
+  background-color: #0081A7;
   text-align: center;
+}
+
+body {
+  background-color: #FDFCDC;
+  padding-bottom: 70px;
 }
 
 a {
@@ -46,6 +51,10 @@ a {
 #viewActivity {
   background-color: rgb(158, 102, 247);
 }
+#logoutButton{
+  background-color: #FED9B7;
+  font-weight: 600;
+}
 
 #logOut{
   background-color: rgb(158, 102, 247);
@@ -65,7 +74,7 @@ a {
 }
 
 footer {
-  background-color:rgb(196, 168, 241);
+  background-color:#0081A7;
   
 }
 
