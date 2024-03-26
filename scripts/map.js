@@ -29,31 +29,53 @@ function showMap() {
   });
 }
 
+
 function addEventsPinsCircle(map) {
-  // READING information from "events" collection in Firestore
+  // Assuming all your SVG icons are stored in the './icons' directory
+  const iconUrls = {
+    performance: './icons/theater_comedy_FILL0_wght400_GRAD0_opsz24.png',
+    convention: './icons/handshake_FILL0_wght400_GRAD0_opsz24.png',
+    art: './icons/palette_FILL0_wght400_GRAD0_opsz24.png',
+    sale: './icons/style_FILL0_wght400_GRAD0_opsz24.png',
+    music: './icons/music_note_FILL0_wght400_GRAD0_opsz24.png',
+    food: './icons/restaurant_FILL0_wght400_GRAD0_opsz24.png',
+    fair: './icons/attractions_FILL0_wght400_GRAD0_opsz24.png',
+  };
+
+  let loadedIcons = 0;
+  const totalIcons = Object.keys(iconUrls).length;
+
+  Object.entries(iconUrls).forEach(([type, url]) => {
+    map.loadImage(url, (error, image) => {
+      if (error) throw error;
+      map.addImage(type, image);
+      loadedIcons++;
+      if (loadedIcons === totalIcons) {
+        // All icons loaded, now add the events
+        addEventsToMap(map); // This function adds the GeoJSON source and layers
+      }
+    });
+  });
+}
+
+function addEventsToMap(map) {
   db.collection("events")
     .get()
     .then((allEvents) => {
-      const features = []; // Defines an empty array for information to be added to
+      const features = [];
 
       allEvents.forEach((doc) => {
-        // Extract coordinates of the place
         const geoPoint = doc.data().location;
         const coordinates = [geoPoint.longitude, geoPoint.latitude];
-        console.log(coordinates);
-        // Extract other addition fields that you want etc.
-        event_name = doc.data().name; // Event Name
-        preview = doc.data().description; // Text Preview
-        // img = doc.data().posterurl; // Image
-        // url = doc.data().link; // URL
+        const eventType = doc.data().type;
 
-        // Push information (properties, geometry) into the features array
         features.push({
           type: "Feature",
           properties: {
-            description: `<strong>${event_name}</strong><p>${preview}</p> 
+            description: `<strong>${doc.data().name}</strong><p>${doc.data().description}</p>
                             <br> <a href="/event.html?id=${doc.id}" target="_blank" 
                             title="Opens in a new window" class="btn btn-primary">Read more</a>`,
+            icon: eventType, // Use the event type as the icon identifier
           },
           geometry: {
             type: "Point",
@@ -62,8 +84,6 @@ function addEventsPinsCircle(map) {
         });
       });
 
-      // Adds features (in our case, pins) to the map
-      // "places" is the name of this array of features
       map.addSource("places", {
         type: "geojson",
         data: {
@@ -72,18 +92,14 @@ function addEventsPinsCircle(map) {
         },
       });
 
-      // Creates a layer above the map displaying the pins
-      // Add a layer showing the places.
       map.addLayer({
         id: "places",
-        type: "circle", // what the pins/markers/points look like
+        type: "symbol",
         source: "places",
-        paint: {
-          // customize colour and size
-          "circle-color": "#4264fb",
-          "circle-radius": 6,
-          "circle-stroke-width": 2,
-          "circle-stroke-color": "#ffffff",
+        layout: {
+          "icon-image": ["get", "icon"], // Use the icon property from each feature
+          "icon-size": 1,
+          "icon-allow-overlap": true,
         },
       });
 
