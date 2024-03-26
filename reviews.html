@@ -95,16 +95,16 @@
             ></textarea>
           </div>
           <br />
+          <!-- for kid-friendly -->
           <label
             >Kid-friendly
             <span style="display: inline-block; width: 26pt"></span
           ></label>
-
           <div class="form-check form-check-inline">
             <input
               class="form-check-input"
               type="radio"
-              name="flooded"
+              name="kidFriendly"
               value="Yes"
             />
             <label>Yes</label>
@@ -113,7 +113,7 @@
             <input
               class="form-check-input"
               type="radio"
-              name="flooded"
+              name="kidFriendly"
               value="No"
             />
             <label>No</label>
@@ -122,23 +122,23 @@
             <input
               class="form-check-input"
               type="radio"
-              name="flooded"
+              name="kidFriendly"
               value="unSure"
               checked=""
             />
             <label>Not sure</label>
           </div>
           <br />
+          <!-- for pet-friendly -->
           <label
             >Pet-friendly
             <span style="display: inline-block; width: 26pt"></span
           ></label>
-
           <div class="form-check form-check-inline">
             <input
               class="form-check-input"
               type="radio"
-              name="scrambled"
+              name="petFriendly"
               value="Yes"
             />
             <label>Yes</label>
@@ -147,7 +147,7 @@
             <input
               class="form-check-input"
               type="radio"
-              name="scrambled"
+              name="petFriendly"
               value="No"
             />
             <label>No</label>
@@ -156,7 +156,7 @@
             <input
               class="form-check-input"
               type="radio"
-              name="scrambled"
+              name="petFriendly"
               value="unSure"
               checked=""
             />
@@ -176,6 +176,34 @@
         </div>
       </form>
     </div>
+    <br />
+    <div class="container">
+      <h1 class="text-center">Reviews</h1>
+      <div id="details-go-here"></div>
+      <!-- Here is the container for cards with horizontal scrolling -->
+      <div class="card-container">
+        <div id="reviewCardGroup" class="row row-cols-auto">
+          <!-- Add your card templates here -->
+        </div>
+      </div>
+    </div>
+
+    <template id="reviewCardTemplate">
+      <div class="card bg-secondary">
+        <div class="card-body bg-light">
+          <h5 class="title">placeholder</h5>
+          <p class="star-rating"></p>
+          <p class="waitTime">placeholder</p>
+          <p class="kidFriendly">placeholder</p>
+          <p class="petFriendly">placeholder</p>
+          <br />
+          <p class="description">
+            This card has supporting text below as a natural lead-in to
+            additional content.
+          </p>
+        </div>
+      </div>
+    </template>
 
     <!-- Bottom Nav Bar-->
     <nav id="bottomnavbar"></nav>
