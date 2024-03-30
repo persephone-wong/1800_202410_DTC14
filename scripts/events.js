@@ -45,7 +45,6 @@ function displayEventCards(collection) {
                 document.getElementById(collection + "-go-here").appendChild(newcard);
 
 
-                //i++;   //Optional: iterate variable to serve as unique ID
             })
         })
 }
