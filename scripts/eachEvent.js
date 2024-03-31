@@ -40,9 +40,10 @@ function displayEventInfo() {
           card.querySelector(".eventDate").innerHTML = date;
           card.querySelector(".eventDetails").innerHTML = description;
           card.querySelector(".historicTimeWait").innerHTML = waitTime;
+          card.querySelector('.reviewbutton').href = `/reviews.html?id=${doc.id}`;
           card.querySelector('i').id = 'save-' + docID;
           card.querySelector('i').onclick = () => updateFavorite(docID);
-
+          
           currentUser.get().then(userDoc => {
             var favourites = userDoc.data().favorites;
             if (favourites.includes(docID)) {
