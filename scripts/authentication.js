@@ -31,6 +31,7 @@ var uiConfig = {
             profile_pic: "",
             received_friends_requests: [],
             sent_friends_requests: [],
+            check_ins: [],
             location: userLocation // Use the geolocation data
           })
           .then(function() {
