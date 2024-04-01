@@ -1,54 +1,76 @@
-function sendFriendRequest(senderId, recipientId) {
-    const senderRef = database.ref(`/users/${senderId}`);
-    const recipientRef = database.ref(`/users/${recipientId}`);
+// function sendToFriend(recipient){
+//     console.log('Im the best')
+//     const user = auth.currentUser;
+//     console.log(user)
+//     const friendId = recipient
+//     console.log(friendId)
+// }
 
-    const senderRequestKey = senderRef.child('sent_friends_requests').push().key;
-    const recipientRequestKey = recipientRef.child('received_friends_requests').push().key;
 
-    const senderRequest = {
-        to_user_id: recipientId,
-        status: "pending"
-    };
 
-    const recipientRequest = {
-        from_user_id: senderId,
-        status: "pending"
-    };
-
-    const updates = {};
-    updates[`/users/${senderId}/friend_requests_sent/${senderRequestKey}`] = senderRequest;
-    updates[`/users/${recipientId}/friend_requests_received/${recipientRequestKey}`] = recipientRequest;
-
-    return database.ref().update(updates)
-        .then(() => {
-            console.log('Friend request sent successfully!');
-
-            // Check if the recipient has accepted the friend request
-            return recipientRef.child(`friend_requests_received/${recipientRequestKey}`).once('value');
-        })
-        .then((snapshot) => {
-            const request = snapshot.val();
-            if (request && request.status === "accepted") {
-                // Update sender's friend list
-                const senderFriendRef = senderRef.child('friends');
-                senderFriendRef.update({ [recipientId]: true });
-
-                // Update recipient's friend list
-                const recipientFriendRef = recipientRef.child('friends');
-                recipientFriendRef.update({ [senderId]: true });
-
-                console.log('Friend request accepted! Users are now friends.');
-            } else {
-                console.log('Friend request is pending acceptance.');
-            }
-        })
-        .catch((error) => {
-            console.error('Error sending friend request:', error);
-        });
+function getuser() {
+  firebase.auth().onAuthStateChanged(user => {
+      if (user) {
+          getFavorites(user)
+      } else {
+          console.log("No user is signed in");
+      }
+  });
 }
 
-// Usage example
-const senderId = "sender_user_id"; // ID of the user sending the request
-const recipientId = "recipient_user_id"; // ID of the user receiving the request
+// function sentToFriend(recipient) {
+//   console.log("Why am I the best");
+//   const user = auth.currentUser;
+//   // console.log(user);
+//   const friendId = recipient;
+//   // console.log(friendId);
 
-sendFriendRequest(senderId, recipientId);
+//   db.collection("users").doc(user.uid).get()
+//   .then(userDoc => {
+//     if (userDoc.exists) {
+//       const userData = userDoc.data();
+//       console.log(userData)
+//       const sentFriendRequests = userData.sent_friends_requests;
+      
+//       console.log(sentFriendRequests);
+//     }
+//   })
+// }
+
+function sentToFriend(recipient) {
+  console.log("Why am I the best");
+  const user = auth.currentUser;
+  const friendId = recipient;
+
+  // Add the current user's UID to the recipient's received_friend_requests array
+  db.collection("users").doc(friendId).update({
+    received_friend_requests: firebase.firestore.FieldValue.arrayUnion(user.uid)
+  })
+  .then(() => {
+    console.log("Friend request sent to:", friendId);
+
+    // Add the friendId to the current user's sent_friend_requests array
+    db.collection("users").doc(user.uid).update({
+      sent_friend_requests: firebase.firestore.FieldValue.arrayUnion(friendId)
+    })
+    .then(() => {
+      console.log("Friend request sent from:", user.uid);
+
+      // Get the updated user document
+      db.collection("users").doc(user.uid).get()
+        .then(userDoc => {
+          if (userDoc.exists) {
+            const userData = userDoc.data();
+            const sentFriendRequests = userData.sent_friend_requests;
+            console.log("Updated sent_friend_requests array: ", sentFriendRequests);
+          }
+        });
+    })
+    .catch(error => {
+      console.error("Error adding friend request to sent_friend_requests array: ", error);
+    });
+  })
+  .catch(error => {
+    console.error("Error adding friend request to received_friend_requests array: ", error);
+  });
+}

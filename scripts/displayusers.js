@@ -17,14 +17,12 @@ db.collection("users").get().then(
       .then(querySnapshot => {
         querySnapshot.forEach(doc => {
           const userData = doc.data();
+          console.log(userData.name)
   
           let userCard = document.importNode(cardTemplate, true);
           userCard.querySelector(".card-title").textContent = userData.name;
           userCard.querySelector(".card-text").textContent = userData.bio;
           userCard.querySelector(".btn-custom").dataset.uid = doc.id;
-          userCard.querySelector(".btn-custom").addEventListener("click", () => {
-            addFriend(doc.id);
-          });
   
           document.getElementById(users + "-go-here").appendChild(userCard);
   
