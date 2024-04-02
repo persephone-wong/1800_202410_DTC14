@@ -31,7 +31,6 @@ function showMap() {
 
 
 function addEventsPinsCircle(map) {
-  // Assuming all your SVG icons are stored in the './icons' directory
   const iconUrls = {
     performance: './icons/theater_comedy_FILL0_wght400_GRAD0_opsz24.png',
     convention: './icons/handshake_FILL0_wght400_GRAD0_opsz24.png',

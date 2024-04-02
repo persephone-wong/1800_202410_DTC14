@@ -153,10 +153,3 @@ function updateCheckin(eventDocID) {
     }
   });
 }
-
-function saveEventDocumentIDAndRedirect(eventDocID) {
-  let params = new URL(window.location.href);
-  let ID = params.searchParams.get("docID");
-  localStorage.setItem("eventDocID", ID);
-  window.location.href = "reviews.html";
-}
