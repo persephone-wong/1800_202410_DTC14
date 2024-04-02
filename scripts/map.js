@@ -1,46 +1,80 @@
-const truncateText = (text, maxLength) => text.length > maxLength ? text.substring(0, maxLength - 3) + "..." : text;
+const truncateText = (text, maxLength) =>
+  text.length > maxLength ? text.substring(0, maxLength - 3) + "..." : text;
 
 function showMap() {
-
-  
-  //------------------------------------------
-  // Defines and initiates basic mapbox data
-  //------------------------------------------
-  // TO MAKE THE MAP APPEAR YOU MUST
-  // ADD YOUR ACCESS TOKEN FROM
-  // https://account.mapbox.com
   mapboxgl.accessToken =
     "pk.eyJ1Ijoia3lyeWxzaHRhbmhlaSIsImEiOiJjbHR2YnNianQxY2drMmtwZWM5Y3ozdWhwIn0.IONvHK4NmN68fngHfO79Dw";
+
+  // Create the map with a temporary center
   const map = new mapboxgl.Map({
-    container: "map", // Container ID
-    style: "mapbox://styles/mapbox/streets-v11", // Styling URL
-    center: [-123.100000, 49.276082], // Starting position
-    zoom: 11, // Starting zoom
+    container: "map",
+    style: "mapbox://styles/mapbox/streets-v11",
+    center: [-123.1, 49.276082], // This will be updated with the user's location
+    zoom: 11,
   });
 
-  // Add user controls to map, zoom bar
   map.addControl(new mapboxgl.NavigationControl());
 
-  //------------------------------------------------
-  // Add listener for when the map finishes loading.
-  // After loading, we can add map features
-  //------------------------------------------------
+  // Use the browser's navigator object to get the user's current position
+  navigator.geolocation.getCurrentPosition(
+    (position) => {
+      const userLocation = [
+        position.coords.longitude,
+        position.coords.latitude,
+      ];
+
+      // Center the map on the user's current location
+      map.jumpTo({ center: userLocation });
+
+      // Add the user's location as a source and layer on the map
+      addUserPinCircle(map, userLocation); // Pass the userLocation to the function
+    },
+    (error) => {
+      console.error(error);
+    }
+  );
+
+  // Add a "Re-center" button to the map
+  const recenterBtn = document.createElement("button");
+  recenterBtn.innerHTML = '<i class="bi bi-crosshair" style="font-size: 2rem;"></i>'; // Using Bootstrap Icons and making the icon bigger
+  recenterBtn.className = "btn btn-primary"; // Bootstrap classes for basic styling
+  recenterBtn.style.position = "absolute";
+  recenterBtn.style.bottom = "30px";
+  recenterBtn.style.right = "30px";
+  recenterBtn.style.zIndex = "1";
+  recenterBtn.style.borderRadius = "50%"; // Make the button circular
+  recenterBtn.style.height = "60px"; // Increase the height for a larger button
+  recenterBtn.style.width = "60px"; // Increase the width to match the height for a circle
+  recenterBtn.style.display = "flex";
+  recenterBtn.style.alignItems = "center";
+  recenterBtn.style.justifyContent = "center";
+  map.getContainer().appendChild(recenterBtn);
+
+  // Re-center map on button click
+  recenterBtn.addEventListener("click", () => {
+    navigator.geolocation.getCurrentPosition((position) => {
+      const userLocation = [
+        position.coords.longitude,
+        position.coords.latitude,
+      ];
+      map.flyTo({ center: userLocation, essential: true });
+    });
+  });
   map.on("load", () => {
     addEventsPinsCircle(map); // Add event pins
     addUserPinCircle(map); // Add user location pin
   });
 }
 
-
 function addEventsPinsCircle(map) {
   const iconUrls = {
-    performance: './icons/theater_comedy_FILL0_wght400_GRAD0_opsz24.png',
-    convention: './icons/handshake_FILL0_wght400_GRAD0_opsz24.png',
-    art: './icons/palette_FILL0_wght400_GRAD0_opsz24.png',
-    sale: './icons/style_FILL0_wght400_GRAD0_opsz24.png',
-    music: './icons/music_note_FILL0_wght400_GRAD0_opsz24.png',
-    food: './icons/restaurant_FILL0_wght400_GRAD0_opsz24.png',
-    fair: './icons/attractions_FILL0_wght400_GRAD0_opsz24.png',
+    performance: "./icons/theater_comedy_FILL0_wght400_GRAD0_opsz24.png",
+    convention: "./icons/handshake_FILL0_wght400_GRAD0_opsz24.png",
+    art: "./icons/palette_FILL0_wght400_GRAD0_opsz24.png",
+    sale: "./icons/style_FILL0_wght400_GRAD0_opsz24.png",
+    music: "./icons/music_note_FILL0_wght400_GRAD0_opsz24.png",
+    food: "./icons/restaurant_FILL0_wght400_GRAD0_opsz24.png",
+    fair: "./icons/attractions_FILL0_wght400_GRAD0_opsz24.png",
   };
 
   let loadedIcons = 0;
@@ -73,8 +107,15 @@ function addEventsToMap(map) {
         features.push({
           type: "Feature",
           properties: {
-            description: `<strong>${doc.data().name}</strong><p>${truncateText(doc.data().description, 150)}</p>
-                            <p>Wait time: <strong>${doc.data().typical_wait_time} mins</strong></p> <a href="/event.html?id=${doc.id}" 
+            description: `<strong>${doc.data().name}</strong><p>${truncateText(
+              doc.data().description,
+              150
+            )}</p>
+                            <p>Wait time: <strong>${
+                              doc.data().typical_wait_time
+                            } mins</strong></p> <a href="/event.html?id=${
+              doc.id
+            }" 
                             title="Opens in the same window" class="btn btn-primary">Read more</a>`,
             icon: eventType, // Use the event type as the icon identifier
           },
@@ -143,70 +184,67 @@ function addEventsToMap(map) {
 // looking pin for the user.
 // This version uses a pin that is just a circle.
 //------------------------------------------------------
-function addUserPinCircle(map) {
-  // Adds user's current location as a source to the map
-  navigator.geolocation.getCurrentPosition((position) => {
-    const userLocation = [position.coords.longitude, position.coords.latitude];
-    console.log(userLocation);
-    if (userLocation) {
-      map.addSource("userLocation", {
-        type: "geojson",
-        data: {
-          type: "FeatureCollection",
-          features: [
-            {
-              type: "Feature",
-              geometry: {
-                type: "Point",
-                coordinates: userLocation,
-              },
-              properties: {
-                description: "Your location",
-              },
+// Adds user's current location as a source to the map
+function addUserPinCircle(map, userLocation) {
+  console.log(userLocation);
+  if (userLocation) {
+    map.addSource("userLocation", {
+      type: "geojson",
+      data: {
+        type: "FeatureCollection",
+        features: [
+          {
+            type: "Feature",
+            geometry: {
+              type: "Point",
+              coordinates: userLocation,
             },
-          ],
-        },
-      });
+            properties: {
+              description: "Your location",
+            },
+          },
+        ],
+      },
+    });
 
-      // Creates a layer above the map displaying the pins
-      // Add a layer showing the places.
-      map.addLayer({
-        id: "userLocation",
-        type: "circle", // what the pins/markers/points look like
-        source: "userLocation",
-        paint: {
-          // customize colour and size
-          "circle-color": "blue",
-          "circle-radius": 6,
-          "circle-stroke-width": 2,
-          "circle-stroke-color": "#ffffff",
-        },
-      });
+    // Creates a layer above the map displaying the pins
+    // Add a layer showing the places.
+    map.addLayer({
+      id: "userLocation",
+      type: "circle", // what the pins/markers/points look like
+      source: "userLocation",
+      paint: {
+        // customize colour and size
+        "circle-color": "blue",
+        "circle-radius": 6,
+        "circle-stroke-width": 2,
+        "circle-stroke-color": "#ffffff",
+      },
+    });
 
-      // Map On Click function that creates a popup displaying the user's location
-      map.on("click", "userLocation", (e) => {
-        // Copy coordinates array.
-        const coordinates = e.features[0].geometry.coordinates.slice();
-        const description = e.features[0].properties.description;
+    // Map On Click function that creates a popup displaying the user's location
+    map.on("click", "userLocation", (e) => {
+      // Copy coordinates array.
+      const coordinates = e.features[0].geometry.coordinates.slice();
+      const description = e.features[0].properties.description;
 
-        new mapboxgl.Popup()
-          .setLngLat(coordinates)
-          .setHTML(description)
-          .addTo(map);
-      });
+      new mapboxgl.Popup()
+        .setLngLat(coordinates)
+        .setHTML(description)
+        .addTo(map);
+    });
 
-      // Change the cursor to a pointer when the mouse is over the userLocation layer.
-      map.on("mouseenter", "userLocation", () => {
-        map.getCanvas().style.cursor = "pointer";
-      });
+    // Change the cursor to a pointer when the mouse is over the userLocation layer.
+    map.on("mouseenter", "userLocation", () => {
+      map.getCanvas().style.cursor = "pointer";
+    });
 
-      // Defaults
-      // Defaults cursor when not hovering over the userLocation layer
-      map.on("mouseleave", "userLocation", () => {
-        map.getCanvas().style.cursor = "";
-      });
-    }
-  });
+    // Defaults
+    // Defaults cursor when not hovering over the userLocation layer
+    map.on("mouseleave", "userLocation", () => {
+      map.getCanvas().style.cursor = "";
+    });
+  }
 }
 
 showMap(); // Call it!
