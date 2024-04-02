@@ -1,113 +1,128 @@
-document.addEventListener('DOMContentLoaded', function () {
+document.addEventListener('DOMContentLoaded', async () => {
     const db = firebase.firestore();
     const auth = firebase.auth();
 
-    const activitiesList = document.getElementById('activitiesList');
-    const suggestionsList = document.getElementById('suggestionsList');
-    const eventCards = document.getElementById('eventCards');
+    const elements = {
+        activitiesList: document.getElementById('activitiesList'),
+        suggestionsList: document.getElementById('suggestionsList'),
+        eventCards: document.getElementById('eventCards')
+    };
 
-    function displayRecentActivities() {
-        db.collection("events").orderBy("date", "desc").limit(5).get()
-            .then(snapshot => {
-                snapshot.forEach(doc => {
-                    const data = doc.data();
-                    const eventItem = document.getElementById("activityTemplate").content.cloneNode(true);
-                    eventItem.querySelector('h5').textContent = data.name;
-                    eventItem.querySelector('small').textContent = data.date;
-                    eventItem.querySelector('p').textContent = data.description;
-                    activitiesList.appendChild(eventItem);
-                });
-            });
-    }
+    // Utilize template literals for IDs
+    const templates = {
+        activity: document.getElementById("activityTemplate"),
+        friendSuggestion: document.getElementById("friendSuggestionTemplate"),
+        eventCard: document.getElementById("eventCardTemplate")
+    };
 
-    // Fetch and display friend suggestions (Mockup data as an example)
-    function displayFriendSuggestions() {
-        const friends = [
-            { name: "John Doe", img: "path/to/image.jpg" },
-            { name: "Jane Doe", img: "path/to/another/image.jpg" }
-            // Assume these objects come from your Users collection or similar
-        ];
-
-        friends.forEach(friend => {
-            const friendCard = document.getElementById("friendSuggestionTemplate").content.cloneNode(true);
-            friendCard.querySelector('.card-title').textContent = friend.name;
-            friendCard.querySelector('img').src = friend.img;
-            suggestionsList.appendChild(friendCard);
-        });
-    }
-
-    // Fetch and display upcoming events
-    function displayUpcomingEvents() {
-        db.collection("events").get().then(snapshot => {
-            snapshot.forEach(doc => {
-                const data = doc.data();
-                const eventCard = document.getElementById("eventCardTemplate").content.cloneNode(true);
-                eventCard.querySelector('.card-title').textContent = data.name;
-                eventCard.querySelector('.card-text').textContent = data.description;
-                eventCard.querySelector('img').src = `./images/${data.code}.jpg`; // Assumes images named by event code
-                eventCard.querySelector('.btn-primary').href = `/event.html?id=${doc.id}`;
-                eventCard.querySelector('.fav-button').addEventListener('click', function() {
-                    alert('Favorite clicked for ' + data.name); // Placeholder for actual favorite logic
-                });
-                eventCards.appendChild(eventCard);
-            });
-        });
-    }
-
-    async function displayFriendsRecentActivities() {
-        const friendsList = await fetchFriendsList(currentUserId);
-        
-        for (const friendId of friendsList) {
-            await fetchAndDisplayFriendActivities(friendId);
+    // Error handling wrapper
+    const safelyExecute = async (operation, errorHandler = console.error) => {
+        try {
+            await operation();
+        } catch (error) {
+            errorHandler(error);
         }
-    }
+    };
 
-    async function fetchFriendsList(userId) {
-        const userRef = db.collection('Users').doc(userId);
-        const doc = await userRef.get();
-        if (!doc.exists) {
-            console.log('No such user!');
-            return [];
-        }
-        return doc.data().list_of_friends || [];
-    }
+    const truncateText = (text, maxLength) => text.length > maxLength ? text.substring(0, maxLength - 3) + "..." : text;
 
-    async function fetchAndDisplayFriendActivities(friendId) {
+    const calculateDaysDifference = (date) => {
         const now = new Date();
-        const twoDaysAgo = new Date(now.getTime() - (2 * 24 * 60 * 60 * 1000));
+        const diffTime = Math.abs(date - now);
+        return Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+    };
 
-        // Fetch recent check-ins and reviews
-        const checkInsQuery = db.collection('Check_ins').where('user_uid', '==', friendId).where('time', '>=', twoDaysAgo);
-        const reviewsQuery = db.collection('Reviews').where('user_uid', '==', friendId).where('date', '>=', twoDaysAgo);
-
-        const [checkInsSnapshot, reviewsSnapshot] = await Promise.all([checkInsQuery.get(), reviewsQuery.get()]);
-
-        checkInsSnapshot.forEach(doc => {
-            const checkIn = doc.data();
-            addActivityToDOM(`${friendId} checked in at ${checkIn.event_uid}`, checkIn.time.toDate());
+    const displayRecentActivities = async () => {
+        const now = firebase.firestore.Timestamp.now();
+        const sevenDaysAgo = new Date();
+        sevenDaysAgo.setDate(sevenDaysAgo.getDate() - 7);
+        console.log(sevenDaysAgo);
+        
+        const querySnapshot = await db.collection("events")
+                                       .where("datestamp", ">=", firebase.firestore.Timestamp.fromDate(sevenDaysAgo))
+                                       .orderBy("datestamp", "asc")
+                                       .limit(4)
+                                       .get();
+        querySnapshot.forEach(doc => {
+            const data = doc.data();
+            data.datestamp = data.datestamp.toDate(); // Convert Firestore Timestamp to JavaScript Date
+            createActivityItem({...data, daysAgo: calculateDaysDifference(data.datestamp),}, templates.activity, elements.activitiesList, true, doc.id);
         });
+    };
 
-        reviewsSnapshot.forEach(doc => {
-            const review = doc.data();
-            addActivityToDOM(`${friendId} reviewed ${review.event_uid}: ${review.reviewText}`, review.date.toDate());
-        });
+    const displayFriendSuggestions = async () => {
+        const querySnapshot = await db.collection("users").limit(10).get(); // Fetch more to shuffle
+        const friends = [];
+        querySnapshot.forEach(doc => friends.push(doc.data()));
+
+        // Shuffle and take first 3
+        const selectedFriends = friends.sort(() => 0.5 - Math.random()).slice(0, 3);
+        selectedFriends.forEach(friend => createFriendSuggestionItem(friend, templates.friendSuggestion, elements.suggestionsList));
+    };
+
+    const displayUpcomingEvents = async () => {
+        const now = firebase.firestore.Timestamp.now();
+        db.collection("events")
+          .where("datestamp", ">=", now)
+          .orderBy("datestamp")
+          .limit(10)
+          .get()
+          .then(querySnapshot => {
+              if (querySnapshot.empty) {
+                  console.log('No upcoming events found.');
+                  return;
+              }
+              querySnapshot.forEach(doc => {
+                  const data = doc.data();
+                  data.datestamp = data.datestamp.toDate(); // Convert Firestore Timestamp to JavaScript Date
+                  createEventCardItem({...data, daysUntil: calculateDaysDifference(data.datestamp)}, templates.eventCard, elements.eventCards, doc.id);
+              });
+          })
+          .catch(error => console.error("Error fetching upcoming events:", error));
+    };
+    
+
+    function createActivityItem(data, template, container, isRecent, id) {
+        const clone = template.content.cloneNode(true);
+        clone.querySelector('a').href = `./event.html?id=${id}`;
+        clone.querySelector('h5').textContent = data.name;
+        const dateText = `${isRecent ? `${data.daysAgo} days ago` : `in ${data.daysUntil} days`}`;
+        clone.querySelector('small').innerHTML = `<span style="color:${isRecent ? 'red' : 'green'}">${dateText}</span>`;
+        clone.querySelector('p').textContent = truncateText(data.description, 100);
+        container.appendChild(clone);
     }
 
-    function addActivityToDOM(text, date) {
-        const element = document.createElement('div');
-        element.classList.add('list-group-item');
-        element.textContent = `${text} - ${date.toLocaleDateString()} ${date.toLocaleTimeString()}`;
-        activitiesList.appendChild(element);
+    // Reuse for friend suggestions and event cards
+    function createFriendSuggestionItem(friend, template, container) {
+        const clone = template.content.cloneNode(true);
+        clone.querySelector('.card-title').textContent = friend.name;
+        clone.querySelector('img').src = friend.img;
+        container.appendChild(clone);
     }
 
+    function createEventCardItem(data, template, container, id) {
+        const clone = template.content.cloneNode(true);
+        clone.querySelector('.card-title').textContent = data.name;
+        clone.querySelector('.card-text').textContent = truncateText(data.description, 100);
+        clone.querySelector('img').src = `./images/${data.code}.jpg`;
+    
+        const daysUntil = calculateDaysDifference(data.datestamp);
+        const dateText = `in ${daysUntil} days`;
+        clone.querySelector('.date-info').innerHTML = `<span style="color:green">${dateText}</span>`;
+
+        clone.querySelector('a').href = `./event.html?id=${id}`;
+    
+        container.appendChild(clone);
+    }
+    
+
+    // Auth state change logic
     auth.onAuthStateChanged(user => {
         if (user) {
-            const currentUserId = user.uid;
-
-            displayRecentActivities();
-            displayFriendSuggestions();
-            displayUpcomingEvents();
-            displayFriendsRecentActivities(currentUserId); // Corrected to use the authenticated user's ID
+            safelyExecute(() => displayRecentActivities());
+            safelyExecute(() => displayFriendSuggestions());
+            safelyExecute(() => displayUpcomingEvents());
+            // assuming displayFriendsRecentActivities function exists
         } else {
             console.log("No user is logged in.");
         }
