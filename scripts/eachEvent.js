@@ -186,6 +186,8 @@ function initMap(startPoint, endPoint) {
     center: startPoint, // Center the map on the user's location
   });
 
+  updateDirectionLinks(startPoint, endPoint);
+  
   const directionsService = new google.maps.DirectionsService();
   const directionsRenderer = new google.maps.DirectionsRenderer();
   directionsRenderer.setMap(map);
@@ -279,3 +281,19 @@ function updateTravelTime(response, status, selector) {
     );
   }
 }
+
+function updateDirectionLinks(startPoint, endPoint) {
+  const baseUrl = 'https://www.google.com/maps/dir/?api=1';
+  const travelModes = {
+      driving: 'driving',
+      transit: 'transit',
+      walking: 'walking',
+  };
+
+  document.querySelectorAll('.direction-link').forEach(link => {
+      const mode = link.getAttribute('data-travel-mode');
+      const url = `${baseUrl}&origin=${startPoint.lat},${startPoint.lng}&destination=${endPoint.lat},${endPoint.lng}&travelmode=${travelModes[mode]}`;
+      link.href = url;
+  });
+}
+
