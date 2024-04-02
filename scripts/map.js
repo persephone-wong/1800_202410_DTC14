@@ -1,3 +1,5 @@
+const truncateText = (text, maxLength) => text.length > maxLength ? text.substring(0, maxLength - 3) + "..." : text;
+
 function showMap() {
 
   
@@ -71,9 +73,9 @@ function addEventsToMap(map) {
         features.push({
           type: "Feature",
           properties: {
-            description: `<strong>${doc.data().name}</strong><p>${doc.data().description}</p>
-                            <br> <a href="/event.html?id=${doc.id}" target="_blank" 
-                            title="Opens in a new window" class="btn btn-primary">Read more</a>`,
+            description: `<strong>${doc.data().name}</strong><p>${truncateText(doc.data().description, 150)}</p>
+                            <p>Wait time: <strong>${doc.data().typical_wait_time} mins</strong></p> <a href="/event.html?id=${doc.id}" 
+                            title="Opens in the same window" class="btn btn-primary">Read more</a>`,
             icon: eventType, // Use the event type as the icon identifier
           },
           geometry: {
