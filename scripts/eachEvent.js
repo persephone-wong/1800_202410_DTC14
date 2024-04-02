@@ -211,7 +211,7 @@ function calculateAndDisplayRoute(
     startPoint,
     endPoint,
     google.maps.TravelMode.DRIVING,
-    ".col-10.driving-time"
+    ".driving-time"
   );
 
   // For TRANSIT and WALKING, we calculate route but do not display it on the map
@@ -221,7 +221,7 @@ function calculateAndDisplayRoute(
     startPoint,
     endPoint,
     google.maps.TravelMode.TRANSIT,
-    ".col-10.transit-time"
+    ".transit-time"
   );
   calculateRoute(
     directionsService,
@@ -229,7 +229,7 @@ function calculateAndDisplayRoute(
     startPoint,
     endPoint,
     google.maps.TravelMode.WALKING,
-    ".col-10.walk-time"
+    ".walk-time"
   );
 }
 
@@ -252,6 +252,10 @@ function calculateRoute(
         if (directionsRenderer) {
           // Only render the map route for driving
           directionsRenderer.setDirections(response);
+
+          // Display the distance to the event
+          const distance = response.routes[0].legs[0].distance.text;
+          document.querySelector('.distance-to-event').textContent = `${distance} away from you`;
         }
         var travelTime = response.routes[0].legs[0].duration.text;
         document.querySelector(selector).textContent = travelTime;
