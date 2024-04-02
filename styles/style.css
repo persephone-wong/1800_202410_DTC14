@@ -199,3 +199,25 @@ nav{
   padding-top: 20px;
   padding-bottom: 20px;
 }
+
+.horizontal-scroll {
+  display: flex;
+  overflow-x: auto;
+  white-space: nowrap;
+}
+
+.custom-card {
+  width: 22rem !important;
+}
+
+.friend-name {
+  font-size: 1.1rem;
+  white-space: normal; 
+  word-wrap: break-word;
+}
+
+.result-text{
+  font-size: 0.9rem;
+  white-space: normal; 
+  word-wrap: break-word;
+}

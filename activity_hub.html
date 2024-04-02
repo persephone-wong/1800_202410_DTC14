@@ -73,22 +73,20 @@
             <!-- Friend Suggestions Section -->
             <div class="mb-4" id="friendSuggestions">
                 <h2>Friend Suggestions</h2>
-                <div class="d-flex flex-wrap" id="suggestionsList">
+                <div class="d-flex horizontal-scroll" id="suggestionsList">
                     <!-- Template for Friend Suggestions -->
                     <template id="friendSuggestionTemplate">
-                        <div class="card m-2" style="width: 18rem;">
-                            <img src="default_image.png"
-                                class="card-img-top" alt="Friend Name">
+                        <div class="card m-2 custom-card" style="min-width: 175px;">
+                            <img src="./images/friend1.png" class="card-img-top" alt="Friend Name">
                             <div class="card-body">
-                                <h5 class="card-title">Friend Name</h5>
-                                <a href="#"
-                                    class="btn bg_purple_and_hover">Add
-                                    Friend</a>
+                                <h5 class="card-title friend-name">Friend Name</h5>
+                                <button class="btn bg_purple_and_hover add-friend-button">Add Friend</button>
                             </div>
                         </div>
                     </template>
                 </div>
             </div>
+            
 
             <div class="mb-4" id="upcomingEvents">
                 <h2>Upcoming Events</h2>
@@ -125,6 +123,7 @@
         <script src="./scripts/firebaseAPI_TEAMDTC14.js"></script>
         <script src="./scripts/skeleton.js"></script>
         <script src="./scripts/activity_hub.js"></script>
+        <script src="./scripts/addFriends.js"></script>
     </body>
 
 </html>

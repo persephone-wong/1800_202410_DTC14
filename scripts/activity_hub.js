@@ -51,14 +51,16 @@ document.addEventListener('DOMContentLoaded', async () => {
     };
 
     const displayFriendSuggestions = async () => {
-        const querySnapshot = await db.collection("users").limit(10).get(); // Fetch more to shuffle
+        const querySnapshot = await db.collection("users").limit(10).get();
         const friends = [];
-        querySnapshot.forEach(doc => friends.push(doc.data()));
-
-        // Shuffle and take first 3
-        const selectedFriends = friends.sort(() => 0.5 - Math.random()).slice(0, 3);
+        querySnapshot.forEach(doc => {
+            const friendWithId = { id: doc.id, ...doc.data() }; // Include the document ID
+            friends.push(friendWithId);
+        });
+    
+        const selectedFriends = friends.sort(() => 0.5 - Math.random()).slice(0, 4);
         selectedFriends.forEach(friend => createFriendSuggestionItem(friend, templates.friendSuggestion, elements.suggestionsList));
-    };
+    };    
 
     const displayUpcomingEvents = async () => {
         const now = firebase.firestore.Timestamp.now();
@@ -92,13 +94,26 @@ document.addEventListener('DOMContentLoaded', async () => {
         container.appendChild(clone);
     }
 
-    // Reuse for friend suggestions and event cards
     function createFriendSuggestionItem(friend, template, container) {
         const clone = template.content.cloneNode(true);
         clone.querySelector('.card-title').textContent = friend.name;
-        clone.querySelector('img').src = friend.img;
+        clone.querySelector('img').src = friend.img || './images/friend1.png'; // Fallback to default image if none is provided
+    
+        const addFriendButton = clone.querySelector('.add-friend-button');
+        addFriendButton.setAttribute('data-recipient-id', friend.id);
+        addFriendButton.addEventListener('click', async function(event) {
+            this.disabled = true; // Disable button to prevent multiple clicks
+            try {
+                await sentToFriend(this.getAttribute('data-recipient-id'));
+                this.parentElement.innerHTML += '<p class="result-text">Friend request sent successfully!</p>';
+            } catch (error) {
+                console.error('Failed to send friend request:', error);
+                this.parentElement.innerHTML += '<p class="result-text">Failed to send friend request.</p>';
+            }
+        });
+    
         container.appendChild(clone);
-    }
+    }    
 
     function createEventCardItem(data, template, container, id) {
         const clone = template.content.cloneNode(true);
