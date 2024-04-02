@@ -2,119 +2,80 @@
 <html lang="en">
 
 <head>
-  <title>Reviews</title>
-  <meta name="comp1800 template" content="My 1800 App" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User</title>
+    <!------------------------------------------>
+    <!-- Bootstrap Library CSS JS CDN go here -->
+    <!------------------------------------------>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        crossorigin="anonymous" />
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous">
+    </script>
 
-  <!-- Required meta tags -->
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <!-- Link to styles of your own -->
+    <link rel="stylesheet" href="/styles/style.css" />
 
-  <!------------------------------------------>
-  <!-- Bootstrap Library CSS JS CDN go here -->
-  <!------------------------------------------>
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
-    crossorigin="anonymous" />
 
-  <!-------------------------------------------------------->
-  <!-- Firebase 8 Library related CSS, JS, JQuery go here -->
-  <!-------------------------------------------------------->
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-firestore.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/ui/4.8.1/firebase-ui-auth.js"></script>
-  <link type="text/css" rel="stylesheet" href="https://www.gstatic.com/firebasejs/ui/4.8.1/firebase-ui-auth.css" />
-  <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-storage.js"></script>
+    <!-------------------------------------------------------->
+    <!-- Firebase 8 Library related CSS, JS, JQuery go here -->
+    <!-------------------------------------------------------->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-firestore.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/ui/4.8.1/firebase-ui-auth.js"></script>
+    <link type="text/css" rel="stylesheet" href="https://www.gstatic.com/firebasejs/ui/4.8.1/firebase-ui-auth.css" />
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-storage.js"></script>
 
-  <!-- Other libraries go here -->
-  <link href="https://fonts.googleapis.com/css2?family=Alice&family=Protest+Strike&display=swap" rel="stylesheet" />
-
-  <!-- Link to styles of your own -->
-  <link rel="stylesheet" href="./styles/style.css" />
-  <style>
-    .card-img {
-      height: 200px;
-      object-fit: cover;
-    }
-
-    .card {
-      margin-bottom: 20px;
-    }
-
-    .btn-custom {
-      background-color: rgb(158, 102, 247);
-      color: white;
-    }
-  </style>
 </head>
 
 <body>
-  <!-- nav -->
-  <nav id="navbarPlaceholder"></nav>
+    <!-- <h1>Friend Requests</h1>
+    <div id="users-go-here"></div>
+    <template id="userCardTemplate" style="margin: 0px;">
+        <div class="container py-4">
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title">Name</h5>
+                            <p class="card-text">Bio</p>
+                            <a href="#" class="btn btn-custom" data-user-id="{{user.id}}"
+                                onclick="accept(this.dataset.uid)">Accept</a>
+                            <a href="#" class="btn btn-custom" data-user-id="{{user.id}}"
+                                onclick="decline(this.dataset.uid)">Decline</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </template> -->
 
-  <!-- main content -->
-  <div class="container pb-4">
-    <h2 class="mb-3 text-center">My Friends List</h2>
-    <div class="row">
-      <div class="col-md-4">
-        <div class="card">
-          <img src="images/friend1.png" class="card-img" alt="Friend Name">
-          <div class="card-body">
-            <h5 data-url="friends.html" class="card-title">Phoebe Buffay</h5>
-            <p class="card-text">Lorem, ipsum.</p>
-            <a href="#" class="btn btn-custom">View their likes</a>
-          </div>
-        </div>
-      </div>
-      <div class="col-md-4">
-        <div class="card">
-          <img src="images/friend2.png" class="card-img" alt="Friend Name">
-          <div class="card-body">
-            <h5 data-url="friends.html" class="card-title">Monica Geller</h5>
-            <p class="card-text">Lorem, ipsum.</p>
-            <a href="#" class="btn btn-custom">View their likes</a>
-          </div>
-        </div>
-      </div>
-      <div class="col-md-4">
-        <div class="card">
-          <img src="images/friend3.png" class="card-img" alt="Friend Name">
-          <div class="card-body">
-            <h5 data-url="friends.html" class="card-title">Joey Tribbiani</h5>
-            <p class="card-text">Lorem, ipsum.</p>
-            <a href="#" class="btn btn-custom">View their likes</a>
-          </div>
-        </div>
-      </div>
-      <div class="col-md-4">
-        <div class="card">
-          <img src="images/friend4.png" class="card-img" alt="Friend Name">
-          <div class="card-body">
-            <h5 data-url="friends.html" class="card-title">Ross Geller</h5>
-            <p class="card-text">Lorem, ipsum.</p>
-            <a href="#" class="btn btn-custom">View their likes</a>
-          </div>
-        </div>
-      </div>
-      <div class="col-md-4">
-        <div class="card">
-          <img src="images/friend5.png" class="card-img" alt="Friend Name">
-          <div class="card-body">
-            <h5 data-url="friends.html" class="card-title">Rachel Green</h5>
-            <p class="card-text">Lorem, ipsum.</p>
-            <a href="#" class="btn btn-custom">View their likes</a>
-          </div>
-        </div>
+    <h1>Friend Requests</h1>
+<div class="container">
+  <div class="row" id="users-go-here"></div>
+</div>
+
+<template id="userCardTemplate" style="margin: 0px;">
+  <div class="col-md-20"> <!-- Adjust column size as needed -->
+    <div class="card">
+      <div class="card-body">
+        <h5 class="card-title">Name</h5>
+        <p class="card-text">Bio</p>
+        <a href="#" class="btn btn-custom" data-user-id="{{user.id}}" onclick="accept(this.dataset.uid)">Accept</a>
+        <a href="#" class="btn btn-custom" data-user-id="{{user.id}}" onclick="decline(this.dataset.uid)">Decline</a>
       </div>
     </div>
   </div>
+</template>
 
 
-  <!-- Bottom Nav Bar-->
-  <nav id="bottomnavbar"></nav>
-
-  <script src="./scripts/firebaseAPI_TEAMDTC14.js"></script>
-  <script src="./scripts/skeleton.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="./scripts/firebaseAPI_TEAMDTC14.js"></script>
+    <script src="./scripts/display_friendRequest.js"></script>
+    <script src="./scripts/addFriends.js"></script>
+    <script src="./scripts/skeleton.js"></script>
 </body>
 
 </html>

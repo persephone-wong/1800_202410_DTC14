@@ -1,13 +1,3 @@
-// function sendToFriend(recipient){
-//     console.log('Im the best')
-//     const user = auth.currentUser;
-//     console.log(user)
-//     const friendId = recipient
-//     console.log(friendId)
-// }
-
-
-
 function getuser() {
   firebase.auth().onAuthStateChanged(user => {
       if (user) {
@@ -18,29 +8,12 @@ function getuser() {
   });
 }
 
-// function sentToFriend(recipient) {
-//   console.log("Why am I the best");
-//   const user = auth.currentUser;
-//   // console.log(user);
-//   const friendId = recipient;
-//   // console.log(friendId);
-
-//   db.collection("users").doc(user.uid).get()
-//   .then(userDoc => {
-//     if (userDoc.exists) {
-//       const userData = userDoc.data();
-//       console.log(userData)
-//       const sentFriendRequests = userData.sent_friends_requests;
-      
-//       console.log(sentFriendRequests);
-//     }
-//   })
-// }
-
 function sentToFriend(recipient) {
   console.log("Why am I the best");
   const user = auth.currentUser;
   const friendId = recipient;
+
+  
 
   // Add the current user's UID to the recipient's received_friend_requests array
   db.collection("users").doc(friendId).update({
@@ -73,4 +46,39 @@ function sentToFriend(recipient) {
   .catch(error => {
     console.error("Error adding friend request to received_friend_requests array: ", error);
   });
+
+  
 }
+
+async function accept(sender) {
+  console.log("Why am I the best");
+  const user = auth.currentUser;
+  console.log(user)
+  const friendId = sender;
+  console.log(friendId)
+  
+  try {
+    await db.collection("users").doc(user.uid).update({
+      received_friends_requests: firebase.firestore.FieldValue.arrayRemove(friendId)
+    });
+
+    await db.collection("users").doc(friendId).update({
+      sent_friend_requests: firebase.firestore.FieldValue.arrayRemove(user.uid)
+    });
+
+    await db.collection("users").doc(user.uid).update({
+      list_of_friends: firebase.firestore.FieldValue.arrayUnion(friendId)
+    });
+
+    await db.collection("users").doc(friendId).update({
+      list_of_friends: firebase.firestore.FieldValue.arrayUnion(user.uid)
+    });
+
+    console.log("Friend request accepted successfully!");
+  } catch (error) {
+    console.error("Error accepting friend request:", error);
+  }
+}
+
+
+
