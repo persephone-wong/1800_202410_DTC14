@@ -26,7 +26,7 @@ var uiConfig = {
             email: user.email,
             age: -1,
             bio: "New user",
-            list_of_favorites: [],
+            favorites: [],
             list_of_friends: [],
             profile_pic: "",
             received_friends_requests: [],
