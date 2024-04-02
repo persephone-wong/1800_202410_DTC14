@@ -80,5 +80,13 @@ async function accept(sender) {
   }
 }
 
+function decline(button) {
+  // Remove the parent card element from the DOM
+  const cardElement = button.closest('.col-md-4');
+  cardElement.remove();
+
+  console.log("User card has been declined.");
+}
+
 
 
