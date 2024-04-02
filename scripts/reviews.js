@@ -1,18 +1,18 @@
 var eventDocID = localStorage.getItem("eventDocID");
 
+console.log("eventDocID:", eventDocID); // Check the retrieved ID
+
 function getEventName(id) {
   db.collection("events")
     .doc(id)
     .get()
-    .then((doc) => {
-      var eventName = doc.data().name;
-      document.getElementById("events").textContent = eventName;
+    .then((thisEvent) => {
+      var eventName = thisEvent.data().name;
+      document.getElementById("eventName").innerHTML = eventName;
     });
 }
 
-if (eventDocID) {
-  getEventName(eventDocID);
-}
+getEventName(eventDocID);
 
 const stars = document.querySelectorAll(".star");
 
@@ -27,7 +27,7 @@ stars.forEach((star, index) => {
 function writeReview() {
   console.log("Inside writeReview");
   let title = document.getElementById("title").value;
-  let waitTime = document.getElementById("level").value;
+  let waitTime = document.getElementById("waitTime").value;
   let description = document.getElementById("description").value;
   let kidFriendly = document.querySelector(
     'input[name="kidFriendly"]:checked'
@@ -50,11 +50,12 @@ function writeReview() {
     }
   });
 
-  console.log(title, waitTime, description, kidFriendly, petFriendly);
+  console.log(title, waitTime, description, kidFriendly, petFriendly, Rating);
 
   // Check for user authentication
   var user = firebase.auth().currentUser;
   if (user) {
+    // var currentUser = db.collection("users").doc(user.uid);
     var userID = user.uid;
 
     // Submit review
@@ -67,7 +68,7 @@ function writeReview() {
         description: description,
         kidFriendly: kidFriendly,
         petFriendly: petFriendly,
-        rating: rating,
+        rating: Rating,
         timestamp: firebase.firestore.FieldValue.serverTimestamp(),
       })
       .then(() => {
@@ -109,8 +110,14 @@ function populateReviews() {
         var time = data.timestamp.toDate();
         var rating = data.rating; // Assume this exists and is a number
 
+        console.log(rating);
+        console.log(time);
+
         let reviewCard = reviewCardTemplate.content.cloneNode(true);
         reviewCard.querySelector(".title").innerHTML = title;
+        reviewCard.querySelector(".time").innerHTML = new Date(
+          time
+        ).toLocaleString();
         reviewCard.querySelector(
           ".waitTime"
         ).innerHTML = `Wait Time: ${waitTime}`;
