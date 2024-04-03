@@ -58,19 +58,19 @@ function updateFavorite(eventDocID) {
 
         if (favoritesNow.includes(eventDocID)){
             console.log("this event exist in the database,should be removed");
+            let iconID = 'save-' + eventDocID;
+            document.getElementById(iconID).innerText = 'favorite_border';
             currentUser.update({
             favorites: firebase.firestore.FieldValue.arrayRemove(eventDocID)
-            }).then(()=>{
-               let iconID = 'save-' + eventDocID;
-            document.getElementById(iconID).innerText = 'favorite_border';})
+            })
         }
         else{
             console.log("this event does not exist in the database and should be added")
+            let iconID = 'save-' + eventDocID;
+            document.getElementById(iconID).innerText = 'favorite';
             currentUser.update({
-                favorites: firebase.firestore.FieldValue.arrayUnion(eventDocID)
-            }).then(()=>{
-                let iconID = 'save-' + eventDocID;
-             document.getElementById(iconID).innerText = 'favorite';})
+            favorites: firebase.firestore.FieldValue.arrayUnion(eventDocID)
+            })
 
         }
 
