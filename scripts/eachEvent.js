@@ -112,25 +112,22 @@ function updateFavorite(eventDocID) {
     if (favoritesNow.includes(eventDocID)) {
       console.log("this event exist in the database,should be removed");
       currentUser
+      let iconID = "save-" + eventDocID;
+      document.getElementById(iconID).innerText = "favorite_border"
         .update({
           favorites: firebase.firestore.FieldValue.arrayRemove(eventDocID),
         })
-        .then(() => {
-          let iconID = "save-" + eventDocID;
-          document.getElementById(iconID).innerText = "favorite_border";
-        });
+        ;
     } else {
       console.log(
         "this event does not exist in the database and should be added"
       );
+      let iconID = "save-" + eventDocID;
+      document.getElementById(iconID).innerText = "favorite"
       currentUser
         .update({
           favorites: firebase.firestore.FieldValue.arrayUnion(eventDocID),
         })
-        .then(() => {
-          let iconID = "save-" + eventDocID;
-          document.getElementById(iconID).innerText = "favorite";
-        });
     }
   });
 }
@@ -141,42 +138,30 @@ function updateCheckin(eventDocID) {
     console.log(checkinsUser);
 
     if (checkinsUser.includes(eventDocID)) {
-      console.log("this check-in exist in the database,should be removed");
-      currentUser
-        .update({
+      alert('Checked Out!');
+      let buttonID = "checkin-" + eventDocID;
+      document.getElementById(buttonID).innerText = "Check In";
+      currentUser.update({
           check_ins: firebase.firestore.FieldValue.arrayRemove(eventDocID),
-        })
-        .then(() => {
-          let buttonID = "checkin-" + eventDocID;
         });
       currentEvent
         .update({
           typical_wait_time: firebase.firestore.FieldValue.increment(-5),
           check_ins: firebase.firestore.FieldValue.arrayRemove(eventDocID),
         })
-        .then(() => {
-          let buttonID = "checkin-" + eventDocID;
-          document.getElementById(buttonID).innerText = "Check In";
-        });
+        
+        ;
     } else {
-      console.log(
-        "this check-in does not exist in the database and should be added"
-      );
-      currentUser
-        .update({
+      alert('Checked In!');
+      let buttonID = "checkin-" + eventDocID;
+      document.getElementById(buttonID).innerText = "Check Out";
+      currentUser.update({
           check_ins: firebase.firestore.FieldValue.arrayUnion(eventDocID),
         })
-        .then(() => {
-          let buttonID = "checkin-" + eventDocID;
-        });
-      currentEvent
-        .update({
+        ;
+      currentEvent.update({
           typical_wait_time: firebase.firestore.FieldValue.increment(5),
           check_ins: firebase.firestore.FieldValue.arrayUnion(eventDocID),
-        })
-        .then(() => {
-          let buttonID = "checkin-" + eventDocID;
-          document.getElementById(buttonID).innerText = "Check Out";
         });
     }
   });
@@ -198,7 +183,7 @@ function initMap(startPoint, endPoint) {
   });
 
   updateDirectionLinks(startPoint, endPoint);
-  
+
   const directionsService = new google.maps.DirectionsService();
   const directionsRenderer = new google.maps.DirectionsRenderer();
   directionsRenderer.setMap(map);
@@ -296,15 +281,15 @@ function updateTravelTime(response, status, selector) {
 function updateDirectionLinks(startPoint, endPoint) {
   const baseUrl = 'https://www.google.com/maps/dir/?api=1';
   const travelModes = {
-      driving: 'driving',
-      transit: 'transit',
-      walking: 'walking',
+    driving: 'driving',
+    transit: 'transit',
+    walking: 'walking',
   };
 
   document.querySelectorAll('.direction-link').forEach(link => {
-      const mode = link.getAttribute('data-travel-mode');
-      const url = `${baseUrl}&origin=${startPoint.lat},${startPoint.lng}&destination=${endPoint.lat},${endPoint.lng}&travelmode=${travelModes[mode]}`;
-      link.href = url;
+    const mode = link.getAttribute('data-travel-mode');
+    const url = `${baseUrl}&origin=${startPoint.lat},${startPoint.lng}&destination=${endPoint.lat},${endPoint.lng}&travelmode=${travelModes[mode]}`;
+    link.href = url;
   });
 }
 
