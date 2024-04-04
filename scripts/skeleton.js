@@ -10,9 +10,12 @@ function insertNameFromFirestore() {
 
     userDocRef.get().then(userDoc => {
       if (userDoc.exists) {
-        const userName = userDoc.data().name;
-        console.log(userName);
-        document.getElementById("namePlaceholder").innerText = userName; // Vanilla JS
+        const fullUserName = userDoc.data().name;
+        console.log(fullUserName);
+        // Split the fullUserName by space and get the first word
+        const firstName = fullUserName.split(" ")[0];
+        console.log(firstName); // Log the first name
+        document.getElementById("namePlaceholder").innerText = firstName; // Only use the first word
       } else {
         console.log("Document does not exist!");
       }
@@ -69,3 +72,4 @@ function loadSkeleton() {
 }
 
 loadSkeleton(); // Invoke the function
+
