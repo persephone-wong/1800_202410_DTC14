@@ -87,6 +87,10 @@ function displayEventInfo() {
           if (checkedIn.includes(docID)) {
             document.getElementById("checkin-" + docID).innerText = "Check Out";
           }
+          else {
+            document.getElementById("checkin-" + docID).innerText = "Check In";
+            
+          }
         });
 
         let imgEvent = card.querySelector(".eventImage");
@@ -132,14 +136,16 @@ function updateFavorite(eventDocID) {
 }
 
 function updateCheckin(eventDocID) {
+  
   currentUser.get().then((userDoc) => {
     let checkinsUser = userDoc.data().check_ins;
     console.log(checkinsUser);
 
     if (checkinsUser.includes(eventDocID)) {
-      alert('Checked Out!');
       let buttonID = "checkin-" + eventDocID;
       document.getElementById(buttonID).innerText = "Check In";
+      document.getElementById(buttonID).parentElement.innerHTML += '<div class="result-text">Checked Out!</div>'
+
       currentUser.update({
           check_ins: firebase.firestore.FieldValue.arrayRemove(eventDocID),
         });
@@ -150,18 +156,20 @@ function updateCheckin(eventDocID) {
         
         ;
     } else {
-      alert('Checked In!');
       let buttonID = "checkin-" + eventDocID;
       document.getElementById(buttonID).innerText = "Check Out";
       currentUser.update({
           check_ins: firebase.firestore.FieldValue.arrayUnion(eventDocID),
-        })
+          
+        });
+        document.getElementById(buttonID).parentElement.innerHTML += '<div class="result-text">Checked In!</div>'
         ;
       currentEvent.update({
           typical_wait_time: firebase.firestore.FieldValue.increment(5),
           check_ins: firebase.firestore.FieldValue.arrayUnion(eventDocID),
         });
     }
+    
   });
 }
 

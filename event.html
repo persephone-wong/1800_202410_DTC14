@@ -95,66 +95,68 @@
                         porro eaque modi? Quis ab quo blanditiis animi pariatur
                         numquam nulla impedit eum iure, cumque labore voluptatem
                         fugit molestias beatae, ipsa at...</p>
-                    <div class="text-center">
-                        <button class="check_in_btn">Check In</button>
-                    </div>
                 </div>
             </div>
-            <!-- Navigation Section -->
-            <div class="card mb-3">
-                <div class="card-body">
-                    <h5 class="card-title">Location Info</h5>
-                    <p class="mb-2 distance-to-event">Calculating distance...</p>
-                    <p>Get there:</p>
-                    <div class="row align-items-center mb-2 g-0">
-                        <div class="col-auto text-center" style="width: 40px;">
-                            <a href="#" class="direction-link" data-travel-mode="driving" style="color: black;">
-                                <i class="bi bi-car-front-fill" style="font-size: 24px;"></i>
-                            </a>
-                        </div>
-                        <div class="col driving-time">
-                            15 minutes
-                        </div>
-                    </div>
-                    <div class="row align-items-center mb-2 g-0">
-                        <div class="col-auto text-center" style="width: 40px;">
-                            <a href="#" class="direction-link" data-travel-mode="transit" style="color: black;">
-                            <i class="bi bi-bus-front-fill" style="font-size: 24px;"></i>
-                            </a>
-                        </div>
-                        <div class="col transit-time">
-                            30 minutes
-                        </div>
-                    </div>
-                    <div class="row align-items-center g-0">
-                        <div class="col-auto text-center" style="width: 40px;">
-                            <a href="#" class="direction-link" data-travel-mode="walking" style="color: black;">
-                            <i class="bi bi-person-walking" style="font-size: 24px;"></i>
-                            </a>
-                        </div>
-                        <div class="col walk-time">
-                            1 hour 45 minutes
-                        </div>
-                    </div>
-                    <div id="map" class="mt-3" style="height: 400px;"></div>
-                </div>
-            </div>
-
-            <!-- Row for Wait Times and Friends Going with Flex to ensure equal height -->
-            <div class="row d-flex">
-                <!-- Wait Times Card -->
-                <div class="col-md-6 d-flex">
-                    <div class="card mb-3 flex-fill">
-                        <div class="card-body">
-                            <h5 class="card-title text-center">Live Wait Time</h5>
-                            <div>
-                                    <p class=" text-center mb-1"><span class="historicTimeWait">Historic Average</span> Minutes</p>
-
+            <!-- Wait Times Card -->
+            <div class="card col-md-6 mb-3 d-flex">
+                <div class="card flex-fill">
+                    <div class="card-body">
+                        <h5 class="card-title text-center">Live Wait Time:</h5>
+                        <div>
+                                <p class=" text-center mb-1"><span class="historicTimeWait">Historic Average</span> Minutes</p>
+                                <div class="text-center">
+                                <button class="check_in_btn align-items-center">Check In</button>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
+            
+
+<!-- Navigation Section -->
+<div class="card mb-3">
+    <div class="card-body">
+        <h5 class="card-title">Location Info</h5>
+        <p class="mb-2 distance-to-event">Calculating distance...</p>
+        <p>Get there:</p>
+        <div class="row align-items-center mb-2 g-0">
+            <div class="col-auto text-center" style="width: 40px;">
+                <a href="#" class="direction-link" data-travel-mode="driving" style="color: black;">
+                    <i class="bi bi-car-front-fill" style="font-size: 24px;"></i>
+                </a>
+            </div>
+            <div class="col driving-time">
+                15 minutes
+            </div>
+        </div>
+        <div class="row align-items-center mb-2 g-0">
+            <div class="col-auto text-center" style="width: 40px;">
+                <a href="#" class="direction-link" data-travel-mode="transit" style="color: black;">
+                <i class="bi bi-bus-front-fill" style="font-size: 24px;"></i>
+                </a>
+            </div>
+            <div class="col transit-time">
+                30 minutes
+            </div>
+        </div>
+        <div class="row align-items-center g-0">
+            <div class="col-auto text-center" style="width: 40px;">
+                <a href="#" class="direction-link" data-travel-mode="walking" style="color: black;">
+                <i class="bi bi-person-walking" style="font-size: 24px;"></i>
+                </a>
+            </div>
+            <div class="col walk-time">
+                1 hour 45 minutes
+            </div>
+        </div>
+        <div id="map" class="mt-3" style="height: 400px;"></div>
+    </div>
+</div>
+
+            <!-- Row for Wait Times and Friends Going with Flex to ensure equal height -->
+            <div class="row d-flex">
+                
+                
                 <!-- Friends Going Section -->
                 <div class="col-md-6 d-flex">
                     <div class="card mb-3 flex-fill">
@@ -195,6 +197,7 @@
                 </div>
             </div>
         </div>
+    </div>
     </template>
 
     <!-- Bottom Nav Bar-->
