@@ -21,7 +21,8 @@ function getFavorites(user) {
 
             favorites.forEach(eventID => {
                 console.log(eventID);
-                db.collection("events").doc(eventID).get().then(doc => {
+                db.collection("events").doc(eventID)
+                .get().then(doc => {
                     var title = doc.data().name;
                     var address = doc.data().address;
                     var time = doc.data().time;       

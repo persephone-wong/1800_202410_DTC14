@@ -111,10 +111,9 @@ function updateFavorite(eventDocID) {
 
     if (favoritesNow.includes(eventDocID)) {
       console.log("this event exist in the database,should be removed");
-      currentUser
       let iconID = "save-" + eventDocID;
       document.getElementById(iconID).innerText = "favorite_border"
-        .update({
+      currentUser.update({
           favorites: firebase.firestore.FieldValue.arrayRemove(eventDocID),
         })
         ;
@@ -144,8 +143,7 @@ function updateCheckin(eventDocID) {
       currentUser.update({
           check_ins: firebase.firestore.FieldValue.arrayRemove(eventDocID),
         });
-      currentEvent
-        .update({
+      currentEvent.update({
           typical_wait_time: firebase.firestore.FieldValue.increment(-5),
           check_ins: firebase.firestore.FieldValue.arrayRemove(eventDocID),
         })
