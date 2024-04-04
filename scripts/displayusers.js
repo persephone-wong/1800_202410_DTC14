@@ -17,10 +17,10 @@ db.collection("users").get().then(
       .then(querySnapshot => {
         querySnapshot.forEach(doc => {
           const userData = doc.data();
+          // console.log(userData.name)
   
           let userCard = document.importNode(cardTemplate, true);
           userCard.querySelector(".card-title").textContent = userData.name;
-          console.log(userCard.querySelector(".card-title").textContent)
           userCard.querySelector(".card-text").textContent = userData.bio;
           userCard.querySelector(".btn-custom").dataset.uid = doc.id;
   
