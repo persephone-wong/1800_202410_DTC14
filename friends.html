@@ -1,72 +1,110 @@
 <!DOCTYPE html>
 <html lang="en">
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>User</title>
-    <!------------------------------------------>
-    <!-- Bootstrap Library CSS JS CDN go here -->
-    <!------------------------------------------>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
-        crossorigin="anonymous" />
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous">
-    </script>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Activity Hub</title> 
+        <!------------------------------------------>
+        <!-- Bootstrap Library CSS JS CDN go here -->
+        <!------------------------------------------>
+        <link
+            href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+            rel="stylesheet"
+            crossorigin="anonymous" />
+        <link
+            href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css"
+            rel="stylesheet">
+        <link
+            href="https://fonts.googleapis.com/css2?family=Alice&family=Protest+Strike&display=swap"
+            rel="stylesheet">
+        <link rel="stylesheet" href="./styles/style.css">
+        <style>
+            .card{
+                margin: 15px;
+            }
+        </style>
 
-    <!-- Link to styles of your own -->
-    <link rel="stylesheet" href="/styles/style.css" />
-    <style>
-      .card{
-        margin-top: 20px;
-      }
-    </style>
+        <!-------------------------------------------------------->
+        <!-- Firebase 8 Library related CSS, JS, JQuery go here -->
+        <!-------------------------------------------------------->
+        <script
+            src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        <script
+            src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+        <script
+            src="https://www.gstatic.com/firebasejs/8.10.0/firebase-firestore.js"></script>
+        <script
+            src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
+        <script
+            src="https://www.gstatic.com/firebasejs/ui/4.8.1/firebase-ui-auth.js"></script>
+        <link type="text/css" rel="stylesheet"
+            href="https://www.gstatic.com/firebasejs/ui/4.8.1/firebase-ui-auth.css" />
+        <script
+            src="https://www.gstatic.com/firebasejs/8.10.0/firebase-storage.js"></script>
+    </head>
 
+    <body>
+        <!-- Navigation Placeholder -->
+        <nav id="navbarPlaceholder"></nav>
 
-    <!-------------------------------------------------------->
-    <!-- Firebase 8 Library related CSS, JS, JQuery go here -->
-    <!-------------------------------------------------------->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-firestore.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/ui/4.8.1/firebase-ui-auth.js"></script>
-    <link type="text/css" rel="stylesheet" href="https://www.gstatic.com/firebasejs/ui/4.8.1/firebase-ui-auth.css" />
-    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-storage.js"></script>
+            <!-- Page Title -->
+            
+            <div class="row row-cols-1 row-cols-md-3 g-4">
+                <!-- Add Friends Card -->
+                <div class="col">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title">Add Friends</h5>
+                            <p class="card-text">Connect With New Friends</p>
+                            <div class="text-center">
+                                <a href="./usercards.html" class="btn btn-primary">Explore</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            
+                <!-- Friend Requests Card -->
+                <div class="col">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title">Friend Requests</h5>
+                            <p class="card-text">See pending friend requests.</p>
+                            <div class="text-center">
+                                <a href="#" class="btn btn-primary">View Requests</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            
+                <!-- Friend Suggestions Card -->
+                <div class="col">
+                    <div class="mb-4" id="friendSuggestions">
+                        <h2 class="mx-4"><b>Friend Suggestions</b></h2>
+                        <div class="d-flex horizontal-scroll" id="suggestionsList">
+                            <!-- Template for Friend Suggestions -->
+                            <template id="friendSuggestionTemplate">
+                                <div class="card m-2 custom-card" style="min-width: 175px;">
+                                    <img src="./images/friend1.png" class="card-img-top" alt="Friend Name">
+                                    <div class="card-body">
+                                        <h5 class="card-title friend-name">Friend Name</h5>
+                                        <button class="btn bg-purple add-friend-button">Add Friend</button>
+                                    </div>
+                                </div>
+                            </template>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+         <!-- Bottom Nav Bar -->
+        <nav id="bottomnavbar"></nav> 
 
-</head>
-
-<body>
-  
-  
-    <h1>Friend Requests</h1>
-<div class="container">
-  <div class="row" id="users-go-here"></div>
-</div>
-
-<template id="userCardTemplate" style="margin: 0px;">
-  <div class="col-md-4">
-    <div class="card">
-      <div class="card-body">
-        <h5 class="card-title">Name</h5>
-        <p class="card-text">Bio</p>
-        <a href="#" class="btn btn-custom" data-user-id="{{user.id}}" onclick="accept(this.dataset.uid)">Accept</a>
-        <a href="#" class="btn btn-custom" data-user-id="{{user.id}}" onclick="decline()">Decline</a>
-      </div>
-    </div>
-  </div>
-</template>
-
-
-
-
-
-
-
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="./scripts/firebaseAPI_TEAMDTC14.js"></script>
-    <script src="./scripts/display_friendRequest.js"></script>
-    <script src="./scripts/addFriends.js"></script>
-    <script src="./scripts/skeleton.js"></script>
-</body>
+        <script src="./scripts/firebaseAPI_TEAMDTC14.js"></script>
+        <script src="./scripts/skeleton.js"></script>
+        <script src="./scripts/activity_hub.js"></script>
+        <script src="./scripts/addFriends.js"></script>
+    </body>
 
 </html>
+
