@@ -46,56 +46,60 @@
 
     <body>
         <!-- Navigation Placeholder -->
-        <nav id="navbarPlaceholder"></nav>
+<nav id="navbarPlaceholder"></nav>
 
-            <!-- Page Title -->
-            
-            <div class="row row-cols-1 row-cols-md-3 g-4">
-                <!-- Add Friends Card -->
-                <div class="col">
-                    <div class="card">
-                        <div class="card-body">
-                            <h5 class="card-title">Add Friends</h5>
-                            <p class="card-text">Connect With New Friends</p>
-                            <div class="text-center">
-                                <a href="./usercards.html" class="btn btn-primary">Explore</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            
-                <!-- Friend Requests Card -->
-                <div class="col">
-                    <div class="card">
-                        <div class="card-body">
-                            <h5 class="card-title">Friend Requests</h5>
-                            <p class="card-text">See pending friend requests.</p>
-                            <div class="text-center">
-                                <a href="#" class="btn btn-primary">View Requests</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            
-                <!-- Friend Suggestions Card -->
-                <div class="col">
-                    <div class="mb-4" id="friendSuggestions">
-                        <h2 class="mx-4"><b>Friend Suggestions</b></h2>
-                        <div class="d-flex horizontal-scroll" id="suggestionsList">
-                            <!-- Template for Friend Suggestions -->
-                            <template id="friendSuggestionTemplate">
-                                <div class="card m-2 custom-card" style="min-width: 175px;">
-                                    <img src="./images/friend1.png" class="card-img-top" alt="Friend Name">
-                                    <div class="card-body">
-                                        <h5 class="card-title friend-name">Friend Name</h5>
-                                        <button class="btn bg-purple add-friend-button">Add Friend</button>
-                                    </div>
-                                </div>
-                            </template>
-                        </div>
+<!-- Page Title -->
+
+<div class="container mt-5">
+    <div class="row">
+        <div class="col-md-6 mb-4">
+            <!-- Add Friends Card -->
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Add Friends</h5>
+                    <p class="card-text">Connect With New Friends</p>
+                    <div class="text-center">
+                        <a href="./usercards.html" class="btn btn-primary">Explore</a>
                     </div>
                 </div>
             </div>
+        </div>
+        <div class="col-md-6 mb-4">
+            <!-- Friend Requests Card -->
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Friend Requests</h5>
+                    <p class="card-text">See pending friend requests.</p>
+                    <div class="text-center">
+                        <a href="#" class="btn btn-primary">View Requests</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Friend Suggestions Card -->
+    <div class="row">
+        <div class="col">
+            <div class="mb-4 card" id="friendSuggestions">
+                <h2 class="mx-4"><b>Friend Suggestions</b></h2>
+                <div class="d-flex horizontal-scroll" id="suggestionsList">
+                    <!-- Template for Friend Suggestions -->
+                    <template id="friendSuggestionTemplate">
+                        <div class="card m-2 custom-card" style="min-width: 175px;">
+                            <img src="./images/friend1.png" class="card-img-top" alt="Friend Name">
+                            <div class="card-body">
+                                <h5 class="card-title friend-name">Friend Name</h5>
+                                <button class="btn bg-purple add-friend-button">Add Friend</button>
+                            </div>
+                        </div>
+                    </template>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
             
          <!-- Bottom Nav Bar -->
         <nav id="bottomnavbar"></nav> 
