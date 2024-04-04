@@ -68,13 +68,13 @@ function showMap() {
 
 function addEventsPinsCircle(map) {
   const iconUrls = {
-    performance: "./icons/theater_comedy_FILL0_wght400_GRAD0_opsz24.png",
-    convention: "./icons/handshake_FILL0_wght400_GRAD0_opsz24.png",
-    art: "./icons/palette_FILL0_wght400_GRAD0_opsz24.png",
-    sale: "./icons/style_FILL0_wght400_GRAD0_opsz24.png",
-    music: "./icons/music_note_FILL0_wght400_GRAD0_opsz24.png",
-    food: "./icons/restaurant_FILL0_wght400_GRAD0_opsz24.png",
-    fair: "./icons/attractions_FILL0_wght400_GRAD0_opsz24.png",
+    performance: "https://img.icons8.com/ios/30/theatre-mask.png",
+    convention: "https://img.icons8.com/ios/30/conference.png",
+    art: "https://img.icons8.com/ios/30/paint-palette.png",
+    sale: "https://img.icons8.com/ios/30/discount--v1.png",
+    music: "https://img.icons8.com/ios/30/music--v1.png",
+    food: "https://img.icons8.com/ios/30/dining-room.png",
+    fair: "https://img.icons8.com/ios/30/ferris-wheel--v1.png",
   };
 
   let loadedIcons = 0;
