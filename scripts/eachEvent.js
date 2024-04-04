@@ -73,7 +73,10 @@ function displayEventInfo() {
         card
           .querySelector(".reviewbutton")
           .addEventListener("click", function () {
-            window.location.href = `/reviews.html?id=${doc.id}`; // Redirect on button click
+            var eventDocID = localStorage.setItem("eventDocID", doc.id);
+            // windows.location.href = `/reviews.html`;
+            // window.location.href = `/reviews.html?id=${doc.id}`; // Redirect on button click
+            window.location.href = "reviews.html";
           });
         card.querySelector("i").id = "save-" + docID;
         card.querySelector("i").onclick = () => updateFavorite(docID);
@@ -301,17 +304,18 @@ function updateDirectionLinks(startPoint, endPoint) {
 
 window.onload = loadGoogleMaps;
 
-function saveEventDocumentIDAndRedirect() {
-  let params = new URL(window.location.href); //get the url from the search bar
-  let ID = params.searchParams.get("id");
-  localStorage.setItem("eventDocID", ID);
-  window.location.href = "reviews.html";
-}
+// function saveEventDocumentIDAndRedirect() {
+//   let params = new URL(window.location.href); //get the url from the search bar
+//   let ID = params.searchParams.get("id");
+//   localStorage.setItem("eventDocID", ID);
+//   window.location.href = "reviews.html";
+// }
 
 function populateReviews() {
   console.log("Fetching reviews");
   let reviewCardTemplate = document.getElementById("reviewCardTemplate");
   let reviewCardGroup = document.getElementById("reviewCardGroup");
+  console.log(reviewCardGroup);
 
   let params = new URL(window.location.href);
   let eventID = params.searchParams.get("id");

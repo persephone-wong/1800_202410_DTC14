@@ -12,6 +12,8 @@ function getEventName(id) {
 
 getEventName(eventDocID);
 
+console.log("Event ID: " + eventDocID);
+
 const stars = document.querySelectorAll(".star");
 
 stars.forEach((star, index) => {
