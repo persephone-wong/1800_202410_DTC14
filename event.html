@@ -181,26 +181,28 @@
                     <!-- More reviews -->
                     <div class="text-center">
                         <!-- <a href="#" class="reviewbutton text-black">Write a Review</a> -->
-                        <br>
+                        
                         <!-- <button class="btn btn-primary" onclick="saveEventDocumentIDAndRedirect()">Write Review</button> -->
                         <button class="reviewbutton btn text-black">Write a Review</button>
 
                     </div>
-                    <div class="container">
-                        <div id="details-go-here"></div>
-                            <!-- Here is the container for cards with horizontal scrolling -->
-                        <div class="card-container">
-                        <div id="reviewCardGroup" class="row row-cols-auto">
-                        <!-- Add your card templates here -->
-                    </div>
+                    
                 </div>
+            </div>
+
+            <div class="container">
+                    <div id="details-go-here"></div>
+                            <!-- Here is the container for cards with horizontal scrolling -->
+                    <div class="card-container">
+                    <div id="reviewCardGroup" class="row row-cols-auto">
+                        <!-- Add your card templates here -->
             </div>
 
             <template id="reviewCardTemplate">
                 <div class="card bg-secondary">
                     <div class="card-body bg-light">
                     <h5 class="title">placeholder</h5>
-                    <p class="star-rating"></p>
+                    <p class="rating"></p>
                     <p class="waitTime">placeholder</p>
                     <p class="kidFriendly">placeholder</p>
                     <p class="petFriendly">placeholder</p>
