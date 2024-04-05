@@ -113,10 +113,8 @@ function addEventsToMap(map) {
             )}</p>
                             <p>Wait time: <strong>${
                               doc.data().typical_wait_time
-                            } mins</strong></p> <a href="/event.html?id=${
-              doc.id
-            }" 
-                            title="Opens in the same window" class="btn btn-primary">Read more</a>`,
+                            } mins</strong></p> <a href="/event.html?id=${doc.id}" 
+                            class="btn btn-primary">Read more</a>`,
             icon: eventType, // Use the event type as the icon identifier
           },
           geometry: {

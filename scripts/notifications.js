@@ -77,18 +77,19 @@ document.addEventListener("DOMContentLoaded", function() {
         db.collection('events').get().then(snapshot => {
             snapshot.forEach(eventDoc => {
                 const event = eventDoc.data();
+                const eventId = eventDoc.id;
                 event.check_ins.forEach(userId => {
                     db.collection('users').doc(userId).get().then(userDoc => {
                         const userName = userDoc.data().name;
                         const eventTimestamp = event.datestamp.toDate();
-                        displayNotification('check-in', userName, eventTimestamp);
+                        displayNotification('check-in', userName, eventTimestamp, eventId);
                     });
                 });
             });
         });
     }
 
-    function displayNotification(type, userName, timestamp) {
+    function displayNotification(type, userName, timestamp, eventId) {
         let templateId = '';
         if (type === 'review') {
             templateId = 'review-template';
@@ -98,6 +99,8 @@ document.addEventListener("DOMContentLoaded", function() {
 
         let template = document.getElementById(templateId).content.cloneNode(true);
         template.querySelector('strong').textContent = userName;
+        template.querySelector(".event-redirect-link").href = `/event.html?id=${eventId}`;
+        console.log(template.querySelector(".event-redirect-link").href);
 
         const todayStart = new Date();
         todayStart.setHours(0, 0, 0, 0);
