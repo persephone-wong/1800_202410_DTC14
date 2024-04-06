@@ -12,12 +12,13 @@ db.collection("users").get().then(
     
     let cardTemplate = document.getElementById("userCardTemplate").content;
     let usersContainer = document.getElementById(users + "-go-here");
+    
   
     db.collection(users).get()
       .then(querySnapshot => {
         querySnapshot.forEach(doc => {
           const userData = doc.data();
-          // console.log(userData.name)
+          console.log(userData.name)
   
           let userCard = document.importNode(cardTemplate, true);
           userCard.querySelector(".card-title").textContent = userData.name;

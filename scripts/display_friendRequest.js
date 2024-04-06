@@ -1,47 +1,89 @@
-db.collection("users").get().then(
-  (querySnapshot) => {
-    querySnapshot.forEach((doc) => {
-      // console.log(doc.data());
-    });
-  }
-);
+// db.collection("users").get().then(
+//   (querySnapshot) => {
+//     querySnapshot.forEach((doc) => {
+//       // console.log(doc.data());
+//     });
+//   }
+// );
 
-function displayUsers(users) {
-  let cardTemplate = document.getElementById("userCardTemplate").content;
-  let usersContainer = document.getElementById(users + "-go-here");
-  let processedUserIds = new Set(); // Store the processed user IDs in a Set
+function getuser() {
+  firebase.auth().onAuthStateChanged(user => {
+      if (user) {
+        display_friends(user)
+      } else {
+          console.log("No user is signed in");
+      }
+  });
+}
 
-  db.collection("users").get()
-   .then(querySnapshot => {
-      querySnapshot.forEach(doc => {
-        const userData = doc.data();
 
-        if (userData.received_friend_requests && userData.received_friend_requests.length > 0) {
-          userData.received_friend_requests.forEach(friendRequestId => {
-            if (!processedUserIds.has(friendRequestId)) { // Check if the user ID is already processed
-              processedUserIds.add(friendRequestId); // Add the user ID to the Set
-              db.collection("users").doc(friendRequestId).get()
-               .then(friendRequestDoc => {
-                  const friendRequestData = friendRequestDoc.data();
+function display_friends(user) {
+  console.log(user)
+  db.collection("users").doc(user.uid).get()
+      .then(userDoc => {
 
-                  let userCard = document.importNode(cardTemplate, true);
-                  userCard.querySelector(".card-title").textContent = friendRequestData.name;
-                  userCard.querySelector(".card-text").textContent = friendRequestData.bio;
-                  userCard.querySelector(".btn-custom").dataset.uid = friendRequestId;
+          var friend_request = userDoc.data().received_friend_requests;
+          console.log(friend_request);
+          
+          // Get pointer the new card template
+          let cardTemplate = document.getElementById("friendRequestTemplate");
 
-                  document.getElementById(users + "-go-here").appendChild(userCard);
-                })
-               .catch(error => console.log(error));
-            }
+          friend_request.forEach(uid => {
+              console.log(uid);
+              db.collection("users").doc(uid)
+              .get().then(doc => {
+                  var title = doc.data().name;      
+                  var bio = doc.data().bio;   
+                  var docID = doc.id;
+                  var eventcode = doc.data().code;    
+                  let newcard = cardTemplate.content.cloneNode(true); // Clone the HTML template to create a new card (newcard) that will be filled with Firestore data.
+                  
+
+                  //update title and some pertinant information
+                  newcard.querySelector('.card-title').innerHTML = title;
+                  newcard.querySelector('.card-text').innerHTML = bio;
+                  
+                  document.getElementById("requests-go-here").appendChild(newcard);
+              })
           });
-        }
-      });
-    })
-   .catch(error => console.log(error));
+      })
 }
 
-displayUsers("users");
 
-function deleteCard(cardElement) {
-  cardElement.remove();
-}
+getuser();
+
+// Initialize Firestore
+ 
+// function displayUsers(users) {
+//   let cardTemplate = document.getElementById("userCardTemplate").content;
+//   let usersContainer = document.getElementById(users + "-go-here");
+
+//   db.collection("users").get()
+//     .then(querySnapshot => {
+//       querySnapshot.forEach(doc => {
+//         const userData = doc.data();
+//         if(userData.received_friend_requests != undefined)
+//         console.log(userData.received_friend_requests)
+
+//         if (userData.received_friend_requests && userData.received_friend_requests.length > 0) {
+//           userData.received_friend_requests.forEach(friendRequestId => {
+//             db.collection("users").doc(friendRequestId).get()
+//               .then(friendRequestDoc => {
+//                 const friendRequestData = friendRequestDoc.data();
+
+//                 let userCard = document.importNode(cardTemplate, true);
+//                 userCard.querySelector(".card-title").textContent = friendRequestData.name;
+//                 userCard.querySelector(".card-text").textContent = friendRequestData.bio;
+//                 userCard.querySelector(".btn-custom").dataset.uid = friendRequestId;
+
+//                 document.getElementById(users + "-go-here").appendChild(userCard);
+//               })
+//               .catch(error => console.log(error));
+//           });
+//         }
+//       });
+//     })
+//     .catch(error => console.log(error));
+// }
+
+// displayUsers("users");

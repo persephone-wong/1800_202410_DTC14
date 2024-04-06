@@ -31,26 +31,28 @@
 </head>
 
 <body>
+    <!-- Search bar -->
+<nav id="searchbar"></nav>
     <h1 class="p-3"><b>Other Users</b></h1>
     <div id="users-go-here"></div>
     <template id="userCardTemplate">
       <div class="container">
-          <div class="row mb-3">
-              <div class="col-md-6 col-xl-4">
-                  <div class="card">
-                      <div class="card-body">
-                          <div class="media align-items-center">
-                              <span style="background-image: url(https://bootdey.com/img/Content/avatar/avatar6.png)" class="avatar avatar-xl mr-3"></span>
-                              <div class="media-body overflow-hidden">
-                                  <h5 class="card-title mb-0">Name</h5>
-                                  <p class="card-text text-uppercase text-muted">Bio</p>
-                                  <button class="btn btn-custom" data-recipient-id="{{user.id}}">Add As Friend</button>
-                              </div>
-                          </div>
-                      </div>
+        <div class="row mb-3">
+          <div class="col-md-6 col-xl-4">                       
+            <div class="card">
+              <div class="card-body">
+                <div class="media align-items-center"><span style="background-image: url(https://bootdey.com/img/Content/avatar/avatar6.png)" class="avatar avatar-xl mr-3"></span>
+                  <div class="media-body overflow-hidden">
+                    <h5 class="card-title mb-0">Name</h5>
+                    <p class="card-text text-uppercase text-muted">Bio</p>
+                    <a href="#" class="btn btn-custom" data-user-id="{{user.id}}" onclick="sentToFriend(this.dataset.uid)">Add As Friend</a>
                   </div>
+                </div>
+              </div><a href="#" class="tile-link"></a>
               </div>
+            </div>
           </div>
+        </div>
       </div>
   </template>
 
@@ -58,6 +60,7 @@
     <script src="./scripts/firebaseAPI_TEAMDTC14.js"></script>
     <script src="./scripts/displayusers.js"></script>
     <script src="./scripts/addFriends.js"></script>
+    <script src="./scripts/searchbar_users.js"></script>
     <script src="./scripts/skeleton.js"></script>
 </body>
 
