@@ -1,5 +1,7 @@
 var currentUser;
 var currentEvent;
+var waitTime;
+var new_waitTime;
 
 function set_up_db() {
   firebase.auth().onAuthStateChanged((user) => {
@@ -35,7 +37,7 @@ function displayEventInfo() {
         var date = data.date;
         var description = data.description;
         var eventCode = data.code;
-        var waitTime = data.typical_wait_time;
+        waitTime = data.typical_wait_time;
 
         if (navigator.geolocation) {
           navigator.geolocation.getCurrentPosition(
@@ -155,7 +157,10 @@ function updateCheckin(eventDocID) {
       currentEvent.update({
         typical_wait_time: firebase.firestore.FieldValue.increment(-5),
         check_ins: firebase.firestore.FieldValue.arrayRemove(eventDocID),
-      });
+      }).then(() => {
+        new_waitTime = waitTime;
+        console.log(new_waitTime);
+        document.getElementsByClassName('historicTimeWait')[0].innerText = (new_waitTime)});
 
 
       if (user) {
@@ -181,8 +186,9 @@ function updateCheckin(eventDocID) {
         typical_wait_time: firebase.firestore.FieldValue.increment(5),
         check_ins: firebase.firestore.FieldValue.arrayUnion(eventDocID),
       }).then(() => {
-        wait_time = parseInt(document.getElementByclass(historicTimeWait).innerText)
-        document.getElementByclass(historicTimeWait).innerText = "Check Out"});
+        new_waitTime = waitTime + 5;
+        console.log(new_waitTime);
+        document.getElementsByClassName('historicTimeWait')[0].innerText = (new_waitTime)});
 
       if (user) {
         var userID = user.uid;
