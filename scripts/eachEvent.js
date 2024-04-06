@@ -149,62 +149,58 @@ function updateCheckin(eventDocID) {
     if (checkinsUser.includes(eventDocID)) {
       let buttonID = "checkin-" + eventDocID;
       document.getElementById(buttonID).innerText = "Check In";
-      document.getElementById(buttonID).parentElement.innerHTML +=
-        '<div class="result-text">Checked Out!</div>';
-
       currentUser.update({
         check_ins: firebase.firestore.FieldValue.arrayRemove(eventDocID),
       });
       currentEvent.update({
-          typical_wait_time: firebase.firestore.FieldValue.increment(-5),
+        typical_wait_time: firebase.firestore.FieldValue.increment(-5),
+        check_ins: firebase.firestore.FieldValue.arrayRemove(eventDocID),
+      });
+
+
+      if (user) {
+        console.log(eventDocID);
+        var checkinID = userDoc.data().check_inIDs[checkinsUser.indexOf(eventDocID)];
+        var userID = user.uid;
+        db.collection("checkins").doc(checkinID).delete().then(() => { console.log('deleted checked In') })
+
+        currentUser.update({
           check_ins: firebase.firestore.FieldValue.arrayRemove(eventDocID),
-        });
-        
-
-        if (user) {
-          console.log(eventDocID);
-          var checkinID = userDoc.data().check_inIDs[checkinsUser.indexOf(eventDocID)];
-          var userID = user.uid;
-            db.collection("checkins").doc(checkinID).delete().then(() => {console.log('deleted checked In')})
-
-            currentUser.update({
-              check_ins: firebase.firestore.FieldValue.arrayRemove(eventDocID),
-              check_inIDs: firebase.firestore.FieldValue.arrayRemove(checkinID)
-            })
+          check_inIDs: firebase.firestore.FieldValue.arrayRemove(checkinID)
+        })
 
 
-        } else {
-          console.log("No user is signed in");}
+      } else {
+        console.log("No user is signed in");
+      }
     } else {
       let buttonID = "checkin-" + eventDocID;
       document.getElementById(buttonID).innerText = "Check Out";
-      currentUser.update({
-          check_ins: firebase.firestore.FieldValue.arrayUnion(eventDocID),
-          
-        });
-        document.getElementById(buttonID).parentElement.innerHTML += '<div class="result-text">Checked In!</div>'
-        ;
+      currentUser.update({check_ins: firebase.firestore.FieldValue.arrayUnion(eventDocID),});
       currentEvent.update({
-          typical_wait_time: firebase.firestore.FieldValue.increment(5),
-          check_ins: firebase.firestore.FieldValue.arrayUnion(eventDocID),
-        });
+        typical_wait_time: firebase.firestore.FieldValue.increment(5),
+        check_ins: firebase.firestore.FieldValue.arrayUnion(eventDocID),
+      }).then(() => {
+        wait_time = parseInt(document.getElementByclass(historicTimeWait).innerText)
+        document.getElementByclass(historicTimeWait).innerText = "Check Out"});
 
-        if (user) {
-          var userID = user.uid;
-          db.collection("checkins").add({
-              eventDocID: eventDocID,
-              userID: userID,
-              timestamp: firebase.firestore.FieldValue.serverTimestamp(),
-            }).then((docRef) => {
-              currentUser.update({
-                check_inIDs: firebase.firestore.FieldValue.arrayUnion(docRef.id)
-              })
-            })
-            .catch((error) => {
-              console.error("Error writing document: ", error);
-            });
-        } else {
-          console.log("No user is signed in");}
+      if (user) {
+        var userID = user.uid;
+        db.collection("checkins").add({
+          eventDocID: eventDocID,
+          userID: userID,
+          timestamp: firebase.firestore.FieldValue.serverTimestamp(),
+        }).then((docRef) => {
+          currentUser.update({
+            check_inIDs: firebase.firestore.FieldValue.arrayUnion(docRef.id)
+          })
+        })
+          .catch((error) => {
+            console.error("Error writing document: ", error);
+          });
+      } else {
+        console.log("No user is signed in");
+      }
 
     }
   });
