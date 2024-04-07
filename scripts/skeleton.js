@@ -55,7 +55,9 @@ function loadsearchbar() {
     navbarsearch.innerHTML = data;});
 }
 
-
+function goBack() {
+  window.history.back();
+}
 
 function loadSkeleton() {
   auth.onAuthStateChanged(user => {

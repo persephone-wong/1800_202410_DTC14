@@ -19,11 +19,6 @@
             href="https://fonts.googleapis.com/css2?family=Alice&family=Protest+Strike&display=swap"
             rel="stylesheet">
         <link rel="stylesheet" href="./styles/style.css">
-        <style>
-            .card{
-                margin: 15px;
-            }
-        </style>
 
         <!-------------------------------------------------------->
         <!-- Firebase 8 Library related CSS, JS, JQuery go here -->
@@ -50,40 +45,40 @@
 
 <!-- Page Title -->
 
-<div class="container mt-5">
-    <div class="row">
-        <div class="col-md-6 ">
+<div class="container mt-2">
+    <div class="col">
+        <div class="col mb-2">
             <!-- Add Friends Card -->
             <div class="card">
                 <div class="card-body">
                     <h5 class="card-title">Friend Requests</h5>
                     <p class="card-text">See who you are friends with.</p>
                     <div class="text-center">
-                        <a href="./friends_list.html" class="btn btn-primary">View friends</a>
+                        <a href="./friends_list.html" class="btn">View friends</a>
                     </div>
                 </div>
             </div>
         </div>
-        <div class="col-md-6 ">
+        <div class="col mb-2">
             <!-- Add Friends Card -->
             <div class="card">
                 <div class="card-body">
                     <h5 class="card-title">View Friends</h5>
                     <p class="card-text">See pending friend requests.</p>
                     <div class="text-center">
-                        <a href="./friend_requests.html" class="btn btn-primary">View Requests</a>
+                        <a href="./friend_requests.html" class="btn">View Requests</a>
                     </div>
                 </div>
             </div>
         </div>
-        <div class="col-md-6 mb-4">
+        <div class="col mb-3">
             <!-- Friend Requests Card -->
             <div class="card">
                 <div class="card-body">
                     <h5 class="card-title">Add Friends</h5>
                     <p class="card-text">Find new friends.</p>
                     <div class="text-center">
-                        <a href="./usercards.html" class="btn btn-primary">Explore</a>
+                        <a href="./usercards.html" class="btn">Explore</a>
                     </div>
                 </div>
             </div>
@@ -94,13 +89,14 @@
     <div class="row">
         <div class="col">
             <div class="mb-4" id="friendSuggestions">
-                <h2 class="mx-4"><b>Friend Suggestions</b></h2>
+                <h2 class="mx-2"><b>Friend Suggestions</b></h2>
                 <div class="d-flex horizontal-scroll" id="suggestionsList">
                     <!-- Template for Friend Suggestions -->
                     <template id="friendSuggestionTemplate">
                         <div class="card m-2 custom-card" style="min-width: 175px;">
                             <img src="./images/friend1.png" class="card-img-top" alt="Friend Name">
-                            <div class="card-body">
+                            <div class="card-body" style="  border-top-left-radius: 0px;
+                            border-top-right-radius: 0px;">
                                 <h5 class="card-title friend-name">Friend Name</h5>
                                 <button class="btn bg-purple add-friend-button">Add Friend</button>
                             </div>

@@ -113,9 +113,6 @@ function displayEventInfo() {
 }
 displayEventInfo();
 
-function goBack() {
-  window.history.back();
-}
 
 function updateFavorite(eventDocID) {
   currentUser.get().then((userDoc) => {

@@ -175,6 +175,14 @@ a {
 
 }
 
+.friend-body{
+  background-color: #CAF0F8;
+  font-size: 18px;
+  font-weight: 400;
+  border-bottom-left-radius: 25px;
+  border-bottom-right-radius: 25px;
+}
+
 .details-body {
   border-top-left-radius: 0px;
   border-top-right-radius: 0px
