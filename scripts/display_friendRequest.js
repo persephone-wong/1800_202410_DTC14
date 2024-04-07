@@ -29,12 +29,13 @@ function display_friends(user) {
           let cardTemplate = document.getElementById("friendRequestTemplate");
 
           friend_request.forEach(uid => {
-              console.log(uid);
+            //   console.log(uid);
               db.collection("users").doc(uid)
               .get().then(doc => {
                   var title = doc.data().name;      
                   var bio = doc.data().bio;   
                   var docID = doc.id;
+                  console.log(doc.id)
                   var eventcode = doc.data().code;    
                   let newcard = cardTemplate.content.cloneNode(true); // Clone the HTML template to create a new card (newcard) that will be filled with Firestore data.
                   
@@ -42,6 +43,9 @@ function display_friends(user) {
                   //update title and some pertinant information
                   newcard.querySelector('.card-title').innerHTML = title;
                   newcard.querySelector('.card-text').innerHTML = bio;
+                  newcard.querySelector(".btn-custom").dataset.uid = doc.id;
+
+
                   
                   document.getElementById("requests-go-here").appendChild(newcard);
               })
@@ -57,13 +61,14 @@ getuser();
 // function displayUsers(users) {
 //   let cardTemplate = document.getElementById("userCardTemplate").content;
 //   let usersContainer = document.getElementById(users + "-go-here");
+  
 
 //   db.collection("users").get()
 //     .then(querySnapshot => {
 //       querySnapshot.forEach(doc => {
 //         const userData = doc.data();
 //         if(userData.received_friend_requests != undefined)
-//         console.log(userData.received_friend_requests)
+//         console.log(`UserID: ` + userData.received_friend_requests)
 
 //         if (userData.received_friend_requests && userData.received_friend_requests.length > 0) {
 //           userData.received_friend_requests.forEach(friendRequestId => {
