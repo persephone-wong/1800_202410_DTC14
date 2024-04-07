@@ -67,6 +67,10 @@ async function accept(sender) {
     });
 
     await db.collection("users").doc(user.uid).update({
+      received_friend_requests: firebase.firestore.FieldValue.arrayRemove(friendId)
+    });
+
+    await db.collection("users").doc(user.uid).update({
       list_of_friends: firebase.firestore.FieldValue.arrayUnion(friendId)
     });
 
