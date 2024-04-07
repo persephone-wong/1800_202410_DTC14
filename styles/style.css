@@ -34,6 +34,11 @@ body {
   font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
 }
 
+
+
+
+
+
 /* call to action */
 
 #events-go-here {
@@ -66,7 +71,7 @@ body {
 
 .card-text {
   font-size: 18px;
-  font-weight: 600;
+  font-weight: 400;
 }
 
 .btn {
@@ -88,7 +93,6 @@ a {
 
 .backbtn {
   background-color: #00AFB9;
-  ;
 }
 
 #signin {
@@ -110,9 +114,12 @@ a {
 
 .eventName {
   font-size: 24px;
-  font-weight: bold;
+  font-weight: 900;
 }
 
+.card {
+  border-radius: 25px;
+}
 
 
 /* call to action */
@@ -143,7 +150,7 @@ a {
 }
 
 .check_in_btn {
-  background-color: #F07167;
+  background-color: #00B4D8;
   border: 0px;
   border-radius: 5px;
   font-weight: 500;
@@ -161,15 +168,17 @@ a {
 }
 
 .card-body {
-  background-color: #FED9B7;
+  background-color: #CAF0F8;
   font-size: 18px;
-  font-weight: 600;
+  font-weight: 400;
+  border-radius: 25px;
 
 }
 
-.eventDetails {
-  font-size: 18px;
-  font-weight: 600;
+.details-body {
+  border-top-left-radius: 0px;
+  border-top-right-radius: 0px
+
 }
 
 footer {

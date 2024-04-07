@@ -38,14 +38,15 @@
     <template id="eventCardTemplate">
         <div class="container my-4">
             <!-- Header with go-back button and event name -->
-            <div class="d-flex justify-content-between align-items-center mb-3 gap-2">
-                <button class="backbtn btn" style="background-color: #00AFB9;" onclick="goBack()">
+            <div class=" event-header d-flex justify-content-between align-items-center gap-2 mb-2">
+                <button class="btn btn-dark rounded-circle" style="background-color: #00AFB9;" onclick="goBack()">
                     <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor"
-                        class="bi bi-arrow-left" viewBox="0 1 16 16">
+                        class="bi my-1 bi-arrow-left" viewBox="0 1 16 16">
                         <path fill-rule="evenodd"
                             d="M15 8a.5.5 0 0 0-.5-.5H2.707l3.147-3.146a.5.5 0 1 0-.708-.708l-4 4a.5.5 0 0 0 0 .708l4 4a.5.5 0 0 0 .708-.708L2.707 8.5H14.5A.5.5 0 0 0 15 8" />
                     </svg>
                 </button>
+                
                 <h2 class="flex-grow-1 text-left pl-3 eventName">Event Name</h2>
                 <i class="material-icons" style="font-size: 50px;" id="favourite_icon_event">favorite_border</i>
 
@@ -53,15 +54,7 @@
             <!-- Event Main Information -->
             <div class="card mb-3">
                 <!-- Image carousel -->
-                <div id="carouselExampleIndicators" class="carousel slide">
-                    <div class="carousel-indicators">
-                        <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0"
-                            class="active" aria-current="true" aria-label="Slide 1"></button>
-                        <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1"
-                            aria-label="Slide 2"></button>
-                        <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2"
-                            aria-label="Slide 3"></button>
-                    </div>
+                <div id="carouselExampleIndicators" class="carousel_slide">
                     <div class="carousel-inner">
                         <div class="carousel-item active">
                             <img src="images/mockevent1.jpg" class="d-block w-100 eventImage" alt="...">
@@ -73,22 +66,12 @@
                             <img src="images/mockevent3.jpg" class="d-block w-100 eventImage" alt="...">
                         </div>
                     </div>
-                    <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators"
-                        data-bs-slide="prev">
-                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                        <span class="visually-hidden">Previous</span>
-                    </button>
-                    <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators"
-                        data-bs-slide="next">
-                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                        <span class="visually-hidden">Next</span>
-                    </button>
                 </div>
-                <div class="card-body">
-                    <h5 style="font-size: x-large;font-weight: 700;" class="card-title">Event Details</h5>
-                    <p class="card-text eventLocation">Location Description</p>
-                    <p class="card-text eventDate">Date Description</p>
-                    <p class="card-text eventTime">Time Description</p>
+                <div class="card-body details-body">
+                    <h5 class="card-title">Event Details</h5>
+                    <p class="eventLocation">Location Description</p>
+                    <p class="eventDate">Date Description</p>
+                    <p class="eventTime">Time Description</p>
                     <h6 style="font-size: x-large;font-weight: 700;">Details</h6>
                     <p class="eventDetails">Lorem ipsum dolor sit, amet consectetur adipisicing elit.
                         Dolorum ea quo iure dolores alias, consequatur nesciunt
@@ -161,14 +144,14 @@
                 <div class="col-md-6 d-flex">
                     <div class="card mb-3 flex-fill">
                         <div class="card-body">
-                            <h5 class="card-title">Your Friends Going</h5>
+                            <h5 class="card-title">Friends Going</h5>
                             <div class="d-flex flex-wrap">
                                 <!-- Placeholder for friend's profile pictures -->
                                 <img src="images/friend1.png" class="rounded-circle me-2 friendImage" alt="Friend 1"
                                     style="width: 50px; height: 50px;">
                             </div>
                             <div class="text-center">
-                            <button class="btn bg_purple_and_hover mt-3">Invite Others</button>
+                            <button class="btn mt-3">Invite Others</button>
                         </div>
                         </div>
                     </div>
@@ -185,15 +168,8 @@
                     </div>
                     <!-- More reviews -->
                     <div class="text-center">
-                    <a href="#" class="reviewbutton">See All Reviews</a>
+                    <a href="#" class="btn reviewbutton">See All Reviews</a>
                 </div>
-                </div>
-            </div>
-            <!-- Additional Information -->
-            <div class="card mb-3">
-                <div class="card-body">
-                    <h5 class="card-title">Additional Information</h5>
-                    <p>Details about parking, what to bring, dress code, or any other tips for attendees.</p>
                 </div>
             </div>
         </div>
