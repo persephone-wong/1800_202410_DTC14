@@ -84,12 +84,23 @@ async function accept(sender) {
   }
 }
 
-function decline(button) {
-  // Remove the parent card element from the DOM
-  const cardElement = button.closest('.col-md-4');
-  cardElement.remove();
+async function decline(sender) {
+  console.log("Why am I the best");
+  const user = auth.currentUser;
+  console.log(user)
+  const friendId = sender;
+  console.log(friendId)
+  
+  try {
 
-  console.log("User card has been declined.");
+    await db.collection("users").doc(user.uid).update({
+      received_friend_requests: firebase.firestore.FieldValue.arrayRemove(friendId)
+    });
+
+    console.log("User Declined");
+  } catch (error) {
+    console.error("Error Declining:", error);
+  }
 }
 
 

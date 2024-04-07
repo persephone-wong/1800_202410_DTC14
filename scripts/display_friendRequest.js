@@ -44,7 +44,7 @@ function display_friends(user) {
                   newcard.querySelector('.card-title').innerHTML = title;
                   newcard.querySelector('.card-text').innerHTML = bio;
                   newcard.querySelector(".btn-custom").dataset.uid = doc.id;
-
+                  newcard.querySelector('.btn-decline').dataset.uid = doc.id
 
                   
                   document.getElementById("requests-go-here").appendChild(newcard);

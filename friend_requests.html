@@ -44,13 +44,13 @@
 </div>
 
 <template id="friendRequestTemplate" style="margin: 0px;">
-  <div class="col-md-20"> 
+  <div id="friendRequestContainer" class="col-md-20"> 
     <div class="card">
       <div class="card-body">
         <h5 class="card-title">Name</h5>
         <p class="card-text">Bio</p>
         <a href="#" class="btn btn-custom" data-user-id="{{user.id}}" onclick="accept(this.dataset.uid)">Accept</a>
-        <a href="#" class="btn btn-custom" data-user-id="{{user.id}}" onclick="decline(this.dataset.uid)">Decline</a>
+        <a href="#" id="decline" class="btn btn-custom btn-decline" data-user-id="{{user.id}}" onclick="decline(this.dataset.uid)">Decline</a>
       </div>
     </div>
   </div>
