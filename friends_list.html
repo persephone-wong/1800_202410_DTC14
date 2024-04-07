@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User</title>
+    <!------------------------------------------>
+    <!-- Bootstrap Library CSS JS CDN go here -->
+    <!------------------------------------------>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        crossorigin="anonymous" />
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous">
+    </script>
+
+    <!-- Link to styles of your own -->
+    <link rel="stylesheet" href="/styles/style.css" />
+
+
+    <!-------------------------------------------------------->
+    <!-- Firebase 8 Library related CSS, JS, JQuery go here -->
+    <!-------------------------------------------------------->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-firestore.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/ui/4.8.1/firebase-ui-auth.js"></script>
+    <link type="text/css" rel="stylesheet" href="https://www.gstatic.com/firebasejs/ui/4.8.1/firebase-ui-auth.css" />
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-storage.js"></script>
+
+</head>
+
+<body>
+    <!-- Search bar -->
+<nav id="searchbar"></nav>
+    <h1 class="p-3"><b>Friends</b></h1>
+    <div id="requests-go-here"></div>
+    <template id="friendRequestTemplate">
+      <div class="container col-md-20">
+        <div class="row mb-3">
+          <div class="col-md-6 col-xl-4">                       
+            <div class="card">
+              <div class="card-body">
+                <div class="media align-items-center"><span style="background-image: url(https://bootdey.com/img/Content/avatar/avatar6.png)" class="avatar avatar-xl mr-3"></span>
+                  <div class="media-body overflow-hidden">
+                    <h5 class="card-title mb-0">Name</h5>
+                    <p class="card-text text-uppercase text-muted">Bio</p>
+                    <a href="/notifications.html" class="btn btn-custom">See more</a>
+                  </div>
+                </div>
+              </div><a href="#" class="tile-link"></a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+  </template>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="./scripts/firebaseAPI_TEAMDTC14.js"></script>
+    <script src="./scripts/friends_list.js"></script>
+    <script src="./scripts/addFriends.js"></script>
+    <script src="./scripts/searchbar_friends_Requests.js"></script>
+    <script src="./scripts/skeleton.js"></script>
+</body>
+
+</html>
