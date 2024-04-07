@@ -130,23 +130,18 @@ a {
   font-size: larger;
 }
 
+#logoutButton,
+#viewActivity,
 #changeProfilePic,
 #uploadPhotoProfile,
 #update {
-  background-color: #F07167;
+  background-color: #00B4D8;
   border: 0px;
   font-weight: 500;
 }
 
-#viewActivity {
-  background-color: #F07167;
-  color: black;
-  font-size: larger;
-}
-
-#logoutButton {
-  background-color: #FED9B7;
-  font-weight: 600;
+.reviews{
+  background-color: #CAF0F8;
 }
 
 .check_in_btn {
@@ -159,7 +154,7 @@ a {
 }
 
 #accountSettings {
-  background-color: #F07167;
+  background-color: #00B4D8;
 }
 
 .seeMore {
@@ -172,6 +167,15 @@ a {
   font-size: 18px;
   font-weight: 400;
   border-radius: 25px;
+
+}
+
+.account-body {
+  background-color: #CAF0F8;
+  font-size: 18px;
+  font-weight: 400;
+  border-top-left-radius: 25px;
+  border-top-right-radius: 25px;
 
 }
 

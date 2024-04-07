@@ -39,6 +39,8 @@
 
 <body>
 
+    <nav id="navbarPlaceholder"></nav>
+
     <div class="container my-4">
         <!-- Header with go-back button and event name -->
         <div class="d-flex justify-content-between align-items-center mb-3 gap-2">
@@ -49,7 +51,7 @@
                         d="M15 8a.5.5 0 0 0-.5-.5H2.707l3.147-3.146a.5.5 0 1 0-.708-.708l-4 4a.5.5 0 0 0 0 .708l4 4a.5.5 0 0 0 .708-.708L2.707 8.5H14.5A.5.5 0 0 0 15 8" />
                 </svg>
             </button>
-            <h2 class="flex-grow-1 text-left pl-3">Profile</h2>
+            <h1 class="flex-grow-1 text-left pl-3">Profile</h1>
         </div>
         <div class="container mt-4">
             <div class="card" style="width: 100%;">
@@ -64,36 +66,33 @@
                 </div>
             </div>
         </div>
-        <div class="container mt-2">
+        <div class="container mt-3">
             <div class="card text-center">
-                <div class="card-body">
+                <div class="account-body">
                     <h5 class="card-title"><strong> Account Settings</strong></h5>
                     <p class="card-text"> Customize and adjust the app's features and preferences to suit your needs.
                     </p>
-                    <a id="accountSettings" href="account_details.html" class="btn" style="background-color: #F07167;
-                    border: 0px;
-                    font-weight: 500;">View</a>
+                    <a id="accountSettings" href="account_details.html" class="btn">View</a>
                 </div>
                 <div class="card-footer text-muted">
                     Last update: 2 days ago
                 </div>
             </div>
         </div>
-        <div id="friends" class="container mt-2">
+        <div id="friends" class="container mt-3">
             <div class="card text-center">
                 <div class="card-body">
-                    <h5 class="card-title"><strong>Socials</strong></h5>
+                    <h5 class="card-title">Socials</h5>
                     <p class="card-text">View friend requests and send friend request</p>
-                    
                     <a href="./usercards.html">
-                        <button id="viewActivity" type="button" class="btn btn-primary bg-purple">See Friends</button>
+                        <button id="viewActivity" type="button" class="btn btn-lg">See Friends</button>
                     </a>
                 </div>
             </div>
         </div>
-        <div class="mt-4 text-center">
+        <div class="mt-3 text-center">
             <a href="index.html">
-                <button id="logOut" type="button" class="btn btn-primary bg-purple">Log Out</button>
+                <button id="logOut" type="button" class="btn btn-lg">Log Out</button>
             </a>
         </div>
 
