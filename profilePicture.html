@@ -32,7 +32,7 @@
     <div class="container my-4">
         <!-- Header with go-back button and event name -->
         <div class="d-flex justify-content-between align-items-center mb-3 gap-2">
-            <a href="profile.html" class="btn btn-dark rounded-circle">
+            <a href="profile.html" style="background-color: #00AFB9"class="btn btn-dark rounded-circle">
                 <svg xmlns="http://www.w3.org/2000/svg" width="20" height="30" fill="currentColor"
                     class="bi bi-arrow-left" viewBox="0 0 16 16">
                     <path fill-rule="evenodd"
@@ -42,20 +42,23 @@
             <h2 class="flex-grow-1 text-left pl-3">Change Picture</h2>
         </div>
         <div class="text-center pt-5 mt-4">
-            <div class="p-3 mb-2 bg-body-secondary d-inline-flex rounded-circle">
-                <span class="material-symbols-outlined" style="font-size: 300px">
-                    person
-                </span>
+            <div class=" bg-body-secondary d-inline-flex rounded-circle">
+                    <img id="currentPfp" style="width: 250px; height: 250px; border-radius: 50%;">
+
             </div>
+        </div><br>
+        <div class="text-center">
+            <input type="file" id="mypic-input" accept="image/*" />
         </div>
+
         <div class="d-flex justify-content-center pt-5">
-            <button id="uploadPhotoProfile" type="button" class="btn btn-lg bg-purple" onclick="savePost()">Change
+            <button id="" type="button" class="btn btn-primary btn-lg bg-purple" onclick="savePost()">Save
                 Picture</button>
         </div>
 
         <script src="./scripts/firebaseAPI_TEAMDTC14.js"></script>
         <script src="./scripts/skeleton.js"></script>
-        <script src="./scripts/changeProfilePic.js"></script>
+        <script src="./scripts/change_profile.js"></script>
 </body>
 
 </html>
