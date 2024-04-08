@@ -160,15 +160,10 @@
             <!-- Reviews Section -->
             <div class="card mb-3">
                 <div class="card-body">
-                    <h5 class="card-title">Reviews</h5>
-                    <div class="mb-3">
-                        <strong class="reviewAuthorName">John Doe</strong> <span class="text-muted reviewTimestamp">- a
-                            week ago</span>
-                        <p class="reviewContent">This event was amazing! Had a great time with friends.</p>
-                    </div>
+                    <h5 class="card-title text-center">See all reviews below</h5>
                     <!-- More reviews -->
                     <div class="text-center">
-                    <a href="#" class="btn reviewbutton">See All Reviews</a>
+                    <a href="#" class="btn reviewbutton">Write Review</a>
                 </div>
                 </div>
             </div>
@@ -180,22 +175,21 @@
         <div id="details-go-here"></div>
         <!-- Here is the container for cards with horizontal scrolling -->
         <div class="card-container">
-            <div id="reviewCardGroup" class="row row-cols-auto">
+            <div id="reviewCardGroup">
                 <!-- Add your card templates here -->
             </div>
         </div>
     </div>
     <template id="reviewCardTemplate">
-        <div class="card bg-secondary">
-            <div class="card-body bg-light">
-                <h5 class="title">placeholder</h5>
+        <div class="card mb-3">
+            <div class="card-body text-center">
+                <h3 class="title" style="font-weight: bold;">placeholder</h3>
+                <p class="time">placeholder</p>
+                <p class="star-rating">placeholder</p>
                 <p class="rating"></p>
                 <p class="waitTime">placeholder</p>
                 <p class="kidFriendly">placeholder</p>
                 <p class="petFriendly">placeholder</p>
-                <p class="time">placeholder</p>
-                <p class="star-rating">placeholder</p>
-                <br />
                 <p class="description">
                     This card has supporting text below as a natural lead-in to additional content.
                 </p>
