@@ -28,6 +28,7 @@ var uiConfig = {
             bio: "New user",
             favorites: [],
             list_of_friends: [],
+            check_ins: [],
             profile_pic: "",
             received_friends_requests: [],
             sent_friends_requests: [],
