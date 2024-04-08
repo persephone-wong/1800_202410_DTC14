@@ -24,7 +24,8 @@ db.collection("users").get().then(
           userCard.querySelector(".card-title").textContent = userData.name;
           userCard.querySelector(".card-text").textContent = userData.bio;
           userCard.querySelector(".btn-custom").dataset.uid = doc.id;
-  
+          userCard.querySelector('.avatar').src = userData.profile_pic; // Set the profile picture URL from Firestore data
+
           document.getElementById(users + "-go-here").appendChild(userCard);
   
         });

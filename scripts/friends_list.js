@@ -29,12 +29,16 @@ function getuser() {
                     var docID = doc.id;
                     console.log(doc.id)
                     var eventcode = doc.data().code;    
+                    var profilePicUrl = doc.data().profile_pic; //'profile_pic' in Firestore that stores the profile picture URL
+                    console.log(profilePicUrl)
                     let newcard = cardTemplate.content.cloneNode(true); // Clone the HTML template to create a new card (newcard) that will be filled with Firestore data.
                     
   
                     //update title and some pertinant information
                     newcard.querySelector('.card-title').innerHTML = title;
                     newcard.querySelector('.card-text').innerHTML = bio;
+                    newcard.querySelector('.avatar').src = profilePicUrl; // Set the profile picture URL
+
   
                     
                     document.getElementById("requests-go-here").appendChild(newcard);

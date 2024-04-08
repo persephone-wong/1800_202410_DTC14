@@ -37,6 +37,7 @@ function display_friends(user) {
                   var docID = doc.id;
                   console.log(doc.id)
                   var eventcode = doc.data().code;    
+                  var profilePicUrl = doc.data().profile_pic; // 'profile_pic' in Firestore that stores the profile picture URL
                   let newcard = cardTemplate.content.cloneNode(true); // Clone the HTML template to create a new card (newcard) that will be filled with Firestore data.
                   
 
@@ -45,6 +46,8 @@ function display_friends(user) {
                   newcard.querySelector('.card-text').innerHTML = bio;
                   newcard.querySelector(".btn-custom").dataset.uid = doc.id;
                   newcard.querySelector('.btn-decline').dataset.uid = doc.id
+                  newcard.querySelector('.avatar').src = profilePicUrl; // Set the profile picture URL
+
 
                   
                   document.getElementById("requests-go-here").appendChild(newcard);
