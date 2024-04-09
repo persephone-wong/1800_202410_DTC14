@@ -9,9 +9,11 @@ function getuser() {
 }
 
 function sentToFriend(recipient) {
-  console.log("Why am I the best");
   const user = auth.currentUser;
   const friendId = recipient;
+
+  console.log("Sending friend request to:", friendId);
+  console.log("Current user:", user.uid);
 
   
 
@@ -51,7 +53,6 @@ function sentToFriend(recipient) {
 }
 
 async function accept(sender) {
-  console.log("Why am I the best");
   const user = auth.currentUser;
   console.log(user)
   const friendId = sender;
@@ -85,7 +86,6 @@ async function accept(sender) {
 }
 
 async function decline(sender) {
-  console.log("Why am I the best");
   const user = auth.currentUser;
   console.log(user)
   const friendId = sender;
@@ -103,5 +103,32 @@ async function decline(sender) {
   }
 }
 
+function onAddFriendClick(element) {
+  // Extract the friend's ID from the element
+  const friendId = element.dataset.uid;
+  console.log("Friend ID:", friendId);
+
+  // Call the existing function without changing its implementation
+  sentToFriend(friendId);
+
+  // Handle additional UI logic for success scenario
+  handleFriendRequestSuccess(element);
+}
+
+function handleFriendRequestSuccess(element) {
+  // Assume success
+  setTimeout(() => { // Simulate asynchronous operation completion
+    // Change button image to checkmark
+    element.innerHTML = `<span><img width="24" height="24" src="https://img.icons8.com/ios-filled/50/000c5c/checkmark--v1.png" alt="checkmark"/></span>`;
+
+    // Remove the whole card after 1 second
+    setTimeout(() => {
+      const card = element.closest('.card');
+      if (card) {
+        card.remove(); // Removes the card from the DOM
+      }
+    }, 1000);
+  }, 500); // Simulating delay for demonstration
+}
 
 
