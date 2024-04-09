@@ -6,7 +6,7 @@ document.addEventListener('DOMContentLoaded', function() {
         const searchText = event.target.value.trim().toLowerCase();
 
         // Get all the event cards
-        const eventCards = eventsContainer.querySelectorAll('.rounded-5');
+        const eventCards = eventsContainer.querySelectorAll('.event_listed_card');
 
         eventCards.forEach(card => {
             const title = card.querySelector('.card-title').textContent.trim().toLowerCase();
