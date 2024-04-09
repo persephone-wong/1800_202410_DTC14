@@ -4,14 +4,38 @@ var waitTime;
 var new_waitTime;
 
 function set_up_db() {
-  firebase.auth().onAuthStateChanged((user) => {
-    if (user) {
-      currentUser = db.collection("users").doc(user.uid); //global
-      console.log(currentUser);
-    }
+  return new Promise((resolve, reject) => {
+    firebase.auth().onAuthStateChanged(user => {
+      if (user) {
+        currentUser = db.collection("users").doc(user.uid);
+        console.log("currentUser set:", currentUser);
+        resolve(currentUser);
+      } else {
+        reject("No user is signed in.");
+      }
+    });
   });
 }
-set_up_db();
+
+async function initialize() {
+  try {
+    await set_up_db();
+    if (document.readyState === "loading") {
+      document.addEventListener("DOMContentLoaded", () => {
+        displayEventInfo();
+        populateFriendsWhoCheckedIn();
+      });
+    } else {
+      displayEventInfo();
+      populateFriendsWhoCheckedIn();
+    }
+  } catch (error) {
+    console.error("Error initializing app:", error);
+  }
+}
+
+initialize(); // start the initialization process
+
 
 function displayEventInfo() {
   let params = new URLSearchParams(window.location.search);
@@ -111,7 +135,6 @@ function displayEventInfo() {
     })
     .catch((error) => console.error("Error fetching document:", error));
 }
-displayEventInfo();
 
 
 function updateFavorite(eventDocID) {
@@ -346,6 +369,99 @@ window.onload = loadGoogleMaps;
 //   window.location.href = "reviews.html";
 // }
 
+function populateFriendsWhoCheckedIn() {
+  let params = new URLSearchParams(window.location.search);
+  let eventId = params.get("id");
+
+  if (!eventId) {
+    console.error("Event ID is missing from the URL");
+    return;
+  }
+
+  
+
+  currentUser.get().then(userDoc => {
+    if (!userDoc.exists) {
+      console.error("Current user document does not exist");
+      return;
+    }
+    const friendsList = userDoc.data().list_of_friends || [];
+    console.log("Current user's friends list:", friendsList);
+
+    // Fetch all check-ins for the specific event
+    db.collection("checkins").where("eventDocID", "==", eventId).get().then(querySnapshot => {
+      const checkedInUserIds = [];
+      
+      querySnapshot.forEach(doc => {
+        const checkInData = doc.data();
+        // Add the user ID to the list if it's in the friends list
+        if (friendsList.includes(checkInData.userID)) {
+          checkedInUserIds.push(checkInData.userID);
+        }
+      });
+
+      console.log("Friends who have checked in:", checkedInUserIds);
+
+      // Display these friends
+      displayCheckedInFriends(checkedInUserIds);
+    });
+  });
+}
+
+
+function displayCheckedInFriends(friendsCheckedIn) {
+  const container = document.getElementById("friendsCheckedInContainer");
+  const placeholder = document.querySelector(".No-friends-checked-in-placeholder");
+
+
+  if (friendsCheckedIn.length === 0) {
+    console.log("No friends have checked in yet.");
+    placeholder.innerText = "No friends have checked in yet.";
+    placeholder.style.display = "block"; // Make sure the placeholder is visible
+    console.log("Placeholder:", placeholder);
+    return;
+  } else {
+    // Hide the placeholder if there are friends to display
+    placeholder.style.display = "none";
+  }
+
+  friendsCheckedIn.forEach(friendId => {
+    db.collection("users").doc(friendId).get().then(friendDoc => {
+      if (friendDoc.exists) {
+        const friendData = friendDoc.data();
+        const profilePicUrl = friendData.profile_pic && friendData.profile_pic.trim() !== ""
+          ? friendData.profile_pic
+          : "https://img.icons8.com/ios/100/000C5C/user-male-circle--v1.png"; // Default profile picture if none is provided
+        const firstName = friendData.name.split(" ")[0];
+        console.log("Friend's name:", firstName);
+
+        // Create elements for the friend's name and profile picture
+        const friendDiv = document.createElement("div");
+        friendDiv.classList.add("d-flex", "align-items-center", "mb-2"); // Add Bootstrap classes for styling
+
+        const img = document.createElement("img");
+        img.src = profilePicUrl;
+        img.alt = firstName;
+        img.classList.add("rounded-circle", "me-2");
+        img.style.width = "50px";
+        img.style.height = "50px";
+
+        const nameText = document.createElement("div");
+        nameText.textContent = firstName;
+        nameText.classList.add("friend-name");
+        nameText.classList.add("mx-1");
+
+
+        friendDiv.appendChild(img);
+        friendDiv.appendChild(nameText);
+        container.appendChild(friendDiv);
+      }
+    });
+  });
+}
+
+
+
 function populateReviews() {
   console.log("Fetching reviews");
   let reviewCardTemplate = document.getElementById("reviewCardTemplate");
@@ -407,3 +523,4 @@ function populateReviews() {
 }
 
 populateReviews();
+populateFriendsWhoCheckedIn();

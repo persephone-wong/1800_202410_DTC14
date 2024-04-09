@@ -204,106 +204,106 @@ document.addEventListener("DOMContentLoaded", function () {
     document.getElementById("no-notifications-placeholder").style.display =
       "none";
   }
-
-  async function acceptFriendRequest(event, element) {
-    event.preventDefault(); // stop the link from causing the page to scroll to the top
-
-    // Extract the friend's ID from the element
-    const friendId = element.dataset.uid;
-    console.log("Friend ID:", friendId);
-
-    const user = firebase.auth().currentUser; // define 'user' by getting the current user
-    if (!user) {
-      console.error("No user logged in");
-      return;
-    }
-
-    try {
-      await db
-        .collection("users")
-        .doc(user.uid)
-        .update({
-          received_friends_requests:
-            firebase.firestore.FieldValue.arrayRemove(friendId),
-        });
-
-      await db
-        .collection("users")
-        .doc(friendId)
-        .update({
-          sent_friend_requests: firebase.firestore.FieldValue.arrayRemove(
-            user.uid
-          ),
-        });
-
-      await db
-        .collection("users")
-        .doc(user.uid)
-        .update({
-          received_friend_requests:
-            firebase.firestore.FieldValue.arrayRemove(friendId),
-        });
-
-      await db
-        .collection("users")
-        .doc(user.uid)
-        .update({
-          list_of_friends: firebase.firestore.FieldValue.arrayUnion(friendId),
-        });
-
-      await db
-        .collection("users")
-        .doc(friendId)
-        .update({
-          list_of_friends: firebase.firestore.FieldValue.arrayUnion(user.uid),
-        });
-
-      console.log("Friend request accepted successfully!");
-      // Locate the closest parent .list-group-item and remove it
-      const listItem = element.closest(".list-group-item");
-      if (listItem) {
-        listItem.innerHTML = `<p>You are now friends.</p>`;
-        setTimeout(() => listItem.remove(), 3000);
-      }
-    } catch (error) {
-      console.error("Error accepting friend request:", error);
-      element.innerHTML = "<p>Error accepting friend request.</p>";
-    }
-  }
-
-  // Delete friend request
-  async function deleteFriendRequest(event, element) {
-    event.preventDefault(); // stop the link from causing the page to scroll to the top
-
-    // Extract the friend's ID from the element
-    const friendId = element.dataset.uid;
-    console.log("Friend ID:", friendId);
-
-    const user = firebase.auth().currentUser; //  define 'user'
-    if (!user) {
-      console.error("No user logged in");
-      return;
-    }
-
-    try {
-      await db
-        .collection("users")
-        .doc(user.uid)
-        .update({
-          received_friend_requests:
-            firebase.firestore.FieldValue.arrayRemove(friendId),
-        });
-
-      console.log("Friend request deleted successfully.");
-      // Locate the closest parent .list-group-item and remove it
-      const listItem = element.closest(".list-group-item");
-      if (listItem) {
-        listItem.innerHTML = `<p>You have declined this friend request.</p>`;
-        setTimeout(() => listItem.remove(), 3000);
-      }
-    } catch (error) {
-      console.error("Error deleting friend request:", error);
-      element.innerHTML = "<p>Error deleting friend request.</p>";
-    }
-  }
 });
+
+async function acceptFriendRequest(event, element) {
+  event.preventDefault(); // stop the link from causing the page to scroll to the top
+
+  // Extract the friend's ID from the element
+  const friendId = element.dataset.uid;
+  console.log("Friend ID:", friendId);
+
+  const user = firebase.auth().currentUser; // define 'user' by getting the current user
+  if (!user) {
+    console.error("No user logged in");
+    return;
+  }
+
+  try {
+    await db
+      .collection("users")
+      .doc(user.uid)
+      .update({
+        received_friends_requests:
+          firebase.firestore.FieldValue.arrayRemove(friendId),
+      });
+
+    await db
+      .collection("users")
+      .doc(friendId)
+      .update({
+        sent_friend_requests: firebase.firestore.FieldValue.arrayRemove(
+          user.uid
+        ),
+      });
+
+    await db
+      .collection("users")
+      .doc(user.uid)
+      .update({
+        received_friend_requests:
+          firebase.firestore.FieldValue.arrayRemove(friendId),
+      });
+
+    await db
+      .collection("users")
+      .doc(user.uid)
+      .update({
+        list_of_friends: firebase.firestore.FieldValue.arrayUnion(friendId),
+      });
+
+    await db
+      .collection("users")
+      .doc(friendId)
+      .update({
+        list_of_friends: firebase.firestore.FieldValue.arrayUnion(user.uid),
+      });
+
+    console.log("Friend request accepted successfully!");
+    // Locate the closest parent .list-group-item and remove it
+    const listItem = element.closest(".list-group-item");
+    if (listItem) {
+      listItem.innerHTML = `<p>You are now friends.</p>`;
+      setTimeout(() => listItem.remove(), 3000);
+    }
+  } catch (error) {
+    console.error("Error accepting friend request:", error);
+    element.innerHTML = "<p>Error accepting friend request.</p>";
+  }
+}
+
+// Delete friend request
+async function deleteFriendRequest(event, element) {
+  event.preventDefault(); // stop the link from causing the page to scroll to the top
+
+  // Extract the friend's ID from the element
+  const friendId = element.dataset.uid;
+  console.log("Friend ID:", friendId);
+
+  const user = firebase.auth().currentUser; //  define 'user'
+  if (!user) {
+    console.error("No user logged in");
+    return;
+  }
+
+  try {
+    await db
+      .collection("users")
+      .doc(user.uid)
+      .update({
+        received_friend_requests:
+          firebase.firestore.FieldValue.arrayRemove(friendId),
+      });
+
+    console.log("Friend request deleted successfully.");
+    // Locate the closest parent .list-group-item and remove it
+    const listItem = element.closest(".list-group-item");
+    if (listItem) {
+      listItem.innerHTML = `<p>You have declined this friend request.</p>`;
+      setTimeout(() => listItem.remove(), 3000);
+    }
+  } catch (error) {
+    console.error("Error deleting friend request:", error);
+    element.innerHTML = "<p>Error deleting friend request.</p>";
+  }
+}

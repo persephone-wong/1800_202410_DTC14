@@ -64,7 +64,7 @@ body {
 
 .card-title {
   font-size: 24px;
-  width:95%; 
+  /* width:95%;  */
   font-weight:900
 }
 
@@ -278,3 +278,20 @@ a {
   white-space: normal; 
   word-wrap: break-word;
 }
+
+
+.vancouver-skyline {
+  background-image: url('../images/vancouver_outline.svg');
+  background-size: auto 100%;
+  background-position: center;
+  background-repeat: no-repeat;
+  height: 41vh;
+
+}
+
+.footer-index {
+  background-color: #f8f9fa; 
+  color: #6c757d; 
+  border-top: 1px solid #e9ecef; 
+}
+
