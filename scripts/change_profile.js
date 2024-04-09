@@ -12,7 +12,10 @@ function getuser() {
 function display_current_profile(user){
     db.collection("users").doc(user.uid).get()
     .then(userDoc => {
-        var pfp = userDoc.data().profile_pic;
+        var pfp = userDoc.data().profile_pic && userDoc.data().profile_pic.trim() !== "" ?
+            userDoc.data().profile_pic :
+            "https://img.icons8.com/ios/500/000c5c/user-male-circle--v1.png"; // Default profile picture URL
+
         console.log(pfp);
         
         // Set the profile picture URL in local storage
