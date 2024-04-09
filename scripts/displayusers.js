@@ -59,7 +59,7 @@ function displayUsers(users) {
               const profilePicUrl =
                 userData.profile_pic && userData.profile_pic.trim() !== ""
                   ? userData.profile_pic
-                  : "https://img.icons8.com/ios/50/000c5c/user-male-circle--v1.png";
+                  : "https://img.icons8.com/ios/100/000c5c/user-male-circle--v1.png";
               userCard.querySelector(".avatar").src = profilePicUrl;
 
               usersContainer.appendChild(userCard);
