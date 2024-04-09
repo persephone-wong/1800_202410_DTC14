@@ -2,6 +2,10 @@ document.addEventListener("DOMContentLoaded", function () {
   const db = firebase.firestore();
   let currentUser;
 
+  let hasTodayNotifications = false;
+  let hasLast7DaysNotifications = false;
+
+
   firebase.auth().onAuthStateChanged((user) => {
     if (user) {
       currentUser = db.collection("users").doc(user.uid);
@@ -58,6 +62,30 @@ document.addEventListener("DOMContentLoaded", function () {
     });
   }
 
+  function formatNotificationDate(timestamp) {
+    const now = new Date();
+    const todayStart = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+    const yesterdayStart = new Date(todayStart.getTime() - 86400000); // 24 hours before today
+    const notificationDate = timestamp.toDate();
+  
+    if (notificationDate >= todayStart) {
+      // Today: Show time only
+      return notificationDate.toLocaleTimeString(undefined, { hour: '2-digit', minute: '2-digit' });
+    } else if (notificationDate >= yesterdayStart) {
+      // Yesterday: Show "Yesterday, time"
+      return `Yesterday, ${notificationDate.toLocaleTimeString(undefined, { hour: '2-digit', minute: '2-digit' })}`;
+    } else {
+      // Last 7 days: Show "Date, time"
+      return `${notificationDate.toLocaleDateString(undefined, { month: 'short', day: 'numeric' })}, ${notificationDate.toLocaleTimeString(undefined, { hour: '2-digit', minute: '2-digit' })}`;
+    }
+  }
+
+  function prependNotification(containerId, notificationElement) {
+    const container = document.getElementById(containerId);
+    container.insertBefore(notificationElement, container.firstChild);
+  }
+  
+
   async function fetchAndDisplayReviews(friendsList) {
     const now = new Date();
     const oneWeekAgo = new Date(
@@ -93,7 +121,7 @@ document.addEventListener("DOMContentLoaded", function () {
           displayReviewNotification(
             userName,
             eventName,
-            review.timestamp.toDate(),
+            review.timestamp,
             review.eventDocID
           );
         }
@@ -106,20 +134,21 @@ document.addEventListener("DOMContentLoaded", function () {
   }
 
   function displayReviewNotification(userName, eventName, timestamp, eventId) {
-    let template = document
-      .getElementById("review-template")
-      .content.cloneNode(true);
-    template.querySelector(
-      "strong"
-    ).textContent = `${userName} left a review for ${eventName}.`;
-    template.querySelector(
-      ".event-redirect-link"
-    ).href = `/event.html?id=${eventId}`;
-
+    let template = document.getElementById("review-template").content.cloneNode(true);
+    const formattedDateTime = formatNotificationDate(timestamp);
+  
+    template.querySelector("strong").textContent = `${userName} left a review for ${eventName} on ${formattedDateTime}.`;
+    template.querySelector(".event-redirect-link").href = `/event.html?id=${eventId}`;
+  
     const containerId = determineContainerId(timestamp);
-    document
-      .getElementById(containerId)
-      .appendChild(document.importNode(template, true));
+    if (containerId === "today-container") {
+      hasTodayNotifications = true;
+    } else if (containerId === "last-7-days-container") {
+      hasLast7DaysNotifications = true;
+    }
+
+    const notificationElement = document.importNode(template, true);
+    prependNotification(containerId, notificationElement);
   }
 
   async function fetchAndDisplayCheckIns(friendsList) {
@@ -158,7 +187,7 @@ document.addEventListener("DOMContentLoaded", function () {
           displayCheckInNotification(
             userName,
             eventName,
-            checkIn.timestamp.toDate(),
+            checkIn.timestamp,
             checkIn.eventDocID
           );
         }
@@ -171,29 +200,35 @@ document.addEventListener("DOMContentLoaded", function () {
   }
 
   function displayCheckInNotification(userName, eventName, timestamp, eventId) {
-    let template = document
-      .getElementById("check-in-template")
-      .content.cloneNode(true);
-    template.querySelector(
-      "strong"
-    ).textContent = `${userName} checked into ${eventName}.`;
-    template.querySelector(
-      ".event-redirect-link"
-    ).href = `/event.html?id=${eventId}`;
-
+    let template = document.getElementById("check-in-template").content.cloneNode(true);
+    const formattedDateTime = formatNotificationDate(timestamp);
+  
+    template.querySelector("strong").textContent = `${userName} checked into ${eventName} on ${formattedDateTime}.`;
+    template.querySelector(".event-redirect-link").href = `/event.html?id=${eventId}`;
+  
     const containerId = determineContainerId(timestamp);
-    document
-      .getElementById(containerId)
-      .appendChild(document.importNode(template, true));
+    if (containerId === "today-container") {
+      hasTodayNotifications = true;
+    } else if (containerId === "last-7-days-container") {
+      hasLast7DaysNotifications = true;
+    }
+    const notificationElement = document.importNode(template, true);
+    prependNotification(containerId, notificationElement);
   }
 
   function determineContainerId(timestamp) {
-    const todayStart = new Date();
-    todayStart.setHours(0, 0, 0, 0);
-    return timestamp >= todayStart
+    const now = new Date();
+    const todayStart = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+    const weekAgo = new Date(todayStart.getTime() - 7 * 86400000); // 7 days before today
+  
+    const notificationDate = timestamp.toDate();
+    return notificationDate >= todayStart
       ? "today-container"
-      : "last-7-days-container";
+      : notificationDate >= weekAgo
+      ? "last-7-days-container"
+      : "older-notifications-container"; // Assuming you might want to categorize older notifications
   }
+  
 
   function displayNoNotificationsMessage() {
     document.getElementById("no-notifications-placeholder").style.display =
@@ -306,4 +341,21 @@ async function deleteFriendRequest(event, element) {
     console.error("Error deleting friend request:", error);
     element.innerHTML = "<p>Error deleting friend request.</p>";
   }
+
+  function adjustNotificationsDisplay() {
+    if (!hasTodayNotifications) {
+      document.getElementById("today-label").style.display = "none";
+      document.getElementById("today-container").style.display = "none";
+    }
+    if (!hasLast7DaysNotifications) {
+      document.getElementById("last-7-days-label").style.display = "none";
+      document.getElementById("last-7-days-container").style.display = "none";
+    }
+    if (!hasTodayNotifications && !hasLast7DaysNotifications) {
+      displayNoNotificationsMessage();
+    } else {
+      hideNoNotificationsMessage();
+    }
+  }
+  
 }

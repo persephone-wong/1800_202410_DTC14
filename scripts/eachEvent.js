@@ -483,17 +483,28 @@ function populateReviews() {
         var kidFriendly = data.kidFriendly;
         var petFriendly = data.petFriendly;
         var description = data.description;
-        var time = data.timestamp.toDate();
+        var firestoreTime = data.timestamp;
         var rating = data.rating;
+
+        const date = firestoreTime.toDate(); // Convert Firestore Timestamp to JavaScript Date object
+
+        // Options for the date format
+        const dateOptions = { year: 'numeric', month: 'long', day: 'numeric' };
+        const dateString = date.toLocaleDateString('en-CA', dateOptions);
+
+        // Options for the time format
+        const timeOptions = { hour: '2-digit', minute: '2-digit', hour12: true };
+        const timeString = date.toLocaleTimeString('en-CA', timeOptions);
+
+        // Combine both date and time in a single string
+        const time = `${dateString} at ${timeString}`;
 
         console.log(rating);
         console.log(time);
 
         let reviewCard = reviewCardTemplate.content.cloneNode(true);
         reviewCard.querySelector(".title").innerHTML = title;
-        reviewCard.querySelector(".time").innerHTML = new Date(
-          time
-        ).toLocaleString();
+        reviewCard.querySelector(".time").innerHTML = time;
         reviewCard.querySelector(
           ".waitTime"
         ).innerHTML = `Wait Time: ${waitTime}`;
