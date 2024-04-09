@@ -21,11 +21,20 @@ document.addEventListener("DOMContentLoaded", async () => {
   };
 
   const displayFriendSuggestions = async () => {
+    const currentUser = firebase.auth().currentUser;
+    if (!currentUser) {
+        console.log("No user is logged in.");
+        return; // Exit if no user is logged in
+    }
+    const currentUserId = currentUser.uid; // Get the current user's ID
+
     const querySnapshot = await db.collection("users").limit(10).get();
     const friends = [];
     querySnapshot.forEach((doc) => {
-      const friendWithId = { id: doc.id, ...doc.data() }; // Include the document ID
-      friends.push(friendWithId);
+      if (doc.id !== currentUserId) { // Exclude the current user
+        const friendWithId = { id: doc.id, ...doc.data() }; // Include the document ID
+        friends.push(friendWithId);
+    }
     });
 
     const selectedFriends = friends.sort(() => 0.5 - Math.random()).slice(0, 4);
@@ -71,10 +80,7 @@ document.addEventListener("DOMContentLoaded", async () => {
   // Auth state change logic
   auth.onAuthStateChanged((user) => {
     if (user) {
-      safelyExecute(() => displayRecentActivities());
       safelyExecute(() => displayFriendSuggestions());
-      safelyExecute(() => displayUpcomingEvents());
-      // assuming displayFriendsRecentActivities function exists
     } else {
       console.log("No user is logged in.");
     }

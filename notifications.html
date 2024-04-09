@@ -1,137 +1,160 @@
 <!DOCTYPE html>
 <html lang="en">
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Notifications</title>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Notifications</title>
 
-    <!------------------------------------------>
-    <!-- Bootstrap Library CSS JS CDN go here -->
-    <!------------------------------------------>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
-        crossorigin="anonymous" />
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous">
+        <!------------------------------------------>
+        <!-- Bootstrap Library CSS JS CDN go here -->
+        <!------------------------------------------>
+        <link
+            href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+            rel="stylesheet"
+            crossorigin="anonymous" />
+        <script
+            src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+            crossorigin="anonymous">
     </script>
 
-    <!-- Other libraries go here -->
-    <link href="https://fonts.googleapis.com/css2?family=Alice&family=Protest+Strike&display=swap" rel="stylesheet" />
-    <!-- google material design icons -->
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
+        <!-- Other libraries go here -->
+        <link
+            href="https://fonts.googleapis.com/css2?family=Alice&family=Protest+Strike&display=swap"
+            rel="stylesheet" />
+        <!-- google material design icons -->
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
+            rel="stylesheet" />
 
-    <!-- Link to styles of your own -->
-    <link rel="stylesheet" href="./styles/style.css" />
+        <!-- Link to styles of your own -->
+        <link rel="stylesheet" href="./styles/style.css" />
 
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet" />
+        <link
+            href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css"
+            rel="stylesheet" />
 
-    <!-------------------------------------------------------->
-    <!-- Firebase 8 Library related CSS, JS, JQuery go here -->
-    <!-------------------------------------------------------->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-firestore.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/ui/4.8.1/firebase-ui-auth.js"></script>
-    <link type="text/css" rel="stylesheet" href="https://www.gstatic.com/firebasejs/ui/4.8.1/firebase-ui-auth.css" />
-    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-storage.js"></script>
+        <!-------------------------------------------------------->
+        <!-- Firebase 8 Library related CSS, JS, JQuery go here -->
+        <!-------------------------------------------------------->
+        <script
+            src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        <script
+            src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+        <script
+            src="https://www.gstatic.com/firebasejs/8.10.0/firebase-firestore.js"></script>
+        <script
+            src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
+        <script
+            src="https://www.gstatic.com/firebasejs/ui/4.8.1/firebase-ui-auth.js"></script>
+        <link type="text/css" rel="stylesheet"
+            href="https://www.gstatic.com/firebasejs/ui/4.8.1/firebase-ui-auth.css" />
+        <script
+            src="https://www.gstatic.com/firebasejs/8.10.0/firebase-storage.js"></script>
 
-    <style>
+        <style>
     </style>
-</head>
+    </head>
 
-<body>
+    <body>
 
-    <!-- Navbar -->
-    <nav id="navbarPlaceholder"></nav>
+        <!-- Navbar -->
+        <nav id="navbarPlaceholder"></nav>
 
-    <!-- Main Body -->
-    <div class="container py-3">
-        <!-- Footer with Back button and Notifications title -->
-        <div class="d-flex justify-content-between align-items-center mb-3 gap-2">
-            <a href="#" class="btn btn-dark rounded-circle" onclick="goBack()">
-                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="30" fill="currentColor"
-                    class="bi bi-arrow-left" viewBox="0 0 16 16">
-                    <path fill-rule="evenodd"
-                        d="M15 8a.5.5 0 0 0-.5-.5H2.707l3.147-3.146a.5.5 0 1 0-.708-.708l-4 4a.5.5 0 0 0 0 .708l4 4a.5.5 0 0 0 .708-.708L2.707 8.5H14.5A.5.5 0 0 0 15 8" />
-                </svg>
-            </a>
-            <h1 class="card-title flex-grow-1 text-left pl-3">Friend Requests</h1>
-        </div>
-        
-        <!-- Friend Requests Section -->
-        <div id="friend-requests" class="p-2 mb-3 card-body">
-            <div class="d-flex justify-content-between align-items-center mb-1">
-                <h5 class="mb-0 d-flex align-items-center">
-                    <i class="bi bi-person-plus m-2"></i> Friend requests
-                </h5>
-                <div class="d-flex align-items-center">
-                    <p class="mb-0">
-                        <span id="latest-friend-request-name"><strong>John Doe</strong></span>
-                        and <span class="text-muted" id="additional-friend-requests-count">3 others</span>
-                    </p>
-                    <i class="material-icons ms-2">arrow_forward_ios</i>
+        <!-- Main Body -->
+        <div class="container py-3">
+            <!-- Footer with Back button and Notifications title -->
+            <div
+                class="d-flex justify-content-between align-items-center mb-3 gap-2">
+                <a href="#" class="btn btn-dark rounded-circle"
+                    onclick="goBack()">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20"
+                        height="30" fill="currentColor"
+                        class="bi bi-arrow-left" viewBox="0 0 16 16">
+                        <path fill-rule="evenodd"
+                            d="M15 8a.5.5 0 0 0-.5-.5H2.707l3.147-3.146a.5.5 0 1 0-.708-.708l-4 4a.5.5 0 0 0 0 .708l4 4a.5.5 0 0 0 .708-.708L2.707 8.5H14.5A.5.5 0 0 0 15 8" />
+                    </svg>
+                </a>
+                <h1
+                    class="card-title flex-grow-1 text-left pl-3">Notifications</h1>
+            </div>
+
+            <!-- Friend Requests Section -->
+            <div id="friend-requests" class="p-2 mb-3 card-body">
+                <div
+                    class="d-flex justify-content-between align-items-center mb-1"
+                    style="cursor: pointer;"
+                    onclick="window.location.href='friend_requests.html'">
+                    <h5 class="mb-0 d-flex align-items-center">
+                        <i class="bi bi-person-plus m-2"></i> Friend requests
+                    </h5>
+                    <div class="d-flex align-items-center">
+                        <i class="material-icons ms-2">arrow_forward_ios</i>
+                    </div>
                 </div>
             </div>
-        </div>
-        
-        
-        
-        <!-- Placeholder for "Today" or "Yesterday" -->
-        <h5 id="today-label">Today</h5>
-        
-        <!-- Notifications Container -->
-        <div class="list-group card-body" id="notifications-container">
-            <!-- Placeholder for dynamically added notifications -->
-        </div>
 
-        <!-- Notification Templates -->
-        <!-- Received Friend Request Template -->
-        <template id="friend-request-template">
-            <div class="list-group-item">
-                <p><strong>{{name}}</strong> sent you a friend request.</p>
-                <button class="btn btn-primary btn-sm">Accept</button>
-                <button class="btn btn-secondary btn-sm">Delete</button>
-            </div>
-        </template>
+            <!-- Placeholder for "Today" or "Last 7 Days" -->
+            <h5 id="today-label">Today</h5>
+            <div class="list-group" id="today-container"></div>
+            <!--  today's notifications -->
 
-        <!-- Became Friends Notification Template -->
-        <template id="became-friends-template">
-            <div class="list-group-item">
-                <p>You and <strong>{{name}}</strong> are now friends!</p>
-            </div>
-        </template>
+            <div id="no-notifications-placeholder" style="display: none;">You
+                have no notifications.</div>
 
-        <!-- Friend Left a Review Template -->
-        <template id="review-template">
-            <a href="" class="event-redirect-link">
+            <h5 id="last-7-days-label">Last 7 Days</h5>
+            <div class="list-group" id="last-7-days-container"></div>
+            <!-- last 7 days' notifications -->
+
+            <!-- Notification Templates -->
+            <!-- Received Friend Request Template -->
+            <template id="friend-request-template">
                 <div class="list-group-item">
-                    <p><strong>{{name}}</strong> has left a review on an event.</p>
+                    <p><strong>{{name}}</strong> sent you a friend request.</p>
+                    <button class="btn btn-primary btn-sm"
+                        onclick="acceptFriendRequest(event, this)"
+                        data-uid="{{uid}}">Accept</button>
+                    <button class="btn btn-secondary btn-sm"
+                        onclick="deleteFriendRequest(event, this)"
+                        data-uid="{{uid}}">Delete</button>
                 </div>
-            </a>
-        </template>
+            </template>
 
-        <!-- Friend Checked in to an Event Template -->
-        <template id="check-in-template">
-            <a href="" class="event-redirect-link">
+            <!-- Became Friends Notification Template -->
+            <template id="became-friends-template">
                 <div class="list-group-item">
-                    <p><strong>{{name}}</strong> has checked in to an event.</p>
+                    <p>You and <strong>{{name}}</strong> are now friends!</p>
                 </div>
-            </a>
-        </template>
+            </template>
 
-        <h5 id="last-7-days-label">Last 7 Days</h5>
-        
-    </div>
-    <!-- Bottom Nav Bar-->
-    <nav id="bottomnavbar"></nav>
+            <!-- Friend Left a Review Template -->
+            <template id="review-template">
+                <a href class="event-redirect-link">
+                    <div class="list-group-item">
+                        <p><strong>{{name}}</strong></p>
+                    </div>
+                </a>
+            </template>
 
-</body>
+            <!-- Friend Checked in to an Event Template -->
+            <template id="check-in-template">
+                <a href class="event-redirect-link">
+                    <div class="list-group-item">
+                        <p><strong>{{name}}</strong></p>
+                    </div>
+                </a>
+            </template>
 
-<!---------------------------------------------->
-<!-- Your own JavaScript functions go here    -->
-<!---------------------------------------------->
-<script src="./scripts/firebaseAPI_TEAMDTC14.js"></script>
-<script src="./scripts/skeleton.js"></script>
-<script src="./scripts/notifications.js"></script>
+        </div>
+        <!-- Bottom Nav Bar-->
+        <nav id="bottomnavbar"></nav>
+
+    </body>
+
+    <!---------------------------------------------->
+    <!-- Your own JavaScript functions go here    -->
+    <!---------------------------------------------->
+    <script src="./scripts/firebaseAPI_TEAMDTC14.js"></script>
+    <script src="./scripts/skeleton.js"></script>
+    <script src="./scripts/notifications.js"></script>
 
 </html>

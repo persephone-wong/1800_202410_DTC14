@@ -33,16 +33,21 @@ function displayUsers(users) {
         return; // Exit if no user is signed in
       }
 
-      const { sent_friend_requests, list_of_friends } = currentUserData;
+      // Provide a fallback empty array if properties are undefined
+
+      const sent_friend_requests = currentUserData.sent_friend_requests || [];
+      const list_of_friends = currentUserData.list_of_friends || [];
 
       let cardTemplate = document.getElementById("userCardTemplate").content;
       let usersContainer = document.getElementById(users + "-go-here");
-
+      
       db.collection(users)
         .get()
         .then((querySnapshot) => {
           querySnapshot.forEach((doc) => {
             // Exclude the current user, friends, and sent friend requests
+            console.log(doc.id);
+            console.log(currentUser.uid);
             if (
               doc.id !== currentUser.uid && // checks if the doc ID is not the current user's ID
               !sent_friend_requests.includes(doc.id) &&
