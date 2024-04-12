@@ -1,12 +1,14 @@
+// Description: This script is used to display the details of a specific event.
+
 var currentUser;
 var currentEvent;
 var waitTime;
 var new_waitTime;
 
-
+// Initialize the app and set up the database
 function set_up_db() {
   return new Promise((resolve, reject) => {
-    firebase.auth().onAuthStateChanged(user => {
+    firebase.auth().onAuthStateChanged((user) => {
       if (user) {
         currentUser = db.collection("users").doc(user.uid);
         console.log("currentUser set:", currentUser);
@@ -18,6 +20,7 @@ function set_up_db() {
   });
 }
 
+// Initialize the app and set up the database
 async function initialize() {
   try {
     await set_up_db();
@@ -37,15 +40,11 @@ async function initialize() {
 
 initialize(); // start the initialization process
 
-
-
 function displayEventInfo() {
   let params = new URLSearchParams(window.location.search);
   let ID = params.get("id"); // Get value for key "id"
   console.log(ID);
-  // let params = new URL(window.location.href); //get URL of search bar
-  // let ID = params.searchParams.get("id"); // Get value for key "id"
-  // console.log(ID);
+  
   currentEvent = db.collection("events").doc(ID);
   let cardTemplate = document.getElementById("eventCardTemplate");
   let card = cardTemplate.content.cloneNode(true); // Clone the HTML template to create a new card (newcard) that will be filled with Firestore data.
@@ -65,6 +64,7 @@ function displayEventInfo() {
         var eventCode = data.code; // eventCode = string
         waitTime = data.typical_wait_time; // waitTime = integer
 
+        // Get the user's current location
         if (navigator.geolocation) {
           navigator.geolocation.getCurrentPosition(
             (position) => {
@@ -112,12 +112,15 @@ function displayEventInfo() {
         card.querySelector(".check_in_btn").onclick = () =>
           updateCheckin(docID);
 
+        // Check if the event is already in the user's favorites
         currentUser.get().then((userDoc) => {
           var favourites = userDoc.data().favorites;
           if (favourites.includes(docID)) {
             document.getElementById("save-" + docID).innerText = "favorite";
           }
         });
+
+        // Check if the user is already checked in to the event
         currentUser.get().then((userDoc) => {
           var checkedIn = userDoc.data().check_ins;
           console.log(checkedIn);
@@ -145,77 +148,119 @@ function updateFavorite(eventDocID) {
     console.log(favoritesNow); // log the array of strings
     // if the event is already in the database, remove it
     if (favoritesNow.includes(eventDocID)) {
-      console.log("this event exist in the database,should be removed"); 
+      console.log("this event exist in the database,should be removed");
       let iconID = "save-" + eventDocID; //iconID = string
-      document.getElementById(iconID).innerText = "favorite_border"; 
-      currentUser.update({ favorites: firebase.firestore.FieldValue.arrayRemove(eventDocID), });} // remove the event from the array of strings
+      document.getElementById(iconID).innerText = "favorite_border";
+      currentUser.update({
+        favorites: firebase.firestore.FieldValue.arrayRemove(eventDocID),
+      });
+    } // remove the event from the array of strings
     // if the event is not in the database, add it
     else {
-      console.log("this event does not exist in the database and should be added");
+      console.log(
+        "this event does not exist in the database and should be added"
+      );
       let iconID = "save-" + eventDocID;
       document.getElementById(iconID).innerText = "favorite"; // change the inner text of icon to filled heart
       currentUser.update({
-      favorites: firebase.firestore.FieldValue.arrayUnion(eventDocID), });}});} // add the string to the array of strings
+        favorites: firebase.firestore.FieldValue.arrayUnion(eventDocID),
+      });
+    }
+  });
+} // add the string to the array of strings
 
 // eventDocID = string, the document ID of the event.
+
+// Function to update the check-in status of the user
 function updateCheckin(eventDocID) {
-    var user = firebase.auth().currentUser
-    currentUser.get().then((userDoc) => {
-    let checkinsUser = userDoc.data().check_ins; 
+  var user = firebase.auth().currentUser;
+  currentUser.get().then((userDoc) => {
+    let checkinsUser = userDoc.data().check_ins;
     console.log(checkinsUser);
     if (checkinsUser.includes(eventDocID)) {
-        let buttonID = "checkin-" + eventDocID;
-        document.getElementById(buttonID).innerText = "Check In";
-        currentUser.update({check_ins: firebase.firestore.FieldValue.arrayRemove(eventDocID),});
-        currentEvent.update({
-        typical_wait_time: firebase.firestore.FieldValue.increment(-5),
-        check_ins: firebase.firestore.FieldValue.arrayRemove(eventDocID),})
-        .then(() => {new_waitTime = waitTime; console.log(new_waitTime); 
-        document.getElementsByClassName('historicTimeWait')[0].innerText = (new_waitTime)});
-
-    if (user) { 
-      console.log(eventDocID); var checkinID = userDoc.data().check_inIDs[checkinsUser.indexOf(eventDocID)]; 
-      var userID = user.uid;
-      db.collection("checkins").doc(checkinID).delete().then(() => { console.log('deleted checked In') })
-      currentUser.update({
-      check_ins: firebase.firestore.FieldValue.arrayRemove(eventDocID),
-      check_inIDs: firebase.firestore.FieldValue.arrayRemove(checkinID)})} 
-      else {console.log("No user is signed in");}} 
-      else {
       let buttonID = "checkin-" + eventDocID;
-      document.getElementById(buttonID).innerText = "Check Out";
-      currentUser.update({check_ins: firebase.firestore.FieldValue.arrayUnion(eventDocID),});
-      currentEvent.update({
-        typical_wait_time: firebase.firestore.FieldValue.increment(5),
-        check_ins: firebase.firestore.FieldValue.arrayUnion(eventDocID),
-      }).then(() => {
-        new_waitTime = waitTime + 5;
-        console.log(new_waitTime);
-        document.getElementsByClassName('historicTimeWait')[0].innerText = (new_waitTime)});
+      document.getElementById(buttonID).innerText = "Check In";
+      currentUser.update({
+        check_ins: firebase.firestore.FieldValue.arrayRemove(eventDocID),
+      });
+      currentEvent
+      // update the typical wait time of the event
+        .update({
+          typical_wait_time: firebase.firestore.FieldValue.increment(-5),
+          check_ins: firebase.firestore.FieldValue.arrayRemove(eventDocID),
+        })
+        .then(() => {
+          // update the wait time displayed on the page
+          new_waitTime = waitTime;
+          console.log(new_waitTime);
+          document.getElementsByClassName("historicTimeWait")[0].innerText =
+            new_waitTime;
+        });
 
       if (user) {
+        // get the checkin ID of the user
+        console.log(eventDocID);
+        var checkinID =
+          userDoc.data().check_inIDs[checkinsUser.indexOf(eventDocID)];
         var userID = user.uid;
-        db.collection("checkins").add({
-          eventDocID: eventDocID,
-          userID: userID,
-          timestamp: firebase.firestore.FieldValue.serverTimestamp(),
-        }).then((docRef) => {
-          currentUser.update({
-            check_inIDs: firebase.firestore.FieldValue.arrayUnion(docRef.id)
-          })
+        db.collection("checkins")
+          .doc(checkinID)
+          .delete()
+          .then(() => {
+            console.log("deleted checked In");
+          });
+        currentUser.update({
+          //  remove the checkin ID from the user's check_inIDs array
+          check_ins: firebase.firestore.FieldValue.arrayRemove(eventDocID),
+          check_inIDs: firebase.firestore.FieldValue.arrayRemove(checkinID),
+        });
+      } else {
+        console.log("No user is signed in");
+      }
+    } else {
+      let buttonID = "checkin-" + eventDocID;
+      document.getElementById(buttonID).innerText = "Check Out";
+      currentUser.update({
+        check_ins: firebase.firestore.FieldValue.arrayUnion(eventDocID),
+      });
+      currentEvent
+        .update({
+          typical_wait_time: firebase.firestore.FieldValue.increment(5),
+          check_ins: firebase.firestore.FieldValue.arrayUnion(eventDocID),
         })
+        .then(() => {
+          new_waitTime = waitTime + 5;
+          console.log(new_waitTime);
+          document.getElementsByClassName("historicTimeWait")[0].innerText =
+            new_waitTime;
+        });
+
+      if (user) {
+        // get the checkin ID of the user
+        var userID = user.uid;
+        db.collection("checkins")
+          .add({
+            eventDocID: eventDocID,
+            userID: userID,
+            timestamp: firebase.firestore.FieldValue.serverTimestamp(),
+          })
+          .then((docRef) => {
+            currentUser.update({
+              check_inIDs: firebase.firestore.FieldValue.arrayUnion(docRef.id),
+            });
+          })
           .catch((error) => {
             console.error("Error writing document: ", error);
           });
       } else {
         console.log("No user is signed in");
       }
-
     }
   });
 }
 
 function loadGoogleMaps() {
+  // Load the Google Maps JavaScript API script
   const apiKey = firebaseConfig.apiKey;
   const script = document.createElement("script");
   script.src = `https://maps.googleapis.com/maps/api/js?key=${apiKey}&callback=initMap&libraries=&v=weekly`;
@@ -225,6 +270,7 @@ function loadGoogleMaps() {
 }
 
 function initMap(startPoint, endPoint) {
+  // Initialize the map
   const map = new google.maps.Map(document.getElementById("map"), {
     zoom: 14,
     center: startPoint, // Center the map on the user's location
@@ -236,6 +282,7 @@ function initMap(startPoint, endPoint) {
   const directionsRenderer = new google.maps.DirectionsRenderer();
   directionsRenderer.setMap(map);
 
+  // Calculate and display the route
   calculateAndDisplayRoute(
     directionsService,
     directionsRenderer,
@@ -279,6 +326,7 @@ function calculateAndDisplayRoute(
   );
 }
 
+// Calculate the route and display the travel time
 function calculateRoute(
   directionsService,
   directionsRenderer,
@@ -314,6 +362,8 @@ function calculateRoute(
   );
 }
 
+
+// Calculate the route and display the travel time
 function updateTravelTime(response, status, selector) {
   if (status === google.maps.DirectionsStatus.OK) {
     const directionsRenderer = new google.maps.DirectionsRenderer();
@@ -328,6 +378,7 @@ function updateTravelTime(response, status, selector) {
   }
 }
 
+//  Update the direction links
 function updateDirectionLinks(startPoint, endPoint) {
   const baseUrl = "https://www.google.com/maps/dir/?api=1";
   const travelModes = {
@@ -345,13 +396,7 @@ function updateDirectionLinks(startPoint, endPoint) {
 
 window.onload = loadGoogleMaps;
 
-// function saveEventDocumentIDAndRedirect() {
-//   let params = new URL(window.location.href); //get the url from the search bar
-//   let ID = params.searchParams.get("id");
-//   localStorage.setItem("eventDocID", ID);
-//   window.location.href = "reviews.html";
-// }
-
+// Function to populate the friends who have checked in to the event
 function populateFriendsWhoCheckedIn() {
   let params = new URLSearchParams(window.location.search);
   let eventId = params.get("id");
@@ -361,9 +406,7 @@ function populateFriendsWhoCheckedIn() {
     return;
   }
 
-  
-
-  currentUser.get().then(userDoc => {
+  currentUser.get().then((userDoc) => {
     if (!userDoc.exists) {
       console.error("Current user document does not exist");
       return;
@@ -372,30 +415,34 @@ function populateFriendsWhoCheckedIn() {
     console.log("Current user's friends list:", friendsList);
 
     // Fetch all check-ins for the specific event
-    db.collection("checkins").where("eventDocID", "==", eventId).get().then(querySnapshot => {
-      const checkedInUserIds = [];
-      
-      querySnapshot.forEach(doc => {
-        const checkInData = doc.data();
-        // Add the user ID to the list if it's in the friends list
-        if (friendsList.includes(checkInData.userID)) {
-          checkedInUserIds.push(checkInData.userID);
-        }
+    db.collection("checkins")
+      .where("eventDocID", "==", eventId)
+      .get()
+      .then((querySnapshot) => {
+        const checkedInUserIds = [];
+
+        querySnapshot.forEach((doc) => {
+          const checkInData = doc.data();
+          // Add the user ID to the list if it's in the friends list
+          if (friendsList.includes(checkInData.userID)) {
+            checkedInUserIds.push(checkInData.userID);
+          }
+        });
+
+        console.log("Friends who have checked in:", checkedInUserIds);
+
+        // Display these friends
+        displayCheckedInFriends(checkedInUserIds);
       });
-
-      console.log("Friends who have checked in:", checkedInUserIds);
-
-      // Display these friends
-      displayCheckedInFriends(checkedInUserIds);
-    });
   });
 }
 
-
+// Display the friends who have checked in to the event
 function displayCheckedInFriends(friendsCheckedIn) {
   const container = document.getElementById("friendsCheckedInContainer");
-  const placeholder = document.querySelector(".No-friends-checked-in-placeholder");
-
+  const placeholder = document.querySelector(
+    ".No-friends-checked-in-placeholder"
+  );
 
   if (friendsCheckedIn.length === 0) {
     console.log("No friends have checked in yet.");
@@ -408,42 +455,43 @@ function displayCheckedInFriends(friendsCheckedIn) {
     placeholder.style.display = "none";
   }
 
-  friendsCheckedIn.forEach(friendId => {
-    db.collection("users").doc(friendId).get().then(friendDoc => {
-      if (friendDoc.exists) {
-        const friendData = friendDoc.data();
-        const profilePicUrl = friendData.profile_pic && friendData.profile_pic.trim() !== ""
-          ? friendData.profile_pic
-          : "https://img.icons8.com/ios/100/000C5C/user-male-circle--v1.png"; // Default profile picture if none is provided
-        const firstName = friendData.name.split(" ")[0];
-        console.log("Friend's name:", firstName);
+  friendsCheckedIn.forEach((friendId) => {
+    db.collection("users")
+      .doc(friendId)
+      .get()
+      .then((friendDoc) => {
+        if (friendDoc.exists) {
+          const friendData = friendDoc.data();
+          const profilePicUrl =
+            friendData.profile_pic && friendData.profile_pic.trim() !== ""
+              ? friendData.profile_pic
+              : "https://img.icons8.com/ios/100/000C5C/user-male-circle--v1.png"; // Default profile picture if none is provided
+          const firstName = friendData.name.split(" ")[0];
+          console.log("Friend's name:", firstName);
 
-        // Create elements for the friend's name and profile picture
-        const friendDiv = document.createElement("div");
-        friendDiv.classList.add("d-flex", "align-items-center", "mb-2"); // Add Bootstrap classes for styling
+          // Create elements for the friend's name and profile picture
+          const friendDiv = document.createElement("div");
+          friendDiv.classList.add("d-flex", "align-items-center", "mb-2"); // Add Bootstrap classes for styling
 
-        const img = document.createElement("img");
-        img.src = profilePicUrl;
-        img.alt = firstName;
-        img.classList.add("rounded-circle", "me-2");
-        img.style.width = "50px";
-        img.style.height = "50px";
+          const img = document.createElement("img");
+          img.src = profilePicUrl;
+          img.alt = firstName;
+          img.classList.add("rounded-circle", "me-2");
+          img.style.width = "50px";
+          img.style.height = "50px";
 
-        const nameText = document.createElement("div");
-        nameText.textContent = firstName;
-        nameText.classList.add("friend-name");
-        nameText.classList.add("mx-1");
+          const nameText = document.createElement("div");
+          nameText.textContent = firstName;
+          nameText.classList.add("friend-name");
+          nameText.classList.add("mx-1");
 
-
-        friendDiv.appendChild(img);
-        friendDiv.appendChild(nameText);
-        container.appendChild(friendDiv);
-      }
-    });
+          friendDiv.appendChild(img);
+          friendDiv.appendChild(nameText);
+          container.appendChild(friendDiv);
+        }
+      });
   });
 }
-
-
 
 function populateReviews() {
   console.log("Fetching reviews");
@@ -472,12 +520,16 @@ function populateReviews() {
         const date = firestoreTime.toDate(); // Convert Firestore Timestamp to JavaScript Date object
 
         // Options for the date format
-        const dateOptions = { year: 'numeric', month: 'long', day: 'numeric' };
-        const dateString = date.toLocaleDateString('en-CA', dateOptions);
+        const dateOptions = { year: "numeric", month: "long", day: "numeric" };
+        const dateString = date.toLocaleDateString("en-CA", dateOptions);
 
         // Options for the time format
-        const timeOptions = { hour: '2-digit', minute: '2-digit', hour12: true };
-        const timeString = date.toLocaleTimeString('en-CA', timeOptions);
+        const timeOptions = {
+          hour: "2-digit",
+          minute: "2-digit",
+          hour12: true,
+        };
+        const timeString = date.toLocaleTimeString("en-CA", timeOptions);
 
         // Combine both date and time in a single string
         const time = `${dateString} at ${timeString}`;

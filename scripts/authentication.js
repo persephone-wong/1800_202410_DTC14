@@ -18,34 +18,42 @@ var uiConfig = {
       var user = authResult.user; // get the user object from the Firebase authentication database
       if (authResult.additionalUserInfo.isNewUser) {
         //if new user
-        navigator.geolocation.getCurrentPosition(position => {
-          const userLocation = [position.coords.longitude, position.coords.latitude];
-          // Perform Firestore set operation inside geolocation callback
-          db.collection("users").doc(user.uid).set({
-            name: user.displayName,
-            email: user.email,
-            age: -1,
-            bio: "New user",
-            favorites: [],
-            list_of_friends: [],
-            check_ins: [],
-            profile_pic: "",
-            received_friends_requests: [],
-            sent_friends_requests: [],
-            check_ins: [],
-            location: userLocation // Use the geolocation data
-          })
-          .then(function() {
-            console.log("New user added to firestore");
-            window.location.assign("map.html"); // Redirect to main.html after signup
-          })
-          .catch(function(error) {
-            console.log("Error adding new user: " + error);
-          });
-        }, error => {
-          console.log("Geolocation error:", error);
-          // Handle error or perform Firestore set without location
-        });
+        navigator.geolocation.getCurrentPosition(
+          (position) => {
+            const userLocation = [
+              position.coords.longitude,
+              position.coords.latitude,
+            ];
+            // Perform Firestore set operation inside geolocation callback
+            db.collection("users")
+              .doc(user.uid)
+              .set({
+                name: user.displayName,
+                email: user.email,
+                age: -1,
+                bio: "New user",
+                favorites: [],
+                list_of_friends: [],
+                check_ins: [],
+                profile_pic: "",
+                received_friends_requests: [],
+                sent_friends_requests: [],
+                check_ins: [],
+                location: userLocation, // Use the geolocation data
+              })
+              .then(function () {
+                console.log("New user added to firestore");
+                window.location.assign("map.html"); // Redirect to main.html after signup
+              })
+              .catch(function (error) {
+                console.log("Error adding new user: " + error);
+              });
+          },
+          (error) => {
+            console.log("Geolocation error:", error);
+            // Handle error or perform Firestore set without location
+          }
+        );
         return false; // Prevent automatic redirect
       } else {
         return true; // Allow automatic redirect for existing users
@@ -61,18 +69,12 @@ var uiConfig = {
   signInFlow: "popup",
   signInSuccessUrl: "map.html",
   signInOptions: [
-    // Leave the lines as is for the providers you want to offer your users.
-    //   firebase.auth.GoogleAuthProvider.PROVIDER_ID,
-    //   firebase.auth.FacebookAuthProvider.PROVIDER_ID,
-    //   firebase.auth.TwitterAuthProvider.PROVIDER_ID,
-    //   firebase.auth.GithubAuthProvider.PROVIDER_ID,
     firebase.auth.EmailAuthProvider.PROVIDER_ID,
-    //   firebase.auth.PhoneAuthProvider.PROVIDER_ID
   ],
   // Terms of service url.
-  tosUrl: "<your-tos-url>",
+  tosUrl: "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
   // Privacy policy url.
-  privacyPolicyUrl: "<your-privacy-policy-url>",
+  privacyPolicyUrl: "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
 };
 
 ui.start("#firebaseui-auth-container", uiConfig);

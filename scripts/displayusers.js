@@ -1,3 +1,6 @@
+// This script is responsible for displaying users in the users page
+
+// Get the current user's data
 function getCurrentUserData() {
   return new Promise((resolve, reject) => {
     const user = firebase.auth().currentUser;
@@ -7,6 +10,7 @@ function getCurrentUserData() {
       return;
     }
 
+    // Fetch the user's data from Firestore
     db.collection("users")
       .doc(user.uid)
       .get()
@@ -24,6 +28,7 @@ function getCurrentUserData() {
   });
 }
 
+// Display users in the users page
 function displayUsers(users) {
   getCurrentUserData()
     .then((currentUserData) => {
@@ -40,7 +45,7 @@ function displayUsers(users) {
 
       let cardTemplate = document.getElementById("userCardTemplate").content;
       let usersContainer = document.getElementById(users + "-go-here");
-      
+
       db.collection(users)
         .get()
         .then((querySnapshot) => {

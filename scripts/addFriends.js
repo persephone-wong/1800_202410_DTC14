@@ -1,3 +1,4 @@
+// Firebase configuration
 function getuser() {
   firebase.auth().onAuthStateChanged((user) => {
     if (user) {
@@ -8,6 +9,7 @@ function getuser() {
   });
 }
 
+// Send a friend request from the current user to the recipient
 function sentToFriend(recipient) {
   const user = auth.currentUser;
   const friendId = recipient;
@@ -66,6 +68,7 @@ function sentToFriend(recipient) {
     });
 }
 
+// Accept the friend request
 async function accept(element) {
   const friendId = element.dataset.uid;
   const card = element.closest(".card");
@@ -74,6 +77,7 @@ async function accept(element) {
   console.log("Accepting friend request from:", friendId);
 
   try {
+    // Remove the friend request from the current user's received_friend_requests array
     await db
       .collection("users")
       .doc(user.uid)
@@ -82,6 +86,7 @@ async function accept(element) {
           firebase.firestore.FieldValue.arrayRemove(friendId),
       });
 
+    // Remove the friend request from the sender's sent_friend_requests array
     await db
       .collection("users")
       .doc(friendId)
@@ -91,6 +96,7 @@ async function accept(element) {
         ),
       });
 
+    // Add the friend to the current user's list_of_friends array
     await db
       .collection("users")
       .doc(user.uid)
@@ -99,6 +105,7 @@ async function accept(element) {
           firebase.firestore.FieldValue.arrayRemove(friendId),
       });
 
+    // Add the current user to the friend's list_of_friends array
     await db
       .collection("users")
       .doc(user.uid)
@@ -106,6 +113,7 @@ async function accept(element) {
         list_of_friends: firebase.firestore.FieldValue.arrayUnion(friendId),
       });
 
+    // Add the friend to the current user's list_of_friends array
     await db
       .collection("users")
       .doc(friendId)
@@ -115,6 +123,7 @@ async function accept(element) {
 
     console.log("Friend request accepted successfully!");
 
+    // Update card UI to show only the accept message, removing the buttons
     if (card) {
       card.querySelector(".card-body").innerHTML =
         "<p>Friend request accepted!</p>";
@@ -132,6 +141,7 @@ async function accept(element) {
   }
 }
 
+// Decline the friend request
 async function decline(element) {
   const friendId = element.dataset.uid;
   const card = element.closest(".card");
@@ -139,6 +149,7 @@ async function decline(element) {
   console.log("Declining friend request from:", friendId);
 
   try {
+    // Remove the friend request from the current user's received_friend_requests array
     await db
       .collection("users")
       .doc(user.uid)

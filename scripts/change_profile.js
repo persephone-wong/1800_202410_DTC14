@@ -1,3 +1,4 @@
+// Description: This script is used to change the profile picture of the user.
 function getuser() {
     firebase.auth().onAuthStateChanged(user => {
         if (user) {
@@ -9,6 +10,7 @@ function getuser() {
     });
 }
 
+// Display the current profile picture of the user
 function display_current_profile(user){
     db.collection("users").doc(user.uid).get()
     .then(userDoc => {
@@ -32,8 +34,10 @@ function display_current_profile(user){
 }
 
 var ImageFile;
+// Listen for file selection
 function listenFileSelect(){
     var fileInput = document.getElementById("mypic-input");
+    // Listen for file selection, and display the selected image
     fileInput.addEventListener('change', function (e) {
         ImageFile = e.target.files[0];
         var blob = URL.createObjectURL(ImageFile);
@@ -43,6 +47,7 @@ function listenFileSelect(){
 
 listenFileSelect();
 
+// Save the selected image to Cloud Storage and Firestore
 function savePost() {
     var storageRef = storage.ref("images/" + firebase.auth().currentUser.uid + ".jpg");
 
