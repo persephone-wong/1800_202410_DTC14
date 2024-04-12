@@ -1,7 +1,11 @@
+// Description: This script is used to filter the events based on the search text entered by the user in the search bar.
+
+// Wait for the DOM to be fully loaded
 document.addEventListener('DOMContentLoaded', function() {
     const searchInput = document.getElementById('searchbar');
     const eventsContainer = document.getElementById('events-go-here');
 
+    // Add an input event listener to the search input
     searchInput.addEventListener('input', function(event) {
         const searchText = event.target.value.trim().toLowerCase();
 
@@ -20,5 +24,3 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 });
 
-
-console.log('banana')

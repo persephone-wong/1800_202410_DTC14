@@ -1,5 +1,8 @@
+// This script is responsible for submitting a review for an event.
+
 var eventDocID = localStorage.getItem("eventDocID");
 
+// Get the event name
 function getEventName(id) {
   db.collection("events")
     .doc(id)
@@ -16,6 +19,7 @@ console.log("Event ID: " + eventDocID);
 
 const stars = document.querySelectorAll(".star");
 
+// Iterate through each star element and add a click event listener
 stars.forEach((star, index) => {
   star.addEventListener("click", () => {
     for (let i = 0; i <= index; i++) {
@@ -24,6 +28,7 @@ stars.forEach((star, index) => {
   });
 });
 
+// Function to submit a review
 function writeReview() {
   console.log("Inside writeReview");
   let title = document.getElementById("title").value;
@@ -79,10 +84,7 @@ function writeReview() {
       });
   } else {
     console.log("No user is signed in");
-    window.location.href = "review.html";
+    window.location.href = "index.html";
     // Handle case where no user is signed in
-    // You might want to redirect to a login page or show an error message
   }
 }
-
-// Optional: Initialize Firebase in this script or ensure it's done before this script runs

@@ -1,7 +1,11 @@
+// Description: This script is used to filter the user cards based on the search text entered in the search bar.
+
+// Wait for the DOM to be fully loaded
 document.addEventListener('DOMContentLoaded', function() {
     const searchInput = document.getElementById('searchbar');
     const usersContainer = document.getElementById('users-go-here');
 
+    // Add an input event listener to the search input
     searchInput.addEventListener('input', function(event) {
         const searchText = event.target.value.trim().toLowerCase();
 

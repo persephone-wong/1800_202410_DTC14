@@ -44,7 +44,7 @@ function displayEventInfo() {
   let params = new URLSearchParams(window.location.search);
   let ID = params.get("id"); // Get value for key "id"
   console.log(ID);
-  
+
   currentEvent = db.collection("events").doc(ID);
   let cardTemplate = document.getElementById("eventCardTemplate");
   let card = cardTemplate.content.cloneNode(true); // Clone the HTML template to create a new card (newcard) that will be filled with Firestore data.
@@ -184,7 +184,7 @@ function updateCheckin(eventDocID) {
         check_ins: firebase.firestore.FieldValue.arrayRemove(eventDocID),
       });
       currentEvent
-      // update the typical wait time of the event
+        // update the typical wait time of the event
         .update({
           typical_wait_time: firebase.firestore.FieldValue.increment(-5),
           check_ins: firebase.firestore.FieldValue.arrayRemove(eventDocID),
@@ -362,7 +362,6 @@ function calculateRoute(
   );
 }
 
-
 // Calculate the route and display the travel time
 function updateTravelTime(response, status, selector) {
   if (status === google.maps.DirectionsStatus.OK) {
@@ -455,13 +454,17 @@ function displayCheckedInFriends(friendsCheckedIn) {
     placeholder.style.display = "none";
   }
 
+  // Display the friends who have checked in
   friendsCheckedIn.forEach((friendId) => {
     db.collection("users")
       .doc(friendId)
       .get()
       .then((friendDoc) => {
+        // Check if the friend document exists
         if (friendDoc.exists) {
+          // Get the friend's data
           const friendData = friendDoc.data();
+          // Check if the friend has a profile picture
           const profilePicUrl =
             friendData.profile_pic && friendData.profile_pic.trim() !== ""
               ? friendData.profile_pic
@@ -485,6 +488,7 @@ function displayCheckedInFriends(friendsCheckedIn) {
           nameText.classList.add("friend-name");
           nameText.classList.add("mx-1");
 
+          // Append the elements to the container
           friendDiv.appendChild(img);
           friendDiv.appendChild(nameText);
           container.appendChild(friendDiv);
@@ -493,6 +497,7 @@ function displayCheckedInFriends(friendsCheckedIn) {
   });
 }
 
+// Function to populate the reviews for the event
 function populateReviews() {
   console.log("Fetching reviews");
   let reviewCardTemplate = document.getElementById("reviewCardTemplate");
@@ -502,6 +507,7 @@ function populateReviews() {
   let params = new URL(window.location.href);
   let eventID = params.searchParams.get("id");
 
+  // Fetch all reviews for the specific event
   db.collection("reviews")
     .where("eventDocID", "==", eventID)
     .get()
@@ -537,6 +543,7 @@ function populateReviews() {
         console.log(rating);
         console.log(time);
 
+        // Clone the review card template and populate it with the review data
         let reviewCard = reviewCardTemplate.content.cloneNode(true);
         reviewCard.querySelector(".title").innerHTML = title;
         reviewCard.querySelector(".time").innerHTML = time;
@@ -568,5 +575,6 @@ function populateReviews() {
     });
 }
 
+// Call the function to populate the reviews
 populateReviews();
 populateFriendsWhoCheckedIn();

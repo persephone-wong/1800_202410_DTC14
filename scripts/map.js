@@ -1,6 +1,10 @@
+// Description: This script is responsible for displaying the map on the home page.
+
+// Function to truncate text to a certain length
 const truncateText = (text, maxLength) =>
   text.length > maxLength ? text.substring(0, maxLength - 3) + "..." : text;
 
+// Function to display the map
 function showMap() {
   mapboxgl.accessToken =
     "pk.eyJ1Ijoia3lyeWxzaHRhbmhlaSIsImEiOiJjbHR2YnNianQxY2drMmtwZWM5Y3ozdWhwIn0.IONvHK4NmN68fngHfO79Dw";
@@ -36,7 +40,8 @@ function showMap() {
 
   // Add a "Re-center" button to the map
   const recenterBtn = document.createElement("button");
-  recenterBtn.innerHTML = '<i class="bi bi-crosshair" style="font-size: 2rem;"></i>'; // Using Bootstrap Icons and making the icon bigger
+  recenterBtn.innerHTML =
+    '<i class="bi bi-crosshair" style="font-size: 2rem;"></i>'; // Using Bootstrap Icons and making the icon bigger
   recenterBtn.className = "btn btn-primary"; // Bootstrap classes for basic styling
   recenterBtn.style.position = "absolute";
   recenterBtn.style.bottom = "30px";
@@ -67,6 +72,7 @@ function showMap() {
 }
 
 function addEventsPinsCircle(map) {
+  // Define the icons for each event type
   const iconUrls = {
     performance: "https://img.icons8.com/ios/30/theatre-mask.png",
     convention: "https://img.icons8.com/ios/30/conference.png",
@@ -80,6 +86,7 @@ function addEventsPinsCircle(map) {
   let loadedIcons = 0;
   const totalIcons = Object.keys(iconUrls).length;
 
+  // Load each icon image and add it to the map
   Object.entries(iconUrls).forEach(([type, url]) => {
     map.loadImage(url, (error, image) => {
       if (error) throw error;
@@ -93,17 +100,20 @@ function addEventsPinsCircle(map) {
   });
 }
 
+// Function to add events to the map
 function addEventsToMap(map) {
   db.collection("events")
     .get()
     .then((allEvents) => {
       const features = [];
 
+      // Loop through each event and add it to the map
       allEvents.forEach((doc) => {
         const geoPoint = doc.data().location;
         const coordinates = [geoPoint.longitude, geoPoint.latitude];
         const eventType = doc.data().type;
 
+        // Add the event as a GeoJSON feature
         features.push({
           type: "Feature",
           properties: {
@@ -113,7 +123,9 @@ function addEventsToMap(map) {
             )}</p>
                             <p>Wait time: <strong>${
                               doc.data().typical_wait_time
-                            } mins</strong></p> <a href="/event.html?id=${doc.id}" 
+                            } mins</strong></p> <a href="/event.html?id=${
+              doc.id
+            }" 
                             class="btn btn-primary">Read more</a>`,
             icon: eventType, // Use the event type as the icon identifier
           },
@@ -124,6 +136,7 @@ function addEventsToMap(map) {
         });
       });
 
+      // Add the events as a source and layer on the map
       map.addSource("places", {
         type: "geojson",
         data: {
@@ -132,6 +145,7 @@ function addEventsToMap(map) {
         },
       });
 
+      // Add a layer showing the places
       map.addLayer({
         id: "places",
         type: "symbol",
@@ -245,4 +259,4 @@ function addUserPinCircle(map, userLocation) {
   }
 }
 
-showMap(); // Call it!
+showMap();

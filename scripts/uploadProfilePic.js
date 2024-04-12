@@ -1,3 +1,5 @@
+// This script is used to upload a profile picture to the user's profile.
+
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 
 const auth = getAuth();
@@ -13,6 +15,7 @@ onAuthStateChanged(auth, (user) => {
   }
 });
 
+// Not used in this script, but it's a good practice to include this function
 function savePost() {
     alert ("SAVE POST is triggered");
     firebase.auth().onAuthStateChanged(function (user) {
@@ -46,6 +49,7 @@ function savePost() {
 // This function is called AFTER the post has been created, 
 // and we know the post's document id.
 //------------------------------------------------
+
 function uploadPic(postDocID) {
     console.log("inside uploadPic " + postDocID);
     var storageRef = storage.ref("images/" + postDocID + ".jpg");

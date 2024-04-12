@@ -1,43 +1,38 @@
 nav {
-  background-color: #03045E;
+  background-color: #03045e;
   text-align: center;
 }
 
-#bottomnavbar{
-  background-color: #00AFB9;
+#bottomnavbar {
+  background-color: #00afb9;
 }
 
-.search-container{
+.search-container {
   border-radius: 50px;
   padding-bottom: 10px;
   padding-left: 5px;
 }
 
-.event_listed_card{
+.event_listed_card {
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-  background-color: #CAF0F8;
+  background-color: #caf0f8;
 }
 
-
-.bottom_text{
+.bottom_text {
   color: black;
   font-size: small;
 }
 
-.mainlogo{
-  color: #00B4D8;
-  font-size:x-large;
+.mainlogo {
+  color: #00b4d8;
+  font-size: x-large;
 }
 
 body {
   padding-bottom: 70px;
-  font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+  font-family: "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande",
+    "Lucida Sans", Arial, sans-serif;
 }
-
-
-
-
-
 
 /* call to action */
 
@@ -46,7 +41,7 @@ body {
   padding-right: 5px;
 }
 
-.event_listed_card{
+.event_listed_card {
   border-radius: 30px;
   margin-top: 10px;
   margin-left: 5px;
@@ -55,19 +50,17 @@ body {
   padding: 10px;
 }
 
-.detail-header{
-  font-size: 18px; 
-  font-weight:700; 
+.detail-header {
+  font-size: 18px;
+  font-weight: 700;
   margin-bottom: 1px;
-  
 }
 
 .card-title {
   font-size: 24px;
   /* width:95%;  */
-  font-weight:900
+  font-weight: 900;
 }
-
 
 .card-text {
   font-size: 18px;
@@ -75,15 +68,14 @@ body {
 }
 
 .btn {
-  background-color: #00B4D8;
+  background-color: #00b4d8;
   border: 0px;
   font-weight: 500;
 }
 
 .btn:hover {
-  background-color: #0077B6;
+  background-color: #0077b6;
 }
-
 
 a {
   color: white;
@@ -92,7 +84,7 @@ a {
 }
 
 .backbtn {
-  background-color: #00AFB9;
+  background-color: #00afb9;
 }
 
 #signin {
@@ -121,11 +113,10 @@ a {
   border-radius: 25px;
 }
 
-
 /* call to action */
 
-#accountSettings{
-  background-color: #F07167;
+#accountSettings {
+  background-color: #f07167;
   font-weight: 500;
   font-size: larger;
 }
@@ -135,17 +126,17 @@ a {
 #changeProfilePic,
 #uploadPhotoProfile,
 #update {
-  background-color: #00B4D8;
+  background-color: #00b4d8;
   border: 0px;
   font-weight: 500;
 }
 
-.reviews{
-  background-color: #CAF0F8;
+.reviews {
+  background-color: #caf0f8;
 }
 
 .check_in_btn {
-  background-color: #00B4D8;
+  background-color: #00b4d8;
   border: 0px;
   border-radius: 5px;
   font-weight: 500;
@@ -154,7 +145,7 @@ a {
 }
 
 #accountSettings {
-  background-color: #00B4D8;
+  background-color: #00b4d8;
 }
 
 .seeMore {
@@ -163,26 +154,24 @@ a {
 }
 
 .card-body {
-  background-color: #CAF0F8;
+  background-color: #caf0f8;
   font-size: 18px;
   font-weight: 400;
   border-radius: 25px;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-
 }
 
 .account-body {
-  background-color: #CAF0F8;
+  background-color: #caf0f8;
   font-size: 18px;
   font-weight: 400;
   border-top-left-radius: 25px;
   border-top-right-radius: 25px;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-
 }
 
-.friend-body{
-  background-color: #CAF0F8;
+.friend-body {
+  background-color: #caf0f8;
   font-size: 18px;
   font-weight: 400;
   border-bottom-left-radius: 25px;
@@ -191,29 +180,25 @@ a {
 
 .details-body {
   border-top-left-radius: 0px;
-  border-top-right-radius: 0px
-
+  border-top-right-radius: 0px;
 }
 
 footer {
-  background-color: #0081A7;
-
+  background-color: #0081a7;
 }
 
 .travel_icon {
   width: 40px;
 }
 
-
 .bg_purple_and_hover {
-  background-color: #F07167;
+  background-color: #f07167;
   border: 0px;
   font-weight: 500;
 }
 
 .bg_purple_and_hover:hover {
   background-color: rgb(196, 168, 241);
-
 }
 
 .outline_purple_and_hover {
@@ -230,7 +215,6 @@ a {
   text-decoration: none;
 }
 
-
 .input-group {
   display: flex;
   flex-direction: column;
@@ -243,7 +227,6 @@ a {
   margin: auto;
 }
 
-
 /* #searchResults {
   margin-top: 5px;
   background-color: white; 
@@ -254,8 +237,6 @@ a {
   overflow-y: auto;
   color: black;
 } */
-
-
 
 .horizontal-scroll {
   display: flex;
@@ -269,29 +250,26 @@ a {
 
 .friend-name {
   font-size: 1.1rem;
-  white-space: normal; 
+  white-space: normal;
   word-wrap: break-word;
 }
 
-.result-text{
+.result-text {
   font-size: 0.9rem;
-  white-space: normal; 
+  white-space: normal;
   word-wrap: break-word;
 }
-
 
 .vancouver-skyline {
-  background-image: url('../images/vancouver_outline.svg');
+  background-image: url("../images/vancouver_outline.svg");
   background-size: auto 100%;
   background-position: center;
   background-repeat: no-repeat;
   height: 41vh;
-
 }
 
 .footer-index {
-  background-color: #f8f9fa; 
-  color: #6c757d; 
-  border-top: 1px solid #e9ecef; 
+  background-color: #f8f9fa;
+  color: #6c757d;
+  border-top: 1px solid #e9ecef;
 }
-

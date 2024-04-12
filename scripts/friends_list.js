@@ -1,3 +1,5 @@
+// Description: This file is responsible for displaying the user's friends list on the friends page.
+
 function getuser() {
   firebase.auth().onAuthStateChanged((user) => {
     if (user) {
@@ -20,8 +22,8 @@ function display_friends(user) {
       // Get pointer the new card template
       let cardTemplate = document.getElementById("userCardTemplate");
 
+      // Loop through the friends list and display each friend
       friends_list.forEach((uid) => {
-        //   console.log(uid);
         db.collection("users")
           .doc(uid)
           .get()
