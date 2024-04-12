@@ -3,6 +3,7 @@ var currentEvent;
 var waitTime;
 var new_waitTime;
 
+
 function set_up_db() {
   return new Promise((resolve, reject) => {
     firebase.auth().onAuthStateChanged(user => {
@@ -37,6 +38,7 @@ async function initialize() {
 initialize(); // start the initialization process
 
 
+
 function displayEventInfo() {
   let params = new URLSearchParams(window.location.search);
   let ID = params.get("id"); // Get value for key "id"
@@ -48,20 +50,20 @@ function displayEventInfo() {
   let cardTemplate = document.getElementById("eventCardTemplate");
   let card = cardTemplate.content.cloneNode(true); // Clone the HTML template to create a new card (newcard) that will be filled with Firestore data.
 
-  db.collection("events")
+  db.collection("events") // docments from the collection "events" in Firestore
     .doc(ID)
     .get()
     .then((doc) => {
       if (doc.exists) {
-        var data = doc.data();
-        var name = data.name;
-        var location = data.address;
-        var time = data.time;
-        var docID = doc.id;
-        var date = data.date;
-        var description = data.description;
-        var eventCode = data.code;
-        waitTime = data.typical_wait_time;
+        var data = doc.data(); // Get the data from firestore
+        var name = data.name; // name = string
+        var location = data.address; // location = string
+        var time = data.time; // time = timestamp
+        var docID = doc.id; // docID = string
+        var date = data.date; // date = string
+        var description = data.description; // description = string
+        var eventCode = data.code; // eventCode = string
+        waitTime = data.typical_wait_time; // waitTime = integer
 
         if (navigator.geolocation) {
           navigator.geolocation.getCurrentPosition(
@@ -136,69 +138,50 @@ function displayEventInfo() {
     .catch((error) => console.error("Error fetching document:", error));
 }
 
-
+// eventDocID = string, the document ID of the event.
 function updateFavorite(eventDocID) {
   currentUser.get().then((userDoc) => {
-    let favoritesNow = userDoc.data().favorites;
-    console.log(favoritesNow);
-
+    let favoritesNow = userDoc.data().favorites; // favourites is an array of strings
+    console.log(favoritesNow); // log the array of strings
+    // if the event is already in the database, remove it
     if (favoritesNow.includes(eventDocID)) {
-      console.log("this event exist in the database,should be removed");
+      console.log("this event exist in the database,should be removed"); 
+      let iconID = "save-" + eventDocID; //iconID = string
+      document.getElementById(iconID).innerText = "favorite_border"; 
+      currentUser.update({ favorites: firebase.firestore.FieldValue.arrayRemove(eventDocID), });} // remove the event from the array of strings
+    // if the event is not in the database, add it
+    else {
+      console.log("this event does not exist in the database and should be added");
       let iconID = "save-" + eventDocID;
-      document.getElementById(iconID).innerText = "favorite_border";
+      document.getElementById(iconID).innerText = "favorite"; // change the inner text of icon to filled heart
       currentUser.update({
-        favorites: firebase.firestore.FieldValue.arrayRemove(eventDocID),
-      });
-    } else {
-      console.log(
-        "this event does not exist in the database and should be added"
-      );
-      let iconID = "save-" + eventDocID;
-      document.getElementById(iconID).innerText = "favorite";
-      currentUser.update({
-        favorites: firebase.firestore.FieldValue.arrayUnion(eventDocID),
-      });
-    }
-  });
-}
+      favorites: firebase.firestore.FieldValue.arrayUnion(eventDocID), });}});} // add the string to the array of strings
 
+// eventDocID = string, the document ID of the event.
 function updateCheckin(eventDocID) {
-  var user = firebase.auth().currentUser
-  currentUser.get().then((userDoc) => {
-    let checkinsUser = userDoc.data().check_ins;
+    var user = firebase.auth().currentUser
+    currentUser.get().then((userDoc) => {
+    let checkinsUser = userDoc.data().check_ins; 
     console.log(checkinsUser);
-
     if (checkinsUser.includes(eventDocID)) {
-      let buttonID = "checkin-" + eventDocID;
-      document.getElementById(buttonID).innerText = "Check In";
-      currentUser.update({
-        check_ins: firebase.firestore.FieldValue.arrayRemove(eventDocID),
-      });
-      currentEvent.update({
+        let buttonID = "checkin-" + eventDocID;
+        document.getElementById(buttonID).innerText = "Check In";
+        currentUser.update({check_ins: firebase.firestore.FieldValue.arrayRemove(eventDocID),});
+        currentEvent.update({
         typical_wait_time: firebase.firestore.FieldValue.increment(-5),
-        check_ins: firebase.firestore.FieldValue.arrayRemove(eventDocID),
-      }).then(() => {
-        new_waitTime = waitTime;
-        console.log(new_waitTime);
+        check_ins: firebase.firestore.FieldValue.arrayRemove(eventDocID),})
+        .then(() => {new_waitTime = waitTime; console.log(new_waitTime); 
         document.getElementsByClassName('historicTimeWait')[0].innerText = (new_waitTime)});
 
-
-      if (user) {
-        console.log(eventDocID);
-        var checkinID = userDoc.data().check_inIDs[checkinsUser.indexOf(eventDocID)];
-        var userID = user.uid;
-        db.collection("checkins").doc(checkinID).delete().then(() => { console.log('deleted checked In') })
-
-        currentUser.update({
-          check_ins: firebase.firestore.FieldValue.arrayRemove(eventDocID),
-          check_inIDs: firebase.firestore.FieldValue.arrayRemove(checkinID)
-        })
-
-
-      } else {
-        console.log("No user is signed in");
-      }
-    } else {
+    if (user) { 
+      console.log(eventDocID); var checkinID = userDoc.data().check_inIDs[checkinsUser.indexOf(eventDocID)]; 
+      var userID = user.uid;
+      db.collection("checkins").doc(checkinID).delete().then(() => { console.log('deleted checked In') })
+      currentUser.update({
+      check_ins: firebase.firestore.FieldValue.arrayRemove(eventDocID),
+      check_inIDs: firebase.firestore.FieldValue.arrayRemove(checkinID)})} 
+      else {console.log("No user is signed in");}} 
+      else {
       let buttonID = "checkin-" + eventDocID;
       document.getElementById(buttonID).innerText = "Check Out";
       currentUser.update({check_ins: firebase.firestore.FieldValue.arrayUnion(eventDocID),});

@@ -27,30 +27,31 @@ function insertNameFromFirestore() {
   }
 }
 
+// userIsLoggedIn is a boolean value that indicates whether the user is logged in or not
 function loadHtmlContent(userIsLoggedIn) {
-  const navbarPlaceholder = document.getElementById("navbarPlaceholder");
+  const navbarPlaceholder = document.getElementById("navbarPlaceholder"); // Reference to the div element with the ID "navbarPlaceholder"
   const path = userIsLoggedIn ? "./text/nav_after_login.html" : "./text/nav_before_login.html";
-
   fetch(path).then(response => response.text()).then(data => {
     navbarPlaceholder.innerHTML = data;
-    if (userIsLoggedIn) {
-      insertNameFromFirestore();
-    }
+    if (userIsLoggedIn) {insertNameFromFirestore();}
   }).catch(error => {
     console.error("Error loading HTML content:", error);
   });
 }
 
+// Function to load the bottom navbar
 function loadbottomnavbar() {
-  const navbarbottom = document.getElementById("bottomnavbar");
+  // Reference to the div element with the ID "navbarPlaceholder"
+  const navbarbottom = document.getElementById("bottomnavbar"); 
   const path = "./text/bottom_navbar.html";
   fetch(path).then(response => response.text()).then(data => {
     navbarbottom.innerHTML = data;});
 }
 
+// Function to load the search bar
 function loadsearchbar() {
+  // Reference to the div element with the ID "navbarPlaceholder"
   const navbarsearch = document.getElementById("searchbar");
-  const path = "./text/search_bar.html";
   fetch(path).then(response => response.text()).then(data => {
     navbarsearch.innerHTML = data;});
 }
@@ -59,6 +60,7 @@ function goBack() {
   window.history.back();
 }
 
+// Function to load the skeleton of the page
 function loadSkeleton() {
   auth.onAuthStateChanged(user => {
     if (user) {
