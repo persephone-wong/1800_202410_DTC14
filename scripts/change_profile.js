@@ -3,31 +3,25 @@ function getuser() {
     firebase.auth().onAuthStateChanged(user => {
         if (user) {
             console.log(user);
-            display_current_profile(user);
-        } else {
-            console.log("No user is signed in");
-        }
-    });
-}
+            display_current_profile(user);} 
+        else {
+            console.log("No user is signed in");}});}
 
-// Display the current profile picture of the user
+// Function to display the current user's profile picture
 function display_current_profile(user){
     db.collection("users").doc(user.uid).get()
     .then(userDoc => {
-        var pfp = userDoc.data().profile_pic && userDoc.data().profile_pic.trim() !== "" ?
-            userDoc.data().profile_pic :
-            "https://img.icons8.com/ios/500/000c5c/user-male-circle--v1.png"; // Default profile picture URL
-
-        console.log(pfp);
-        
-        // Set the profile picture URL in local storage
-        localStorage.setItem('profilePicUrl', pfp);
-
-        var imgElement = document.getElementById("currentPfp");
-
-        // Set the source of the image element to the profile picture URL
-        imgElement.src = pfp; // Assuming 'pfp' is a valid URL to the profile picture
-    })
+    // Get the profile picture URL from the user document in Firestore
+    var pfp = userDoc.data().profile_pic && userDoc.data().profile_pic.trim() !== "" ?
+    userDoc.data().profile_pic :
+    "https://img.icons8.com/ios/500/000c5c/user-male-circle--v1.png"; // Default profile picture URL
+    console.log(pfp);
+    // Set the profile picture URL in local storage
+    localStorage.setItem('profilePicUrl', pfp); //profile picture url is stored in local storage, string
+    var imgElement = document.getElementById("currentPfp"); // imgelement is the element with the id "currentPfp"
+    // Set the source of the image element to the profile picture URL
+    imgElement.src = pfp; // Assuming 'pfp' is a valid URL to the profile picture
+})
     .catch(error => {
         console.log("Error getting user document:", error);
     });
@@ -88,6 +82,7 @@ function savePost() {
 
 // Check if the profile picture URL is in local storage
 window.onload = function() {
+
     var profilePicUrl = localStorage.getItem('profilePicUrl');
     if (profilePicUrl) {
         document.getElementById("currentPfp").src = profilePicUrl;

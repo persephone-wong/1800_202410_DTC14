@@ -18,42 +18,33 @@ var uiConfig = {
       var user = authResult.user; // get the user object from the Firebase authentication database
       if (authResult.additionalUserInfo.isNewUser) {
         //if new user
-        navigator.geolocation.getCurrentPosition(
-          (position) => {
-            const userLocation = [
-              position.coords.longitude,
-              position.coords.latitude,
-            ];
-            // Perform Firestore set operation inside geolocation callback
-            db.collection("users")
-              .doc(user.uid)
-              .set({
-                name: user.displayName,
-                email: user.email,
-                age: -1,
-                bio: "New user",
-                favorites: [],
-                list_of_friends: [],
-                check_ins: [],
-                profile_pic: "",
-                received_friends_requests: [],
-                sent_friends_requests: [],
-                check_ins: [],
-                location: userLocation, // Use the geolocation data
-              })
-              .then(function () {
-                console.log("New user added to firestore");
-                window.location.assign("map.html"); // Redirect to main.html after signup
-              })
-              .catch(function (error) {
-                console.log("Error adding new user: " + error);
-              });
-          },
-          (error) => {
-            console.log("Geolocation error:", error);
-            // Handle error or perform Firestore set without location
-          }
-        );
+        navigator.geolocation.getCurrentPosition(position => {
+          const userLocation = [position.coords.longitude, position.coords.latitude];
+          // Perform Firestore set operation inside geolocation callback
+          db.collection("users").doc(user.uid).set({
+            name: user.displayName, // Use the display name from the authentication, set by the user, string
+            email: user.email, // Use the email from the authentication, set by the user, string
+            age: -1, // Set the age to -1 as a placeholder, integer
+            bio: "New user", // Set the bio to "New user" as a placeholder, string
+            favorites: [], // Set the favorites to an empty array, list of strings
+            list_of_friends: [], // Set the list_of_friends to an empty array, list of strings
+            check_ins: [], // Set the check_ins to an empty array, list of strings
+            profile_pic: "", // Set the profile_pic to an empty string, string
+            received_friends_requests: [], // Set the received_friends_requests to an empty array, list of strings
+            sent_friends_requests: [], // Set the sent_friends_requests to an empty array, list of strings
+            check_ins: [], // Set the check_ins to an empty array, list of strings
+            location: userLocation // Use the geolocation data
+          }).then(function() {
+            console.log("New user added to firestore");
+            window.location.assign("map.html");}) // Redirect to main.html after signup
+          // Catch any errors that occur during the set operation
+          .catch(function(error) { 
+          console.log("Error adding new user: " + error);
+          }); }, error => {
+          // Handle Firestore set operation here
+          console.log("Geolocation error:", error);
+          // Handle error or perform Firestore set without location
+        });
         return false; // Prevent automatic redirect
       } else {
         return true; // Allow automatic redirect for existing users
