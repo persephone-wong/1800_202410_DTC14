@@ -68,7 +68,24 @@ It has the following subfolders and files:
     /blah.js                 #
 ├── styles                   # Folder for styles
     /blah.css                #
+├── firebase                 # Folder for caches
+    /blah.cache              #
+├── text                     # Folder for navbar skeleton html files
+    /blah.html               #
+    
 
 
+Resources
+- In-app icons from tabler icons (Open Source https://tablericons.com/)
+- Logo homemade!
+
+Acknowledgements
+https://api.mapbox.com/mapbox-gl-js/v2.7.0/mapbox-gl.js mapbox
+
+https://fonts.googleapis.com/css2?family=Alice&family=Protest+Strike&display=swap
+google fonts
+
+https://fonts.googleapis.com/icon?family=Material+Icons 
+google icons
 
 ```
